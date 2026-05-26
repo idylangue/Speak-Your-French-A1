@@ -348,11 +348,11 @@ const SESSIONS = [
       img: "",
       quizzes: [
         { q:"Sara vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:1 },
-        { q:"Émilie vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:0 },
+        { q:"Michelle vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:0 },
         { q:"Sara est…", opts:["portugaise","française","belge"], correct:0 },
-        { q:"Émilie est…", opts:["française","portugaise","belge"], correct:0 },
+        { q:"Michelle est…", opts:["française","portugaise","belge"], correct:0 },
         { q:"Sara habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 },
-        { q:"Émilie habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 }
+        { q:"Michelle habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 }
       ]
     },
     recordPrompts: ["Vous venez d'où ?","Vous habitez où ?","Est-ce que vous êtes belge ?"],
@@ -373,7 +373,8 @@ const SESSIONS = [
       { text: "Je vais au musée",             audio: "audio/s2_p6.mp3" },
       { text: "Je vais à la gare",            audio: "audio/s2_p7.mp3" },
       { text: "Je vais à l'aéroport",         audio: "audio/s2_p8.mp3" },
-      { text: "Je ne vais pas au cinéma",     audio: "audio/s2_p9.mp3" }
+      { text: "Je ne vais pas au cinéma",     audio: "audio/s2_p9.mp3" },
+      { text: "Je vais chez moi",                audio: "audio/s2_p10.mp3" }
     ],
     sylQuizzes: [
       { audio: "audio/s2_syl1.mp3", phrase: "Vous allez où ?",            correct: 4, opts: [2,3,4,5] },
@@ -381,28 +382,32 @@ const SESSIONS = [
       { audio: "audio/s2_syl3.mp3", phrase: "Je ne vais pas à la piscine",correct: 8, opts: [6,7,8,9] }
     ],
     flashcards: [
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMjJWMTIiLz48cGF0aCBkPSJNMTIgMTJhNSA1IDAgMSAwLTMuNS04LjVBNCA0IDAgMCAwIDUgOGE0IDQgMCAwIDAgMyA0Ii8+PHBhdGggZD0iTTEyIDEyYTUgNSAwIDEgMSAzLjUtOC41QTQgNCAwIDAgMSAxOSA4YTQgNCAwIDAgMS0zIDQiLz48L3N2Zz4=' alt='parc' style='width:32px;height:32px'>", fr:"le parc",        en:"the park",        audio:"audio/s2_loc_parc.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNCAxOSA4IDUiLz48cGF0aCBkPSJNMTYgNWw0IDE0Ii8+PHBhdGggZD0iTTEyIDZ2MSIvPjxwYXRoIGQ9Ik0xMiAxMXYxIi8+PHBhdGggZD0iTTEyIDE2djEiLz48L3N2Zz4=' alt='rue' style='width:32px;height:32px'>", fr:"dans la rue",    en:"in the street",   audio:"audio/s2_loc_rue.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAydjdhMyAzIDAgMCAwIDYgMFYyIi8+PHBhdGggZD0iTTYgMnYyMCIvPjxwYXRoIGQ9Ik0xOCAydjIwIi8+PHBhdGggZD0iTTE4IDljMC0zIDEtNyAzLTd2MTYiLz48L3N2Zz4=' alt='restaurant' style='width:32px;height:32px'>", fr:"le restaurant",  en:"the restaurant",  audio:"audio/s2_loc_restaurant.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMmgxOCIvPjxwYXRoIGQ9Ik01IDIyVjExbDctNSA3IDV2MTEiLz48cGF0aCBkPSJNOSAyMnYtNmg2djYiLz48cGF0aCBkPSJNMiA5bDEwLTYgMTAgNiIvPjwvc3ZnPg==' alt='musée' style='width:32px;height:32px'>", fr:"le musée",       en:"the museum",      audio:"audio/s2_loc_musee.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAxOGMuNi41IDEuMiAxIDIuNSAxIDIuNSAwIDIuNS0yIDUtMnMyLjUgMiA1IDIgMi41LTIgNS0yYzEuMyAwIDEuOS41IDIuNSAxIi8+PHBhdGggZD0iTTIgMTRjLjYuNSAxLjIgMSAyLjUgMSAyLjUgMCAyLjUtMiA1LTJzMi41IDIgNSAyIDIuNS0yIDUtMmMxLjMgMCAxLjkuNSAyLjUgMSIvPjxwYXRoIGQ9Ik03IDE0VjVhMiAyIDAgMCAxIDQgMCIvPjwvc3ZnPg==' alt='piscine' style='width:32px;height:32px'>", fr:"la piscine",    en:"the pool",        audio:"audio/s2_loc_piscine.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSI0IiB5PSIzIiB3aWR0aD0iMTYiIGhlaWdodD0iMTQiIHJ4PSIyIi8+PHBhdGggZD0iTTQgMTFoMTYiLz48cGF0aCBkPSJNMTIgM3Y4Ii8+PHBhdGggZD0iTTggMTdsLTIgNCIvPjxwYXRoIGQ9Ik0xNiAxN2wyIDQiLz48Y2lyY2xlIGN4PSI4IiBjeT0iMTQiIHI9IjAuNSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTQiIHI9IjAuNSIvPjwvc3ZnPg==' alt='gare' style='width:32px;height:32px'>", fr:"la gare",        en:"the station",     audio:"audio/s2_loc_gare.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSI4IiBjeT0iMjEiIHI9IjEiLz48Y2lyY2xlIGN4PSIxOSIgY3k9IjIxIiByPSIxIi8+PHBhdGggZD0iTTIuMDUgMi4wNWgybDIuNjYgMTIuNDJhMiAyIDAgMCAwIDIgMS41OGg5Ljc4YTIgMiAwIDAgMCAxLjk1LTEuNTdsMS42NS03LjQzSDUuMTIiLz48L3N2Zz4=' alt='supermarché' style='width:32px;height:32px'>", fr:"le supermarché", en:"the supermarket", audio:"audio/s2_loc_supermarche.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgOGgxYTQgNCAwIDEgMSAwIDhoLTEiLz48cGF0aCBkPSJNMyA4aDE0djlhNCA0IDAgMCAxLTQgNEg3YTQgNCAwIDAgMS00LTRaIi8+PHBhdGggZD0iTTYgMnYyIi8+PHBhdGggZD0iTTEwIDJ2MiIvPjxwYXRoIGQ9Ik0xNCAydjIiLz48L3N2Zz4=' alt='café' style='width:32px;height:32px'>", fr:"le café",        en:"the café",        audio:"audio/s2_loc_cafe.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgN3YxMCIvPjxwYXRoIGQ9Ik03IDEyaDEwIi8+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMyIvPjwvc3ZnPg==' alt='pharmacie' style='width:32px;height:32px'>", fr:"la pharmacie",  en:"the pharmacy",    audio:"audio/s2_loc_pharmacie.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMlY0YTEgMSAwIDAgMSAxLTFoMTZhMSAxIDAgMCAxIDEgMXYxOCIvPjxwYXRoIGQ9Ik0yIDIyaDIwIi8+PHBhdGggZD0iTTEyIDd2NiIvPjxwYXRoIGQ9Ik05IDEwaDYiLz48L3N2Zz4=' alt='hôpital' style='width:32px;height:32px'>", fr:"l'hôpital",    en:"the hospital",    audio:"audio/s2_loc_hopital.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgM3YxOCIvPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIyIi8+PHBhdGggZD0iTTYgOHY1YTMgMyAwIDAgMCAzIDMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjIiLz48cGF0aCBkPSJNMTggOHY1YTMgMyAwIDAgMS0zIDMiLz48L3N2Zz4=' alt='toilettes' style='width:32px;height:32px'>", fr:"les toilettes", en:"the toilets",     audio:"audio/s2_loc_toilettes.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiA0djE2Ii8+PHBhdGggZD0iTTIgOGgxOGEyIDIgMCAwIDEgMiAydjEwIi8+PHBhdGggZD0iTTIgMTdoMjAiLz48cGF0aCBkPSJNNiA4di0yYTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiLz48L3N2Zz4=' alt='hôtel' style='width:32px;height:32px'>", fr:"l'hôtel",      en:"the hotel",       audio:"audio/s2_loc_hotel.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtNCA2IDgtNCA4IDQtOCA0WiIvPjxwYXRoIGQ9Ik00IDZ2NmMwIDEuNSAzLjUgMyA4IDNzOC0xLjUgOC0zVjYiLz48cGF0aCBkPSJNMjAgMTB2NSIvPjwvc3ZnPg==' alt='école' style='width:32px;height:32px'>", fr:"l'école",      en:"the school",      audio:"audio/s2_loc_ecole.mp3" },
-      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDEtNWgxNmwxIDUiLz48cGF0aCBkPSJNNCA5djExYTEgMSAwIDAgMCAxIDFoMTRhMSAxIDAgMCAwIDEtMVY5Ii8+PHBhdGggZD0iTTMgOWgxOCIvPjxwYXRoIGQ9Ik05IDIxdi02aDZ2NiIvPjwvc3ZnPg==' alt='magasin' style='width:32px;height:32px'>", fr:"le magasin",    en:"the shop",        audio:"audio/s2_loc_magasin.mp3" }
+      { flag:"<span style='font-size:2rem;line-height:1'>🌳</span>", fr:"le parc",        en:"the park",        audio:"audio/s2_loc_parc.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🏙️</span>", fr:"dans la rue",    en:"in the street",   audio:"audio/s2_loc_rue.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🍽️</span>", fr:"le restaurant",  en:"the restaurant",  audio:"audio/s2_loc_restaurant.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🏛️</span>", fr:"le musée",       en:"the museum",      audio:"audio/s2_loc_musee.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🏊</span>", fr:"la piscine",    en:"the pool",        audio:"audio/s2_loc_piscine.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🚂</span>", fr:"la gare",        en:"the station",     audio:"audio/s2_loc_gare.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🛒</span>", fr:"le supermarché", en:"the supermarket", audio:"audio/s2_loc_supermarche.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>☕</span>", fr:"le café",        en:"the café",        audio:"audio/s2_loc_cafe.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>💊</span>", fr:"la pharmacie",  en:"the pharmacy",    audio:"audio/s2_loc_pharmacie.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🏥</span>", fr:"l'hôpital",    en:"the hospital",    audio:"audio/s2_loc_hopital.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🚻</span>", fr:"les toilettes", en:"the toilets",     audio:"audio/s2_loc_toilettes.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🏨</span>", fr:"l'hôtel",      en:"the hotel",       audio:"audio/s2_loc_hotel.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🎒</span>", fr:"l'école",      en:"the school",      audio:"audio/s2_loc_ecole.mp3" },
+      { flag:"<span style='font-size:2rem;line-height:1'>🛍️</span>", fr:"le magasin",    en:"the shop",        audio:"audio/s2_loc_magasin.mp3" }
     ],
-    vocabQuizzes: [],
+    vocabQuizzes: [
+      { audio:"audio/s2_qv1.mp3", correct:2, opts:["à l'hôpital","au supermarché","à la gare"] },
+      { audio:"audio/s2_qv2.mp3", correct:2, opts:["à l'aéroport","à la pharmacie","à la piscine"] },
+      { audio:"audio/s2_qv3.mp3", correct:2, opts:["au restaurant","à l'hôtel","à la maison"] }
+    ],
     conjugaison: {
-      verbs: ["Aller"],
+      verbs: ["Venir","Habiter","Être","Aller"],
       rows: [
-        ["Je",   "vais"],
-        ["Tu",   "vas"],
-        ["Vous", "allez"]
+        ["Je",   "viens","habite","suis","vais"],
+        ["Tu",   "viens","habites","es","vas"],
+        ["Vous", "venez","habitez","êtes","allez"]
       ]
     },
     gramFormulas: [
@@ -429,19 +434,19 @@ const SESSIONS = [
       { q:"Tu ___ à la gare. (aller)",opts:["allez","vais","va","vas"],     correct:3 }
     ],
     sitQuizzes: [
-      { q:"You loved the museum. How do you react?", opts:["C'est chouette !","C'est pas cher","C'est où ?"], correct:0 },
-      { q:"The food was delicious. What do you say?", opts:["C'est beau","C'est bon !","C'est cool"], correct:1 },
-      { q:"The view is beautiful. What do you say?", opts:["C'est bien","C'est beau !","C'est bon"], correct:1 }
+      { q:"You loved the museum. How do you react?", opts:["C'est chouette !","C'est pas cher !","C'est où ?"], correct:0 },
+      { q:"The food was delicious. What do you say?", opts:["C'est beau !","C'est bon.","C'est cool !"], correct:1 },
+      { q:"The view is beautiful. What do you say?", opts:["C'est bien.","C'est beau !","C'est bon."], correct:1 }
     ],
     video: {
       url: "",
       dial: "audio/s2_dial.mp3",
       img: "",
       quizzes: [
-        { q:"Michel va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
-        { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:0 },
-        { q:"Michel ne va pas…", opts:["au supermarché","à la pharmacie","aux urgences","au cinéma"], correct:3 },
-        { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:3 }
+        { q:"Michelle va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
+        { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:1 },
+        { q:"Michelle ne va pas…", opts:["au supermarché","à la pharmacie","à la gare","au cinéma"], correct:2 },
+        { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:0 }
       ]
     },
     recordPrompts: ["Vous allez où ?","C'est comment ?"],
@@ -753,7 +758,7 @@ function renderSession(s, idx) {
   // FLASHCARDS
   html += `<div class="divider-label">🌍 Nationalities — tap to reveal</div>
   <div class="card">
-    <h3>Tap a flag to see the word in French</h3>
+    <h3>Tap an image to see the word in French</h3>
     <div class="fc-grid">
       ${s.flashcards.map((fc,fi)=>`
         <div class="fc" onclick="flipCard(this,'${fc.audio||''}')" id="fc_${idx}_${fi}">
@@ -773,7 +778,7 @@ function renderSession(s, idx) {
     html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
     <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
   }
-  html += `<div class="divider-label">🌍 Quiz — which nationality do you hear?</div>`;
+  html += `<div class="divider-label">🌍 Quiz — which place do you hear?</div>`;
   s.vocabQuizzes.forEach((q, qi) => {
     const qid = `voc_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -870,7 +875,7 @@ function renderSession(s, idx) {
 
   // Audio button bar
   html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
-    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Émilie & Sara · Bruxelles</div>`;
+    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Michelle & Caroline · Bruxelles</div>`;
 
   if (s.video && s.video.dial) {
     html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the dialogue</button>
@@ -1028,6 +1033,7 @@ function flipCard(el, audioSrc) {
   }
 }
 
+let _currentAudio = null;
 function playAud(src, btn) {
   if (!src || src === '') {
     const orig = btn.innerHTML;
@@ -1035,7 +1041,9 @@ function playAud(src, btn) {
     setTimeout(() => { btn.innerHTML = orig; }, 1400);
     return;
   }
+  if (_currentAudio) { _currentAudio.pause(); _currentAudio.currentTime = 0; }
   const audio = new Audio(src);
+  _currentAudio = audio;
   audio.play().catch(() => {
     const orig = btn.innerHTML;
     btn.textContent = '⚠️ Not found';
@@ -1050,5 +1058,3 @@ buildUI();
 </script>
 </body>
 </html>
-
-
