@@ -226,22 +226,22 @@ const SESSIONS = [
     videos: [
       {
         label: "🔤 L'alphabet français",
-        type: "mp4",
-        src: "videos/s0_alphabet.mp4",
         youtube: "ntuEBQdk50c"
       },
       {
         label: "🎹 Le piano des voyelles",
-        type: "mp4",
-        src: "videos/s0_piano_voyelles.mp4",
         youtube: "c62ckPZ7jko"
+      },
+      {
+        label: "✏️ L'orthographe française",
+        youtube: "BABBEL_VIDEO_ID"
       }
     ],
     dicteeQuizzes: [
       { audio:"audio/s0_dict1.mp3", correct:0, opts:["Paris","Parix","Parris","Pari"],          hint:"P.A.R.I.S" },
       { audio:"audio/s0_dict2.mp3", correct:1, opts:["Bruxeles","Bruxelles","Brussels","Bruxele"], hint:"B.R.U.X.E.L.L.E.S" },
-      { audio:"audio/s0_dict4.mp3", correct:1, opts:["Belgiqe","Belgique","Beljiqu","Belgiqu"],   hint:"B.E.L.G.I.Q.U.E" },
-      { audio:"audio/s0_dict5.mp3", correct:2, opts:["Frense","Frans","France","Frence"],         hint:"F.R.A.N.C.E" }
+      { audio:"audio/s0_dict3.mp3", correct:1, opts:["Belgiqe","Belgique","Beljiqu","Belgiqu"],   hint:"B.E.L.G.I.Q.U.E" },
+      { audio:"audio/s0_dict4.mp3", correct:2, opts:["Frense","Frans","France","Frence"],         hint:"F.R.A.N.C.E" }
     ],
     phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
     conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
@@ -505,6 +505,12 @@ const STATIC = [
         <div style="font-size:2.5rem;margin-bottom:0.75rem">👀</div>
         <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">Your full observation guide opens in a new page.</p>
         <a href="https://bespoke-lolly-e1a992.netlify.app/" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open Observation Guide →</a>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem">🏛️</div>
+        <div style="font-size:1.05rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem">Visite au musée</div>
+        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
+        <a href="#" onclick="this.textContent='⏳ Coming soon';return false;" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
       </div>`
   }
 ];
@@ -590,23 +596,15 @@ function renderSession(s, idx) {
 
   // ALPHABET SESSION — special layout
   if (s.isAlphabet) {
-    // Videos
+    // Videos — YouTube links only
     html += '<div class="divider-label">🎬 Videos</div>';
     s.videos.forEach(function(v) {
-      if (v.type === 'mp4') {
-        html += '<div class="vid-player-wrap">'
-          + '<div class="vid-player-label">' + v.label + '</div>'
-          + '<video controls preload="metadata">'
-          + '<source src="' + v.src + '" type="video/mp4">'
-          + 'Your browser does not support the video tag.'
-          + '</video></div>';
-        if (v.youtube) {
-          html += '<a class="yt-card" href="https://www.youtube.com/watch?v=' + v.youtube + '" target="_blank">'
-            + '<img class="yt-thumb" src="https://img.youtube.com/vi/' + v.youtube + '/hqdefault.jpg" alt="YouTube">'
-            + '<div class="yt-bar"><div class="yt-icon">&#9658;</div>'
-            + '<div><div class="yt-title">Also watch on YouTube</div>'
-            + '<div class="yt-sub">Opens on YouTube &rarr;</div></div></div></a>';
-        }
+      if (v.youtube) {
+        html += '<a class="yt-card" href="https://www.youtube.com/watch?v=' + v.youtube + '" target="_blank">'
+          + '<img class="yt-thumb" src="https://img.youtube.com/vi/' + v.youtube + '/hqdefault.jpg" alt="YouTube">'
+          + '<div class="yt-bar"><div class="yt-icon">&#9658;</div>'
+          + '<div><div class="yt-title">' + v.label + '</div>'
+          + '<div class="yt-sub">Watch on YouTube &rarr;</div></div></div></a>';
       }
     });
 
