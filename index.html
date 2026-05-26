@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speak Your French</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-height:1.6;padding-bottom:70px}
+
+/* ── HERO ── */
+.hero{background:#0d2c4f;color:#fff;padding:2rem 1.5rem 1.75rem;text-align:center}
+.hero-top{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:0.6rem}
+.hero-logo{height:64px;width:64px;object-fit:contain;border-radius:10px}
+.hero-brand{font-size:14px;font-weight:500;color:rgba(255,255,255,0.6);letter-spacing:0.04em}
+.hero h1{font-size:1.7rem;font-weight:600;letter-spacing:-0.3px;margin-bottom:0.25rem}
+.hero p{color:rgba(255,255,255,0.65);font-size:0.9rem;max-width:460px;margin:0 auto}
+
+/* ── NAV ── */
+.progress-nav{display:flex;background:#fff;border-bottom:1px solid #e5e5e0;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0;scrollbar-width:none}
+.progress-nav::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;padding:0.8rem 1rem;font-size:0.75rem;font-weight:500;color:#999;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:all 0.18s;font-family:'DM Sans',sans-serif}
+.nav-btn.active{color:#0d2c4f;border-bottom-color:#0d2c4f}
+.nav-btn.done{color:#4a7ab0}
+
+.nav-btn .num{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:#e8e6df;font-size:0.65rem;margin-right:4px;vertical-align:middle}
+.nav-btn.active .num{background:#0d2c4f;color:#fff}
+.nav-btn.done .num{background:#4a7ab0;color:#fff}
+
+
+/* ── BOTTOM BAR ── */
+.home-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8e6df;padding:0.55rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.home-bar button{background:#0d2c4f;color:#fff;border:none;border-radius:7px;padding:0.45rem 1rem;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.progress-label{font-size:0.75rem;color:#999}
+
+/* ── SECTIONS ── */
+.section{display:none;padding:1.4rem 1rem;max-width:700px;margin:0 auto}
+.section.active{display:block}
+.sec-title{font-size:1.35rem;font-weight:600;color:#0d2c4f;margin-bottom:0.25rem}
+.sec-sub{font-size:0.85rem;color:#777;margin-bottom:1.4rem;padding-bottom:0.9rem;border-bottom:1px solid #e8e6df}
+
+/* ── CARD ── */
+.card{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:0.85rem}
+.card h3{font-size:0.9rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem}
+.card p{font-size:0.86rem;color:#444;line-height:1.65}
+
+/* ── KEY PHRASE BANNER ── */
+.kp-banner{background:#0d2c4f;border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:0.85rem}
+.kp-label{font-size:0.68rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:#afc1d0;margin-bottom:0.5rem}
+.kp-list{list-style:none;margin-bottom:0.75rem}
+.kp-list li{font-size:1.05rem;font-weight:600;color:#fff;line-height:1.55}
+.pill-row{display:flex;flex-wrap:wrap;gap:5px}
+.pill{background:rgba(197,224,246,0.15);border:1px solid rgba(197,224,246,0.28);color:#c5e0f6;border-radius:20px;padding:3px 11px;font-size:0.73rem}
+
+/* ── RHYTHM TIP ── */
+.rhythm-tip{background:#fef9ec;border:1px solid #f5d877;border-radius:8px;padding:0.65rem 1rem;font-size:0.82rem;color:#7a5c00;margin-bottom:0.9rem}
+
+/* ── PHRASES ── */
+.phrase-block{background:#fff;border:1px solid #e8e6df;border-radius:12px;overflow:hidden;margin-bottom:0.85rem}
+.phrase-row{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1.1rem;border-bottom:1px solid #f0ede6}
+.phrase-row:last-child{border-bottom:none}
+.phrase-n{font-size:0.7rem;color:#bbb;min-width:16px;flex-shrink:0}
+.phrase-text{font-size:0.98rem;font-weight:500;color:#0d2c4f;flex:1}
+.btn-listen{display:inline-flex;align-items:center;gap:4px;background:#f0f4f9;border:1px solid #c5e0f6;border-radius:20px;padding:4px 11px;font-size:0.72rem;font-weight:500;color:#0d2c4f;cursor:pointer;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.btn-listen:active{background:#ddeaf5}
+.btn-listen.no-audio{opacity:0.45;cursor:default}
+
+/* ── QUIZ ── */
+.quiz-wrap{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:0.85rem}
+.q-text{font-size:0.9rem;font-weight:500;color:#1a1a1a;margin-bottom:0.75rem}
+.btn-quiz-listen{display:inline-flex;align-items:center;gap:5px;background:#0d2c4f;border:none;border-radius:20px;padding:5px 13px;font-size:0.75rem;font-weight:500;color:#fff;cursor:pointer;margin-bottom:0.8rem;font-family:'DM Sans',sans-serif}
+.btn-quiz-listen:active{background:#1a4270}
+.quiz-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.quiz-opt{padding:0.58rem 0.75rem;background:#f9f8f4;border:1.5px solid #ddd;border-radius:8px;font-size:0.84rem;cursor:pointer;text-align:left;color:#333;width:100%;font-family:'DM Sans',sans-serif;transition:border-color 0.12s}
+.quiz-opt:active{border-color:#0d2c4f}
+.quiz-opt.correct{background:#eef3f8;border-color:#0d2c4f;color:#0d2c4f;font-weight:600}
+.quiz-opt.wrong{background:#fdf0ee;border-color:#c0503a;color:#8a2a1a}
+.quiz-opt:disabled{cursor:default}
+.feedback{font-size:0.78rem;margin-top:6px;padding:5px 9px;border-radius:6px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#eef3f8;color:#0d2c4f}
+.feedback.nope{background:#fdf0ee;color:#8a2a1a}
+
+/* ── FLAG QUIZ OPTS ── */
+.flag-opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:0}
+.flag-opt{background:#f9f8f4;border:1.5px solid #ddd;border-radius:10px;padding:0.75rem 0.5rem;text-align:center;cursor:pointer;font-size:2rem;transition:border-color 0.12s;display:flex;align-items:center;justify-content:center}
+.flag-opt:active{border-color:#0d2c4f}
+.flag-opt img, .fc img{width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.flag-opt.correct{background:#eef3f8;border-color:#0d2c4f}
+.flag-opt.wrong{background:#fdf0ee;border-color:#c0503a}
+
+/* ── SITUATION QUIZ OPTS ── */
+.sit-opts{display:flex;flex-direction:column;gap:7px}
+.sit-opt{padding:0.65rem 0.9rem;background:#f9f8f4;border:1.5px solid #ddd;border-radius:8px;font-size:0.84rem;cursor:pointer;text-align:left;color:#0d2c4f;font-weight:500;font-family:'DM Sans',sans-serif;transition:border-color 0.12s}
+.sit-opt:active{border-color:#0d2c4f}
+.sit-opt.correct{background:#eef3f8;border-color:#0d2c4f;font-weight:600}
+.sit-opt.wrong{background:#fdf0ee;border-color:#c0503a;color:#8a2a1a}
+.sit-opt:disabled{cursor:default}
+
+/* ── FLASHCARDS ── */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:0.3rem}
+.fc{background:#f9f8f4;border:1.5px solid #ddd;border-radius:10px;padding:0.8rem 0.4rem;text-align:center;cursor:pointer;transition:all 0.2s;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.fc:hover{border-color:#afc1d0}
+.fc .fc-flag{font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.fc .fc-back{display:none;flex-direction:column;align-items:center;gap:2px}
+.fc .fc-fr{font-size:0.82rem;font-weight:600;color:#0d2c4f}
+.fc .fc-en{font-size:0.7rem;color:#888}
+.fc.flipped .fc-flag{display:none}
+.fc.flipped .fc-back{display:flex}
+.fc.flipped{background:#eef3f8;border-color:#0d2c4f}
+.fc-hint{font-size:0.74rem;color:#aaa;margin-top:0.4rem;text-align:center}
+
+/* ── CONJUGAISON ── */
+.conj-wrap{overflow-x:auto;margin-top:0.5rem}
+.conj-table{width:100%;border-collapse:collapse;font-size:0.84rem;min-width:300px}
+.conj-table thead th{font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#888;padding:7px 10px;border-bottom:1px solid #e8e6df;text-align:left}
+.conj-table tbody td{padding:9px 10px;border-bottom:1px solid #f0ede6;color:#333}
+.conj-table tbody tr:last-child td{border-bottom:none}
+.conj-table tbody td:first-child{color:#0d2c4f;font-weight:600}
+.conj-table tbody td em{color:#dd490a;font-style:normal;font-weight:500}
+
+/* ── GRAMMAR FORMULAS ── */
+.gram-formulas{display:flex;flex-direction:column;gap:6px;margin-top:0.5rem}
+.gram-formula{background:#f0f4f9;border-left:3px solid #0d2c4f;border-radius:0 8px 8px 0;padding:0.6rem 1rem;font-size:0.85rem;font-weight:500;color:#0d2c4f}
+
+/* ── VIDEO ── */
+.video-card{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:0.9rem 1.1rem;margin-bottom:0.7rem;display:flex;align-items:center;gap:0.85rem;text-decoration:none;color:#333;transition:border-color 0.15s}
+.video-card:hover{border-color:#0d2c4f}
+.video-thumb{width:46px;height:34px;background:#0d2c4f;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.video-info .vid-title{font-size:0.86rem;font-weight:500;color:#0d2c4f}
+.video-info .vid-sub{font-size:0.74rem;color:#888;margin-top:1px}
+.video-placeholder{background:#f0f4f9;border:1px dashed #c5e0f6;border-radius:12px;padding:1.25rem;text-align:center;font-size:0.84rem;color:#aaa;margin-bottom:0.85rem}
+
+/* ── POST SESSION ── */
+.post-card{background:#fff;border:1px solid #e8e6df;border-left:3px solid #dd490a;border-radius:0 12px 12px 0;padding:0.9rem 1.1rem;margin-bottom:0.7rem}
+.post-label{font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#dd490a;margin-bottom:0.25rem}
+.post-text{font-size:0.86rem;color:#333;line-height:1.6}
+.record-prompts{list-style:none;margin-top:0.5rem;display:flex;flex-direction:column;gap:5px}
+.record-prompts li{font-size:0.84rem;color:#0d2c4f;font-weight:500;padding:0.4rem 0.75rem;background:#f0f4f9;border-radius:6px}
+
+
+
+/* ── WELCOME ── */
+.word-pill{display:inline-block;background:#f4f3ee;border:1px solid #ddd;color:#333;border-radius:20px;padding:5px 14px;margin:3px;font-size:0.85rem}
+.word-pill.on{background:#0d2c4f;color:#fff;border-color:#0d2c4f}
+
+/* ── SECTION DIVIDER LABEL ── */
+.divider-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#0d2c4f;margin:1.3rem 0 0.6rem}
+
+/* ── SPLIT DIVIDER ── */
+.split-divider{margin:1.8rem 0;display:flex;align-items:center;gap:10px}
+.split-divider-line{flex:1;height:1px;background:#e8e6df}
+.split-divider-label{font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#afc1d0;white-space:nowrap;background:#f7f6f2;padding:0 8px}
+.split-divider-badge{display:inline-flex;align-items:center;gap:6px;background:#0d2c4f;color:#c5e0f6;border-radius:20px;padding:5px 14px;font-size:0.75rem;font-weight:500;margin:0 auto;display:block;text-align:center;width:fit-content}
+
+/* ── PROGRAMME LIST ── */
+.prog-item{display:flex;align-items:center;gap:10px;padding:0.65rem 1rem;background:#fff;border:1px solid #e8e6df;border-radius:8px;cursor:pointer;transition:border-color 0.15s}
+.prog-item:hover{border-color:#afc1d0}
+.prog-item.unlocked{cursor:pointer}
+.prog-item-num{width:24px;height:24px;border-radius:50%;background:#e8e6df;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:600;color:#888;flex-shrink:0}
+.prog-item.unlocked .prog-item-num{background:#0d2c4f;color:#fff}
+.prog-item-title{font-size:0.86rem;font-weight:500;color:#0d2c4f;flex:1}
+.prog-item-status{font-size:0.84rem;color:#afc1d0;flex-shrink:0;font-weight:500}
+
+/* ── MEMO BUTTON ── */
+.memo-btn{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:1rem 1.2rem;text-decoration:none;color:#0d2c4f;margin-bottom:0.85rem;transition:border-color 0.15s}
+.memo-btn:hover{border-color:#0d2c4f}
+.memo-icon{width:40px;height:40px;background:#fff0d2;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.memo-info-title{font-size:0.88rem;font-weight:600;color:#0d2c4f}
+.memo-info-sub{font-size:0.75rem;color:#aaa;margin-top:1px}
+
+/* ── VIDEO PLAYER ── */
+.vid-player-wrap{background:#000;border-radius:12px;overflow:hidden;margin-bottom:0.85rem;position:relative}
+.vid-player-wrap video{width:100%;display:block;max-height:260px}
+.vid-player-label{background:#0d2c4f;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;color:#c5e0f6;letter-spacing:0.06em;text-transform:uppercase}
+.yt-card{background:#fff;border:1px solid #e8e6df;border-radius:12px;overflow:hidden;margin-bottom:0.85rem;text-decoration:none;display:block;transition:border-color 0.15s}
+.yt-card:hover{border-color:#0d2c4f}
+.yt-thumb{width:100%;height:180px;object-fit:cover;background:#000;display:block}
+.yt-bar{padding:0.75rem 1rem;display:flex;align-items:center;gap:10px}
+.yt-icon{width:32px;height:32px;background:#dd490a;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;flex-shrink:0}
+.yt-title{font-size:0.86rem;font-weight:600;color:#0d2c4f}
+.yt-sub{font-size:0.73rem;color:#aaa;margin-top:1px}
+
+/* ── DICTEE QUIZ ── */
+.dictee-wrap{background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:0.85rem}
+.dictee-hint{font-family:monospace;font-size:1rem;color:#0d2c4f;letter-spacing:0.15em;font-weight:600;margin-bottom:0.75rem;display:none;padding:6px 12px;background:#fff0d2;border-radius:6px;text-align:center}
+.dictee-hint.show{display:block}
+
+/* ── RESPONSIVE ── */
+@media(max-width:400px){
+  .quiz-opts-grid{grid-template-columns:1fr}
+  .flag-opts{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero" onclick="goTo(0)" style="cursor:pointer">
+  <div class="hero-top">
+    <img class="hero-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QC8RXhpZgAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAAZgAAAAAAAABgAAAAAQAAAGAAAAABAAAABgAAkAcABAAAADAyMTABkQcABAAAAAECAwAAoAcABAAAADAxMDABoAMAAQAAAP//AAACoAMAAQAAAPQBAAADoAMAAQAAAPQBAAAAAAAA/+EOeGh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLyc+CjxyZGY6UkRGIHhtbG5zOnJkZj0naHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyc+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpBdHRyaWI9J2h0dHA6Ly9ucy5hdHRyaWJ1dGlvbi5jb20vYWRzLzEuMC8nPgogIDxBdHRyaWI6QWRzPgogICA8cmRmOlNlcT4KICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0nUmVzb3VyY2UnPgogICAgIDxBdHRyaWI6Q3JlYXRlZD4yMDI1LTA3LTE1PC9BdHRyaWI6Q3JlYXRlZD4KICAgICA8QXR0cmliOkV4dElkPjEyODYyMjBhLTYwNDgtNGY2ZS1iNDQ3LWI2N2EwNzcwMGRjZTwvQXR0cmliOkV4dElkPgogICAgIDxBdHRyaWI6RmJJZD41MjUyNjU5MTQxNzk1ODA8L0F0dHJpYjpGYklkPgogICAgIDxBdHRyaWI6VG91Y2hUeXBlPjI8L0F0dHJpYjpUb3VjaFR5cGU+CiAgICA8L3JkZjpsaT4KICAgPC9yZGY6U2VxPgogIDwvQXR0cmliOkFkcz4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6ZGM9J2h0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvJz4KICA8ZGM6dGl0bGU+CiAgIDxyZGY6QWx0PgogICAgPHJkZjpsaSB4bWw6bGFuZz0neC1kZWZhdWx0Jz5Mb2dvIDIwMjQgLSA1PC9yZGY6bGk+CiAgIDwvcmRmOkFsdD4KICA8L2RjOnRpdGxlPgogPC9yZGY6RGVzY3JpcHRpb24+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpwZGY9J2h0dHA6Ly9ucy5hZG9iZS5jb20vcGRmLzEuMy8nPgogIDxwZGY6QXV0aG9yPkHDr3NzYXRhLUNsw6ltZW5jZTwvcGRmOkF1dGhvcj4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6eG1wPSdodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvJz4KICA8eG1wOkNyZWF0b3JUb29sPkNhbnZhIChSZW5kZXJlcikgZG9jPURBR1VvY0FNMm1RIHVzZXI9VUFEOUI3TDZ5UVEgYnJhbmQ9QcOvc3NhdGEtQ2zDqW1lbmNlIHRlbXBsYXRlPUxvZ28gaW5pdGlhbGUgbWFycm9uw6kgZ291cm1hbmQgw6lsw6lnYW50IG1pbmltYWxpc3RlPC94bXA6Q3JlYXRvclRvb2w+CiA8L3JkZjpEZXNjcmlwdGlvbj4KPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKPD94cGFja2V0IGVuZD0ndyc/Pv/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/AABEIAfQB9AMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APBqKKK9o8cKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoo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ooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigCxpv/IRtf8Arqn8xX17Xx1RXz+d5F/azg/acvLfpfe3mux6uW5n9RUly817dbbfJn2LXg3x9/5Gux/68l/9GPXmdFcuU8M/2biViPa81k1bltv82b4/OfrlF0uS3zv+gUUUV9UeGFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9k=" alt="Idylangue">
+  </div>
+  <h1>Speak Your French</h1>
+  <p>Open your ears, open your eyes — jump into French!</p>
+</div>
+
+<div class="progress-nav" id="nav"></div>
+
+<div class="home-bar">
+  <button onclick="goPrev()">← Back</button>
+  <span class="progress-label" id="prog-label">Section 1</span>
+  <button onclick="goNext()">Next →</button>
+</div>
+
+<div id="sections-wrap"></div>
+
+<script>
+const SESSIONS = [
+  {
+    id: "s0",
+    title: "Alphabet & Prononciation",
+    sub: "The French alphabet · vowels · how to spell words",
+    keyPhrases: ["Comment ça s'écrit ?","L'alphabet français","Le piano des voyelles"],
+    pills: ["alphabet","voyelles","consonnes","épeler"],
+    videos: [
+      {
+        label: "🔤 L'alphabet français",
+        youtube: "ntuEBQdk50c"
+      },
+      {
+        label: "🎹 Le piano des voyelles",
+        youtube: "c62ckPZ7jko"
+      },
+      {
+        label: "✏️ L'orthographe française",
+        youtube: "j2qyouyBTX0"
+      }
+    ],
+    dicteeQuizzes: [
+      { audio:"audio/s0_dict1.mp3", correct:0, opts:["Paris","Parix","Parris","Pari"],          hint:"P.A.R.I.S" },
+      { audio:"audio/s0_dict2.mp3", correct:1, opts:["Bruxeles","Bruxelles","Brussels","Bruxele"], hint:"B.R.U.X.E.L.L.E.S" },
+      { audio:"audio/s0_dict3.mp3", correct:1, opts:["Belgiqe","Belgique","Beljiqu","Belgiqu"],   hint:"B.E.L.G.I.Q.U.E" },
+      { audio:"audio/s0_dict4.mp3", correct:2, opts:["Frense","Frans","France","Frence"],         hint:"F.R.A.N.C.E" }
+    ],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Comment s'écrit votre prénom ?","Épelez votre ville d'origine."],
+    splitAfter: 0,
+    isAlphabet: true
+  },
+  {
+    id: "s1",
+    title: "Vous venez d'où ?",
+    sub: "Introductions · nationalities · where you come from · where you live",
+    keyPhrases: [
+      "Vous venez d'où ?",
+      "Vous habitez où ?",
+      "Est-ce que vous êtes… ?"
+    ],
+    pills: ["être", "habiter", "venir", "je · tu · vous"],
+    phrases: [
+      { text: "Vous venez d'où ?",          audio: "audio/s1_p1.mp3" },
+      { text: "Vous habitez où ?",           audio: "audio/s1_p2.mp3" },
+      { text: "Est-ce que vous êtes belge ?",audio: "audio/s1_p3.mp3" },
+      { text: "Je viens des États-Unis",     audio: "audio/s1_p4.mp3" },
+      { text: "Je ne suis pas belge",        audio: "audio/s1_p5.mp3" },
+      { text: "J'habite à Bruxelles",        audio: "audio/s1_p6.mp3" },
+      { text: "Je viens de Paris",           audio: "audio/s1_p7.mp3" },
+      { text: "Je suis français·e",          audio: "audio/s1_p8.mp3" },
+      { text: "Je vais à Londres",           audio: "audio/s1_p9.mp3" },
+      { text: "Je ne vais pas à Tokyo",      audio: "audio/s1_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { audio: "audio/s1_syl1.mp3", phrase: "C'est où ?",        correct: 2, opts: [1,2,3,4] },
+      { audio: "audio/s1_syl2.mp3", phrase: "Vous venez d'où ?", correct: 4, opts: [2,3,4,5] },
+      { audio: "audio/s1_syl3.mp3", phrase: "Je suis belge",      correct: 3, opts: [2,3,4,5] }
+    ],
+    flashcards: [
+      { flag:"<img src='https://flagcdn.com/48x36/us.png' alt='USA' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"américain·e",  en:"American",   audio:"audio/s1_nat_us.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/fr.png' alt='France' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"français·e",   en:"French",     audio:"audio/s1_nat_fr.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/be.png' alt='Belgique' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"belge",        en:"Belgian",    audio:"audio/s1_nat_be.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/jp.png' alt='Japon' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"japonais·e",   en:"Japanese",   audio:"audio/s1_nat_jp.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/cn.png' alt='Chine' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"chinois·e",    en:"Chinese",    audio:"audio/s1_nat_cn.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/ma.png' alt='Maroc' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"marocain·e",   en:"Moroccan",   audio:"audio/s1_nat_ma.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/it.png' alt='Italie' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"italien·ne",   en:"Italian",    audio:"audio/s1_nat_it.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/pt.png' alt='Portugal' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"portugais·e",  en:"Portuguese", audio:"audio/s1_nat_pt.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/ch.png' alt='Suisse' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"suisse",       en:"Swiss",      audio:"audio/s1_nat_ch.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/gr.png' alt='Grèce' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"grec·que",     en:"Greek",      audio:"audio/s1_nat_gr.mp3" },
+      { flag:"<img src='https://flagcdn.com/48x36/br.png' alt='Brésil' style='width:36px;height:27px;border-radius:3px;object-fit:cover'>", fr:"brésilien·ne", en:"Brazilian",  audio:"audio/s1_nat_br.mp3" }
+    ],
+    vocabQuizzes: [
+      { audio:"audio/s1_qv1.mp3", correct:0, opts:["<img src='https://flagcdn.com/48x36/it.png' alt='Italie' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/fr.png' alt='France' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/pt.png' alt='Portugal' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>"] },
+      { audio:"audio/s1_qv2.mp3", correct:1, opts:["<img src='https://flagcdn.com/48x36/be.png' alt='Belgique' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/es.png' alt='Espagne' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/ma.png' alt='Maroc' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>"] },
+      { audio:"audio/s1_qv3.mp3", correct:2, opts:["<img src='https://flagcdn.com/48x36/cn.png' alt='Chine' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/br.png' alt='Brésil' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>","<img src='https://flagcdn.com/48x36/jp.png' alt='Japon' style='width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)'>"] }
+    ],
+    conjugaison: {
+      verbs: ["Venir","Habiter","Être"],
+      rows: [
+        ["Je",   "viens",  "habite",  "suis"],
+        ["Tu",   "viens",  "habites", "es"  ],
+        ["Vous", "venez",  "habitez", "êtes"]
+      ]
+    },
+    gramFormulas: [
+      "Je viens de + ville",
+      "Je viens de + pays féminin",
+      "Je viens des + pays pluriel",
+      "Je viens du + pays masculin",
+      "J'habite à + ville",
+      "J'habite en + pays féminin",
+      "J'habite au + pays masculin",
+      "J'habite aux + pays pluriel"
+    ],
+    gramQuizzes: [
+      { q:"Je viens ___ États-Unis.", opts:["du","de la","des","de"], correct:2 },
+      { q:"J'habite ___ France.",     opts:["au","en","à","aux"],    correct:1 },
+      { q:"Je viens ___ Japon.",      opts:["de","des","du","de la"],correct:2 },
+      { q:"J'habite ___ Tokyo.",      opts:["en","au","aux","à"],    correct:3 }
+    ],
+    conjQuizzes: [
+      { q:"Vous ___ d'où ? (venir)",   opts:["venons","vient","venez","viens"],   correct:2 },
+      { q:"Je ___ américaine. (être)", opts:["es","suis","êtes","sont"],           correct:1 },
+      { q:"Tu ___ à Paris. (habiter)", opts:["habitez","habitons","habites","habite"], correct:2 }
+    ],
+    sitQuizzes: [
+      {
+        q:"You want to know where the person is FROM. Which phrase?",
+        opts:["Vous habitez où ?","Vous venez d'où ?","Est-ce que vous êtes… ?"],
+        correct:1
+      },
+      {
+        q:"You want to know where the person LIVES NOW. Which phrase?",
+        opts:["Vous venez d'où ?","Est-ce que vous êtes… ?","Vous habitez où ?"],
+        correct:2
+      },
+      {
+        q:"You want to ask if the person is Belgian. Which phrase?",
+        opts:["Vous habitez où ?","Vous venez d'où ?","Est-ce que vous êtes… ?"],
+        correct:2
+      }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s1_dial.mp3",
+      img: "",
+      quizzes: [
+        { q:"Sara vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:1 },
+        { q:"Émilie vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:0 },
+        { q:"Sara est…", opts:["portugaise","française","belge"], correct:0 },
+        { q:"Émilie est…", opts:["française","portugaise","belge"], correct:0 },
+        { q:"Sara habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 },
+        { q:"Émilie habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 }
+      ]
+    },
+    recordPrompts: ["Vous venez d'où ?","Vous habitez où ?","Est-ce que vous êtes belge ?"],
+    memo: "memos/s1_memo.pdf",
+    splitAfter: 3
+  }
+  ,{
+    title: "Vous allez où ?",
+    sub: "Asking for destinations · places in the city · aller",
+    keyPhrases: ["Vous allez où ?","Je vais à / en / au / aux…","C'est comment ?"],
+    pills: ["aller","à · en · au · aux","lieux de la ville","c'est + adjectif"],
+    phrases: [
+      { text: "Vous allez où ?",            audio: "audio/s2_p1.mp3" },
+      { text: "Je vais en Belgique",          audio: "audio/s2_p2.mp3" },
+      { text: "Je vais au Portugal",          audio: "audio/s2_p3.mp3" },
+      { text: "Je vais aux États-Unis",       audio: "audio/s2_p4.mp3" },
+      { text: "Je vais à Bruxelles",          audio: "audio/s2_p5.mp3" },
+      { text: "Je vais au musée",             audio: "audio/s2_p6.mp3" },
+      { text: "Je vais à la gare",            audio: "audio/s2_p7.mp3" },
+      { text: "Je vais à l'aéroport",         audio: "audio/s2_p8.mp3" },
+      { text: "Je ne vais pas au cinéma",     audio: "audio/s2_p9.mp3" }
+    ],
+    sylQuizzes: [
+      { audio: "audio/s2_syl1.mp3", phrase: "Vous allez où ?",            correct: 4, opts: [2,3,4,5] },
+      { audio: "audio/s2_syl2.mp3", phrase: "Je vais aux États-Unis",     correct: 7, opts: [5,6,7,8] },
+      { audio: "audio/s2_syl3.mp3", phrase: "Je ne vais pas à la piscine",correct: 8, opts: [6,7,8,9] }
+    ],
+    flashcards: [
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMjJWMTIiLz48cGF0aCBkPSJNMTIgMTJhNSA1IDAgMSAwLTMuNS04LjVBNCA0IDAgMCAwIDUgOGE0IDQgMCAwIDAgMyA0Ii8+PHBhdGggZD0iTTEyIDEyYTUgNSAwIDEgMSAzLjUtOC41QTQgNCAwIDAgMSAxOSA4YTQgNCAwIDAgMS0zIDQiLz48L3N2Zz4=' alt='parc' style='width:32px;height:32px'>", fr:"le parc",        en:"the park",        audio:"audio/s2_loc_parc.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNCAxOSA4IDUiLz48cGF0aCBkPSJNMTYgNWw0IDE0Ii8+PHBhdGggZD0iTTEyIDZ2MSIvPjxwYXRoIGQ9Ik0xMiAxMXYxIi8+PHBhdGggZD0iTTEyIDE2djEiLz48L3N2Zz4=' alt='rue' style='width:32px;height:32px'>", fr:"dans la rue",    en:"in the street",   audio:"audio/s2_loc_rue.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAydjdhMyAzIDAgMCAwIDYgMFYyIi8+PHBhdGggZD0iTTYgMnYyMCIvPjxwYXRoIGQ9Ik0xOCAydjIwIi8+PHBhdGggZD0iTTE4IDljMC0zIDEtNyAzLTd2MTYiLz48L3N2Zz4=' alt='restaurant' style='width:32px;height:32px'>", fr:"le restaurant",  en:"the restaurant",  audio:"audio/s2_loc_restaurant.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMmgxOCIvPjxwYXRoIGQ9Ik01IDIyVjExbDctNSA3IDV2MTEiLz48cGF0aCBkPSJNOSAyMnYtNmg2djYiLz48cGF0aCBkPSJNMiA5bDEwLTYgMTAgNiIvPjwvc3ZnPg==' alt='musée' style='width:32px;height:32px'>", fr:"le musée",       en:"the museum",      audio:"audio/s2_loc_musee.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAxOGMuNi41IDEuMiAxIDIuNSAxIDIuNSAwIDIuNS0yIDUtMnMyLjUgMiA1IDIgMi41LTIgNS0yYzEuMyAwIDEuOS41IDIuNSAxIi8+PHBhdGggZD0iTTIgMTRjLjYuNSAxLjIgMSAyLjUgMSAyLjUgMCAyLjUtMiA1LTJzMi41IDIgNSAyIDIuNS0yIDUtMmMxLjMgMCAxLjkuNSAyLjUgMSIvPjxwYXRoIGQ9Ik03IDE0VjVhMiAyIDAgMCAxIDQgMCIvPjwvc3ZnPg==' alt='piscine' style='width:32px;height:32px'>", fr:"la piscine",    en:"the pool",        audio:"audio/s2_loc_piscine.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSI0IiB5PSIzIiB3aWR0aD0iMTYiIGhlaWdodD0iMTQiIHJ4PSIyIi8+PHBhdGggZD0iTTQgMTFoMTYiLz48cGF0aCBkPSJNMTIgM3Y4Ii8+PHBhdGggZD0iTTggMTdsLTIgNCIvPjxwYXRoIGQ9Ik0xNiAxN2wyIDQiLz48Y2lyY2xlIGN4PSI4IiBjeT0iMTQiIHI9IjAuNSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTQiIHI9IjAuNSIvPjwvc3ZnPg==' alt='gare' style='width:32px;height:32px'>", fr:"la gare",        en:"the station",     audio:"audio/s2_loc_gare.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSI4IiBjeT0iMjEiIHI9IjEiLz48Y2lyY2xlIGN4PSIxOSIgY3k9IjIxIiByPSIxIi8+PHBhdGggZD0iTTIuMDUgMi4wNWgybDIuNjYgMTIuNDJhMiAyIDAgMCAwIDIgMS41OGg5Ljc4YTIgMiAwIDAgMCAxLjk1LTEuNTdsMS42NS03LjQzSDUuMTIiLz48L3N2Zz4=' alt='supermarché' style='width:32px;height:32px'>", fr:"le supermarché", en:"the supermarket", audio:"audio/s2_loc_supermarche.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgOGgxYTQgNCAwIDEgMSAwIDhoLTEiLz48cGF0aCBkPSJNMyA4aDE0djlhNCA0IDAgMCAxLTQgNEg3YTQgNCAwIDAgMS00LTRaIi8+PHBhdGggZD0iTTYgMnYyIi8+PHBhdGggZD0iTTEwIDJ2MiIvPjxwYXRoIGQ9Ik0xNCAydjIiLz48L3N2Zz4=' alt='café' style='width:32px;height:32px'>", fr:"le café",        en:"the café",        audio:"audio/s2_loc_cafe.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgN3YxMCIvPjxwYXRoIGQ9Ik03IDEyaDEwIi8+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMyIvPjwvc3ZnPg==' alt='pharmacie' style='width:32px;height:32px'>", fr:"la pharmacie",  en:"the pharmacy",    audio:"audio/s2_loc_pharmacie.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMlY0YTEgMSAwIDAgMSAxLTFoMTZhMSAxIDAgMCAxIDEgMXYxOCIvPjxwYXRoIGQ9Ik0yIDIyaDIwIi8+PHBhdGggZD0iTTEyIDd2NiIvPjxwYXRoIGQ9Ik05IDEwaDYiLz48L3N2Zz4=' alt='hôpital' style='width:32px;height:32px'>", fr:"l'hôpital",    en:"the hospital",    audio:"audio/s2_loc_hopital.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgM3YxOCIvPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIyIi8+PHBhdGggZD0iTTYgOHY1YTMgMyAwIDAgMCAzIDMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjIiLz48cGF0aCBkPSJNMTggOHY1YTMgMyAwIDAgMS0zIDMiLz48L3N2Zz4=' alt='toilettes' style='width:32px;height:32px'>", fr:"les toilettes", en:"the toilets",     audio:"audio/s2_loc_toilettes.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiA0djE2Ii8+PHBhdGggZD0iTTIgOGgxOGEyIDIgMCAwIDEgMiAydjEwIi8+PHBhdGggZD0iTTIgMTdoMjAiLz48cGF0aCBkPSJNNiA4di0yYTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiLz48L3N2Zz4=' alt='hôtel' style='width:32px;height:32px'>", fr:"l'hôtel",      en:"the hotel",       audio:"audio/s2_loc_hotel.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtNCA2IDgtNCA4IDQtOCA0WiIvPjxwYXRoIGQ9Ik00IDZ2NmMwIDEuNSAzLjUgMyA4IDNzOC0xLjUgOC0zVjYiLz48cGF0aCBkPSJNMjAgMTB2NSIvPjwvc3ZnPg==' alt='école' style='width:32px;height:32px'>", fr:"l'école",      en:"the school",      audio:"audio/s2_loc_ecole.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDEtNWgxNmwxIDUiLz48cGF0aCBkPSJNNCA5djExYTEgMSAwIDAgMCAxIDFoMTRhMSAxIDAgMCAwIDEtMVY5Ii8+PHBhdGggZD0iTTMgOWgxOCIvPjxwYXRoIGQ9Ik05IDIxdi02aDZ2NiIvPjwvc3ZnPg==' alt='magasin' style='width:32px;height:32px'>", fr:"le magasin",    en:"the shop",        audio:"audio/s2_loc_magasin.mp3" }
+    ],
+    vocabQuizzes: [],
+    conjugaison: {
+      verbs: ["Aller"],
+      rows: [
+        ["Je",   "vais"],
+        ["Tu",   "vas"],
+        ["Vous", "allez"]
+      ]
+    },
+    gramFormulas: [
+      "Je vais à + ville",
+      "Je vais en + pays féminin",
+      "Je vais au + pays masculin",
+      "Je vais aux + pays pluriel",
+      "Je vais au + lieu masculin",
+      "Je vais à la + lieu féminin",
+      "Je vais à l' + lieu (voyelle)",
+      "Je vais aux + lieux pluriel"
+    ],
+    gramQuizzes: [
+      { q:"Je vais ___ Belgique.",     opts:["au","en","à","aux"],     correct:1 },
+      { q:"Je vais ___ Portugal.",     opts:["en","à","au","aux"],     correct:2 },
+      { q:"Je vais ___ États-Unis.",   opts:["au","en","aux","à"],     correct:2 },
+      { q:"Je vais ___ Bruxelles.",    opts:["à","en","au","aux"],     correct:0 },
+      { q:"Je vais ___ musée.",        opts:["à la","au","aux","à l'"],correct:1 },
+      { q:"Je vais ___ gare.",         opts:["au","à l'","à la","aux"],correct:2 }
+    ],
+    conjQuizzes: [
+      { q:"Vous ___ où ? (aller)",    opts:["vais","vas","allez","vont"],   correct:2 },
+      { q:"Je ___ au musée. (aller)", opts:["vas","vais","allez","va"],     correct:1 },
+      { q:"Tu ___ à la gare. (aller)",opts:["allez","vais","va","vas"],     correct:3 }
+    ],
+    sitQuizzes: [
+      { q:"You loved the museum. How do you react?", opts:["C'est chouette !","C'est pas cher","C'est où ?"], correct:0 },
+      { q:"The food was delicious. What do you say?", opts:["C'est beau","C'est bon !","C'est cool"], correct:1 },
+      { q:"The view is beautiful. What do you say?", opts:["C'est bien","C'est beau !","C'est bon"], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s2_dial.mp3",
+      img: "",
+      quizzes: [
+        { q:"Michel va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
+        { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:0 },
+        { q:"Michel ne va pas…", opts:["au supermarché","à la pharmacie","aux urgences","au cinéma"], correct:3 },
+        { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:3 }
+      ]
+    },
+    recordPrompts: ["Vous allez où ?","C'est comment ?"],
+    memo: "memos/s2_memo.pdf",
+    splitAfter: 4
+  },{
+    title: "Qu'est-ce que vous prenez ?",
+    sub: "Au restaurant · alimentation · ingrédients · boissons",
+    keyPhrases: ["Vous avez quel âge ?","Est-ce que vous avez… ?","Est-ce qu'il y a… ?"],
+    pills: ["avoir","chiffres","un · une · des","il y a"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Vous avez quel âge ?","Est-ce que vous avez des enfants ?"],
+    memo: "memos/s3_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Combien ça coûte ?",
+    sub: "Ordering at the restaurant · asking information in shops",
+    keyPhrases: ["Est-ce que vous avez… ?","Est-ce que vous aimez… ?","Combien ça coûte ?"],
+    pills: ["prendre","aimer","du · de la · des","combien"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Combien ça coûte ?","Est-ce que vous aimez… ?","Qu'est-ce que vous prenez ?"],
+    memo: "memos/s4_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Pourquoi ?",
+    sub: "Expressing reasons · opinions · parce que",
+    keyPhrases: ["Pourquoi ?","Parce que c'est + adj…","Parce qu'il y a + nom…"],
+    pills: ["parce que","c'est + adj","il y a + nom","Est-ce que vous aimez Bruxelles ?"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Est-ce que vous aimez Bruxelles ? Pourquoi ?"],
+    memo: "memos/s5_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Est-ce que c'est gratuit ?",
+    sub: "Asking for information · questions words · everyday life",
+    keyPhrases: ["Est-ce que c'est gratuit ?","Est-ce qu'il y a le wifi ?","Combien · Comment · Où · Qui · Qu'est-ce que · Quand"],
+    pills: ["est-ce que","mots interrogatifs","il y a","c'est"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Est-ce que c'est gratuit ?","Est-ce qu'il y a le wifi ici ?"],
+    memo: "memos/s6_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Qu'est-ce que vous allez faire ?",
+    sub: "Organizing an event · futur proche · planning",
+    keyPhrases: ["Qu'est-ce que vous allez faire ?","On va…","Je vais + verbe"],
+    pills: ["aller + infinitif","futur proche","on · nous"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Qu'est-ce que vous allez faire ce week-end ?"],
+    memo: "memos/s7_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Est-ce que vous faites… ?",
+    sub: "Activities and leisure · hobbies · sports · culture",
+    keyPhrases: ["Est-ce que vous faites… ?","Qu'est-ce que vous faites ?","Je fais…"],
+    pills: ["faire","du · de la · des","sports · loisirs","fréquence"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Est-ce que vous faites du sport ?","Qu'est-ce que vous faites le week-end ?"],
+    memo: "memos/s8_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  },{
+    title: "Est-ce que vous avez visité… ?",
+    sub: "Talking about past actions · passé composé · experiences",
+    keyPhrases: ["Est-ce que vous avez visité… ?","Est-ce que vous avez vu… ?","J'ai visité…"],
+    pills: ["avoir + participe passé","être + participe passé","passé composé"],
+    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
+    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
+    conjQuizzes: [],sitQuizzes: [],
+    video:{url:"",quizzes:[]},
+    recordPrompts: ["Est-ce que vous avez visité Bruxelles ?","Qu'est-ce que vous avez vu ?"],
+    memo: "memos/s9_memo.pdf",
+    splitAfter: 0,
+    comingSoon: true
+  }
+];
+
+
+/* ════════════════════════════════════
+   STATIC SECTIONS (Welcome + Observation)
+   These never change — hardcoded here
+   ════════════════════════════════════ */
+const STATIC = [
+  {
+    id: "welcome",
+    navLabel: "Welcome",
+    render: () => `
+      <div class="sec-title">Welcome! 👋</div>
+      <div class="sec-sub">Your self-guided French programme — Speak Your French.</div>
+      <div class="card"><h3>🎯 What is Speak Your French?</h3><p>The goal is simple: activate your French. Start speaking, even imperfectly. Each session builds on one key question with phrases, vocabulary, grammar and interactive activities.</p></div>
+      <div class="card"><h3>🗺️ How to use this guide</h3><p>Navigate using the tabs above. Complete the quizzes, record yourself, and watch the videos at your own pace.</p></div>
+      <div class="card"><h3>📅 Before each session</h3><p>Observe · Collect · Listen · Ask.</p></div>
+      <div style="margin-top:1.2rem;text-align:center">
+        <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
+          <span class="word-pill on">👂 Listen</span>
+          <span class="word-pill on">👀 Observe</span>
+          <span class="word-pill on">🗣️ Speak</span>
+          <span class="word-pill on">😄 Have fun!</span>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:0.75rem">📚 Programme — 10 sessions</div>
+        <div id="programme-list" style="display:flex;flex-direction:column;gap:6px"></div>
+      </div>`
+  },
+  {
+    id: "observation",
+    navLabel: "Observation",
+    externalUrl: "https://bespoke-lolly-e1a992.netlify.app/",
+    render: () => `
+      <div class="sec-title">Observation Guide 👀</div>
+      <div class="sec-sub">Open your eyes and ears in Brussels before class starts.</div>
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem">👀</div>
+        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">Your full observation guide opens in a new page.</p>
+        <a href="https://bespoke-lolly-e1a992.netlify.app/" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open Observation Guide →</a>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem">🏛️</div>
+        <div style="font-size:1.05rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem">Visite au musée</div>
+        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
+        <a href="musee.html" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
+      </div>`
+  }
+];
+
+/* ════════════════════════════════════
+   BUILD NAV + SECTIONS FROM DATA
+   ════════════════════════════════════ */
+var current = 0;
+var answered = {};
+
+function buildUI() {
+  const nav = document.getElementById('nav');
+  const wrap = document.getElementById('sections-wrap');
+  const allSections = [...STATIC, ...SESSIONS];
+  const total = allSections.length;
+
+  allSections.forEach((s, i) => {
+    // NAV BUTTON
+    const btn = document.createElement('button');
+    btn.className = 'nav-btn' + (i === 0 ? ' active' : '');
+    // Welcome and Observation (i=0,1) show no number — sessions start at 1
+    const isStatic = i < STATIC.length;
+    const sessionNum = i - STATIC.length + 1;
+    btn.innerHTML = isStatic
+      ? (s.navLabel || s.title)
+      : `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`;
+    btn.onclick = () => goTo(i);
+    nav.appendChild(btn);
+
+    // SECTION DIV
+    const div = document.createElement('div');
+    div.id = 'sec-' + i;
+    div.className = 'section' + (i === 0 ? ' active' : '');
+    div.innerHTML = s.render ? s.render() : renderSession(s, i);
+    wrap.appendChild(div);
+  });
+
+  document.getElementById('prog-label').textContent = 'Section 1 / ' + total;
+
+  // Build programme overview on Welcome page
+  const progList = document.getElementById('programme-list');
+  if (progList) {
+    SESSIONS.forEach((s, i) => {
+      const sectionIdx = i + STATIC.length;
+      const div = document.createElement('div');
+      div.className = 'prog-item unlocked';
+      div.innerHTML = `
+        <div class="prog-item-num">${i+1}</div>
+        <div class="prog-item-title">${s.title}</div>
+        <div class="prog-item-status">→</div>`;
+      div.onclick = () => goTo(sectionIdx);
+      progList.appendChild(div);
+    });
+  }
+}
+
+/* ════════════════════════════════════
+   RENDER A SESSION FROM cours.js
+   ════════════════════════════════════ */
+function renderSession(s, idx) {
+  let html = '';
+
+  // TITLE
+  html += `<div class="sec-title">${s.title}</div>
+            <div class="sec-sub">${s.sub}</div>`;
+
+  // KEY PHRASES BANNER — always shown
+  html += `<div class="kp-banner">
+    <div class="kp-label">Key phrases</div>
+    <ul class="kp-list">${s.keyPhrases.map(p=>`<li>${p}</li>`).join('')}</ul>
+    <div class="pill-row">${s.pills.map(p=>`<span class="pill">${p}</span>`).join('')}</div>
+  </div>`;
+
+  // COMING SOON — show only banner + coming soon message
+  if (s.comingSoon) {
+    html += `<div class="video-placeholder" style="margin-top:1rem;padding:2rem">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🔜</div>
+      <div style="font-size:0.9rem;font-weight:500;color:#0d2c4f;margin-bottom:0.3rem">Content coming soon</div>
+      <div style="font-size:0.82rem;color:#aaa">Available soon.</div>
+    </div>`;
+    return html;
+  }
+
+  // ALPHABET SESSION — special layout
+  if (s.isAlphabet) {
+    // Videos — YouTube links only
+    html += '<div class="divider-label">🎬 Videos</div>';
+    s.videos.forEach(function(v) {
+      if (v.youtube) {
+        html += '<a class="yt-card" href="https://www.youtube.com/watch?v=' + v.youtube + '" target="_blank">'
+          + '<img class="yt-thumb" src="https://img.youtube.com/vi/' + v.youtube + '/hqdefault.jpg" alt="YouTube">'
+          + '<div class="yt-bar"><div class="yt-icon">&#9658;</div>'
+          + '<div><div class="yt-title">' + v.label + '</div>'
+          + '<div class="yt-sub">Watch on YouTube &rarr;</div></div></div></a>';
+      }
+    });
+
+    // Dictee quiz
+    html += '<div class="divider-label">&#9999;&#65039; Quiz &mdash; Comment &ccedil;a s&apos;&eacute;crit ?</div>';
+    html += '<div class="rhythm-tip">&#127911; <strong>How to play:</strong> Listen to the spelling, then choose the correct word. The letters will appear after you answer.</div>';
+
+    s.dicteeQuizzes.forEach(function(q, qi) {
+      var qid = "dict_" + idx + "_" + qi;
+      var optsHtml = "";
+      q.opts.forEach(function(o, oi) {
+        optsHtml += "<button class=\"quiz-opt\" onclick=\"ansDictee(this,&apos;" + qid + "&apos;," + oi + "," + q.correct + ")\">" + o + "</button>";
+      });
+      html += "<div class=\"dictee-wrap\">"
+        + "<div class=\"q-text\">Listen and choose the correct spelling:</div>"
+        + "<button class=\"btn-quiz-listen\" onclick=\"playAud(&apos;" + q.audio + "&apos;,this)\">&#9654; Listen</button>"
+        + "<audio src=\"" + q.audio + "\"></audio>"
+        + "<div class=\"quiz-opts-grid\" style=\"margin-top:0.5rem\">" + optsHtml + "</div>"
+        + "<div id=\"hint-" + qid + "\" class=\"dictee-hint\">" + q.hint + "</div>"
+        + "<div class=\"feedback\" id=\"fb-" + qid + "\"></div>"
+        + "</div>";
+    });
+
+    // Record yourself
+    var promptsHtml = '';
+    s.recordPrompts.forEach(function(p) { promptsHtml += '<li>' + p + '</li>'; });
+    html += '<div class="divider-label">&#127897;&#65039; Practice</div>'
+      + '<div class="post-card">'
+      + '<div class="post-label">Record yourself</div>'
+      + '<div class="post-text">Answer out loud and send the audio to your teacher:</div>'
+      + '<ul class="record-prompts">' + promptsHtml + '</ul></div>';
+
+    return html;
+  }
+
+  // PHRASES + LISTEN
+  html += `<div class="divider-label">🔤 Phrases — listen & repeat</div>
+  <div class="rhythm-tip">🎵 <strong>Rhythm tip:</strong> Tap the table as you say each phrase. Every syllable has equal weight in French.</div>
+  <div class="phrase-block">`;
+  s.phrases.forEach((p, i) => {
+    const hasAudio = p.audio && p.audio !== '';
+    html += `<div class="phrase-row">
+      <div class="phrase-n">${i+1}</div>
+      <div class="phrase-text">${p.text}</div>
+      <button class="btn-listen${hasAudio ? '' : ' no-audio'}" onclick="playAud('${p.audio}',this)">▶ Listen</button>
+      <audio id="aud_${idx}_p${i}" src="${p.audio}"></audio>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // QUIZ SYLLABES
+  if (s.splitAfter === 1) {
+    html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
+    <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
+  }
+  html += `<div class="divider-label">🎵 Quiz — syllables</div>`;
+  s.sylQuizzes.forEach((q, qi) => {
+    const qid = `syl_${idx}_${qi}`;
+    html += `<div class="quiz-wrap">
+      <div class="q-text">How many syllables do you hear?</div>
+      <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+      <audio id="aud_${qid}" src="${q.audio}"></audio>
+      <div class="quiz-opts-grid">
+        ${q.opts.map(o=>`<button class="quiz-opt" onclick="ansNum(this,'${qid}',${o},${q.correct})" data-val="${o}">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qid}"></div>
+      ${q.phrase ? `<div id="reveal-${qid}" style="display:none;margin-top:8px;padding:8px 12px;background:#fff0d2;border-radius:6px;font-size:0.84rem;font-weight:600;color:#0d2c4f">✓ ${q.phrase}</div>` : ''}
+    </div>`;
+  });
+
+  // FLASHCARDS
+  html += `<div class="divider-label">🌍 Nationalities — tap to reveal</div>
+  <div class="card">
+    <h3>Tap a flag to see the word in French</h3>
+    <div class="fc-grid">
+      ${s.flashcards.map((fc,fi)=>`
+        <div class="fc" onclick="flipCard(this,'${fc.audio||''}')" id="fc_${idx}_${fi}">
+          <span class="fc-flag">${fc.flag}</span>
+          <div class="fc-back">
+            <span class="fc-fr">${fc.fr}</span>
+            <span class="fc-en">${fc.en}</span>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="fc-hint">Tap again to flip back</div>
+  </div>`;
+
+  // VOCAB QUIZ
+  // Split divider after flashcards
+  if (s.splitAfter === 3) {
+    html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
+    <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
+  }
+  html += `<div class="divider-label">🌍 Quiz — which nationality do you hear?</div>`;
+  s.vocabQuizzes.forEach((q, qi) => {
+    const qid = `voc_${idx}_${qi}`;
+    html += `<div class="quiz-wrap">
+      <div class="q-text">Listen — which nationality do you hear?</div>
+      <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+      <audio id="aud_${qid}" src="${q.audio}"></audio>
+      <div class="flag-opts">
+        ${q.opts.map((flag,fi)=>`<button class="flag-opt" onclick="ansFlag(this,'${qid}',${fi},${q.correct})">${flag}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qid}"></div>
+    </div>`;
+  });
+
+  // CONJUGAISON
+  html += `<div class="divider-label">📐 Conjugaison</div>
+  <div class="card">
+    <h3>${s.conjugaison.verbs.join(' · ')}</h3>
+    <div class="conj-wrap">
+      <table class="conj-table">
+        <thead><tr><th></th>${s.conjugaison.verbs.map(v=>`<th>${v}</th>`).join('')}</tr></thead>
+        <tbody>${s.conjugaison.rows.map(row=>`<tr>${row.map((c,ci)=>ci===0?`<td>${c}</td>`:`<td><em>${c}</em></td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
+    </div>
+  </div>`;
+
+  // GRAMMAR FORMULAS
+  html += `<div class="divider-label">📐 Grammaire</div>
+  <div class="card">
+    <h3>Formules</h3>
+    <div class="gram-formulas">
+      ${s.gramFormulas.map(f=>`<div class="gram-formula">${f}</div>`).join('')}
+    </div>
+  </div>`;
+
+  // QUIZ GRAMMAIRE
+  html += `<div class="divider-label">📐 Quiz — grammaire</div>`;
+  s.gramQuizzes.forEach((q,qi) => {
+    const qid = `gram_${idx}_${qi}`;
+    html += `<div class="quiz-wrap">
+      <div class="q-text">${q.q}</div>
+      <div class="quiz-opts-grid">
+        ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qid}"></div>
+    </div>`;
+  });
+
+  // QUIZ CONJUGAISON
+  html += `<div class="divider-label">📐 Quiz — conjugaison</div>`;
+  s.conjQuizzes.forEach((q,qi) => {
+    const qid = `conj_${idx}_${qi}`;
+    html += `<div class="quiz-wrap">
+      <div class="q-text">${q.q}</div>
+      <div class="quiz-opts-grid">
+        ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qid}"></div>
+    </div>`;
+  });
+
+  // QUIZ SITUATION
+  html += `<div class="divider-label">💬 Quiz — which phrase fits the situation?</div>`;
+  s.sitQuizzes.forEach((q,qi) => {
+    const qid = `sit_${idx}_${qi}`;
+    html += `<div class="quiz-wrap">
+      <div class="q-text">${q.q}</div>
+      <div class="sit-opts">
+        ${q.opts.map((o,oi)=>`<button class="sit-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qid}"></div>
+    </div>`;
+  });
+
+  // VIDEO + DIALOGUE
+  html += `<div class="divider-label">🎬 Compréhension orale</div>`;
+
+  // Situation card — image + audio only, no text
+  html += `<div class="card" style="padding:0;overflow:hidden;margin-bottom:0.85rem">`;
+
+  // Situation image placeholder or real image
+  const imgSrc = s.video && s.video.img ? s.video.img : '';
+  html += `<div style="background:#0d2c4f;min-height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">`;
+
+  if (imgSrc) {
+    html += `<img src="${imgSrc}" alt="situation" style="width:100%;height:200px;object-fit:cover;opacity:0.85">`;
+  } else {
+    html += `<div style="text-align:center;padding:2rem">
+      <div style="font-size:3rem;margin-bottom:0.5rem">🤝</div>
+      <div style="font-size:0.8rem;color:#afc1d0;letter-spacing:0.06em;text-transform:uppercase">A meeting in Brussels</div>
+    </div>`;
+  }
+
+  html += `</div>`;
+
+  // Audio button bar
+  html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
+    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Émilie & Sara · Bruxelles</div>`;
+
+  if (s.video && s.video.dial) {
+    html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the dialogue</button>
+      <audio src="${s.video.dial}"></audio>`;
+  } else {
+    html += `<button class="btn-quiz-listen" onclick="this.textContent='⏳ Coming soon';setTimeout(()=>this.textContent='▶ Listen to the dialogue',1500)">▶ Listen to the dialogue</button>`;
+  }
+
+  html += `</div></div>`;
+
+  // Video link if available
+  if (s.video && s.video.url) {
+    html += `<a class="video-card" href="${s.video.url}" target="_blank">
+      <div class="video-thumb">▶️</div>
+      <div class="video-info">
+        <div class="vid-title">Watch the video</div>
+        <div class="vid-sub">Opens on YouTube →</div>
+      </div>
+    </a>`;
+  }
+
+  // CO Quiz
+  if (s.video && s.video.quizzes && s.video.quizzes.length > 0) {
+    html += `<div class="divider-label">🎧 Quiz — compréhension orale</div>`;
+    s.video.quizzes.forEach((q,qi) => {
+      const qid = `vid_${idx}_${qi}`;
+      html += `<div class="quiz-wrap">
+        <div class="q-text">${q.q}</div>
+        <div class="quiz-opts-grid">
+          ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+  }
+
+  // POST SESSION
+  html += `<div class="divider-label">🎙 After class</div>
+  <div class="post-card">
+    <div class="post-label">Record yourself</div>
+    <div class="post-text">Answer out loud and send the audio to your teacher:</div>
+    <ul class="record-prompts">
+      ${s.recordPrompts.map(p=>`<li>${p}</li>`).join('')}
+    </ul>
+  </div>`;
+
+  // MEMO PDF
+  html += `<div class="divider-label">📄 Session memo</div>`;
+  if (s.memo) {
+    html += `<a class="memo-btn" href="${s.memo}" target="_blank" download>
+      <div class="memo-icon">📄</div>
+      <div>
+        <div class="memo-info-title">Download session memo</div>
+        <div class="memo-info-sub">Key phrases · vocabulary · grammar formulas</div>
+      </div>
+    </a>`;
+  } else {
+    html += `<div class="video-placeholder">📄 Memo PDF coming soon.</div>`;
+  }
+
+  return html;
+}
+
+/* ════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════ */
+function goTo(i) {
+  const allSections = document.querySelectorAll('.section');
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const total = allSections.length;
+
+  allSections[current].classList.remove('active');
+  navBtns[current].classList.remove('active');
+  if (i > current) navBtns[current].classList.add('done');
+
+  current = i;
+  allSections[i].classList.add('active');
+  navBtns[i].classList.add('active');
+
+  const nav = document.getElementById('nav');
+  nav.scrollLeft = navBtns[i].offsetLeft - nav.offsetWidth/2 + navBtns[i].offsetWidth/2;
+  window.scrollTo({top:0, behavior:'smooth'});
+  const isStaticSection = i < STATIC.length;
+  const displayNum = isStaticSection ? (i === 0 ? 'Welcome' : 'Observation') : (i - STATIC.length + 1) + ' / ' + (total - STATIC.length);
+  document.getElementById('prog-label').textContent = isStaticSection ? displayNum : 'Session ' + displayNum;
+}
+
+function goNext() {
+  const total = document.querySelectorAll('.section').length;
+  if (current < total - 1) goTo(current + 1);
+}
+
+function goPrev() {
+  if (current > 0) goTo(current - 1);
+}
+
+/* ════════════════════════════════════
+   QUIZ LOGIC
+   ════════════════════════════════════ */
+function markAnswered(qid, btn, isCorrect) {
+  if (answered[qid]) return false;
+  answered[qid] = true;
+  const fb = document.getElementById('fb-' + qid);
+  if (isCorrect) { fb.textContent = '✅ Correct!'; fb.className = 'feedback show ok'; }
+  else { fb.textContent = '❌ Not quite — the correct answer is highlighted in blue.'; fb.className = 'feedback show nope'; }
+  return true;
+}
+
+function ansDictee(btn, qid, idx, correct) {
+  if (answered[qid]) return;
+  const opts = btn.closest('.dictee-wrap').querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => { o.disabled = true; if (i === correct) o.classList.add('correct'); });
+  if (idx !== correct) btn.classList.add('wrong');
+  // Show hint after answer
+  const hint = document.getElementById('hint-' + qid);
+  if (hint) hint.classList.add('show');
+  markAnswered(qid, btn, idx === correct);
+}
+
+function ansNum(btn, qid, val, correct) {
+  if (answered[qid]) return;
+  val = parseInt(val);
+  correct = parseInt(correct);
+  const opts = btn.closest('.quiz-wrap').querySelectorAll('.quiz-opt');
+  opts.forEach(o => { o.disabled = true; if (parseInt(o.dataset.val) === correct) o.classList.add('correct'); });
+  if (val !== correct) btn.classList.add('wrong');
+  markAnswered(qid, btn, val === correct);
+  // Reveal phrase after answer
+  const reveal = document.getElementById('reveal-' + qid);
+  if (reveal) reveal.style.display = 'block';
+}
+
+function ansIdx(btn, qid, idx, correct) {
+  if (answered[qid]) return;
+  const container = btn.closest('.quiz-wrap');
+  const opts = container.querySelectorAll('.quiz-opt, .sit-opt');
+  opts.forEach((o, i) => { o.disabled = true; if (i === correct) o.classList.add('correct'); });
+  if (idx !== correct) btn.classList.add('wrong');
+  markAnswered(qid, btn, idx === correct);
+}
+
+function ansFlag(btn, qid, idx, correct) {
+  if (answered[qid]) return;
+  const opts = btn.closest('.quiz-wrap').querySelectorAll('.flag-opt');
+  opts.forEach((o, i) => { o.style.pointerEvents='none'; if (i === correct) o.classList.add('correct'); });
+  if (idx !== correct) btn.classList.add('wrong');
+  markAnswered(qid, btn, idx === correct);
+}
+
+function flipCard(el, audioSrc) {
+  el.classList.toggle('flipped');
+  if (el.classList.contains('flipped') && audioSrc) {
+    const a = new Audio(audioSrc);
+    a.play().catch(() => {});
+  }
+}
+
+function playAud(src, btn) {
+  if (!src || src === '') {
+    const orig = btn.innerHTML;
+    btn.textContent = '⏳ Soon';
+    setTimeout(() => { btn.innerHTML = orig; }, 1400);
+    return;
+  }
+  const audio = new Audio(src);
+  audio.play().catch(() => {
+    const orig = btn.innerHTML;
+    btn.textContent = '⚠️ Not found';
+    setTimeout(() => { btn.innerHTML = orig; }, 1800);
+  });
+}
+
+/* ════════════════════════════════════
+   INIT
+   ════════════════════════════════════ */
+buildUI();
+</script>
+</body>
+</html>
