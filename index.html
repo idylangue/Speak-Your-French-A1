@@ -443,9 +443,9 @@ const SESSIONS = [
       dial: "audio/s2_dial.mp3",
       img: "",
       quizzes: [
-        { q:"Michelle va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
+        { q:"Diego va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
         { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:1 },
-        { q:"Michelle ne va pas…", opts:["au supermarché","à la pharmacie","à la gare","au cinéma"], correct:2 },
+        { q:"Diego ne va pas…", opts:["au supermarché","à la pharmacie","à la gare","au cinéma"], correct:2 },
         { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:0 }
       ]
     },
@@ -866,8 +866,8 @@ function renderSession(s, idx) {
     html += `<img src="${imgSrc}" alt="situation" style="width:100%;height:200px;object-fit:cover;opacity:0.85">`;
   } else {
     html += `<div style="text-align:center;padding:2rem">
-      <div style="font-size:3rem;margin-bottom:0.5rem">🤝</div>
-      <div style="font-size:0.8rem;color:#afc1d0;letter-spacing:0.06em;text-transform:uppercase">A meeting in Brussels</div>
+      <div style="font-size:3rem;margin-bottom:0.5rem">🏖️</div>
+      <div style="font-size:0.8rem;color:#afc1d0;letter-spacing:0.06em;text-transform:uppercase">Holiday time · Time to go !</div>
     </div>`;
   }
 
@@ -875,7 +875,7 @@ function renderSession(s, idx) {
 
   // Audio button bar
   html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
-    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Michelle & Caroline · Bruxelles</div>`;
+    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Diego & Caroline · Bruxelles</div>`;
 
   if (s.video && s.video.dial) {
     html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the dialogue</button>
@@ -1058,4 +1058,3 @@ buildUI();
 </script>
 </body>
 </html>
-
