@@ -345,14 +345,16 @@ const SESSIONS = [
     video: {
       url: "",
       dial: "audio/s1_dial.mp3",
-      img: "",
+      coTitle: "Émilie & Sara · Meeting in Brussels",
+      img: "<span style='font-size:3rem'>🤝</span>",
+      caption: "Meeting in Brussels",
       quizzes: [
         { q:"Sara vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:1 },
-        { q:"Michelle vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:0 },
+        { q:"Émilie vient de…", opts:["Paris","Lisbonne","Bruxelles"], correct:0 },
         { q:"Sara est…", opts:["portugaise","française","belge"], correct:0 },
-        { q:"Michelle est…", opts:["française","portugaise","belge"], correct:0 },
+        { q:"Émilie est…", opts:["française","portugaise","belge"], correct:0 },
         { q:"Sara habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 },
-        { q:"Michelle habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 }
+        { q:"Émilie habite à…", opts:["Bruxelles","Lisbonne","Paris"], correct:0 }
       ]
     },
     recordPrompts: ["Vous venez d'où ?","Vous habitez où ?","Est-ce que vous êtes belge ?"],
@@ -441,11 +443,13 @@ const SESSIONS = [
     video: {
       url: "",
       dial: "audio/s2_dial.mp3",
-      img: "",
+      coTitle: "Michel & Caroline · Bruxelles",
+      img: "<span style='font-size:3rem'>🏖️</span>",
+      caption: "Holiday time · Time to go !",
       quizzes: [
-        { q:"Diego va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
+        { q:"Michel va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
         { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:1 },
-        { q:"Diego ne va pas…", opts:["au supermarché","à la pharmacie","à la gare","au cinéma"], correct:2 },
+        { q:"Michel ne va pas…", opts:["au supermarché","à la pharmacie","à la gare","au cinéma"], correct:3 },
         { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:0 }
       ]
     },
@@ -455,16 +459,101 @@ const SESSIONS = [
   },{
     title: "Qu'est-ce que vous prenez ?",
     sub: "Au restaurant · alimentation · ingrédients · boissons",
-    keyPhrases: ["Vous avez quel âge ?","Est-ce que vous avez… ?","Est-ce qu'il y a… ?"],
-    pills: ["avoir","chiffres","un · une · des","il y a"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Vous avez quel âge ?","Est-ce que vous avez des enfants ?"],
+    keyPhrases: ["Qu'est-ce que vous prenez ?","Est-ce qu'il y a… ?","Est-ce que vous aimez… ?"],
+    pills: ["avoir","prendre","aimer","du · de la · des","il y a"],
+    phrases: [
+      { text: "Est-ce que vous aimez Bruxelles ?",     audio: "audio/s3_p1.mp3" },
+      { text: "Est-ce que vous aimez le restaurant ?",  audio: "audio/s3_p2.mp3" },
+      { text: "Est-ce que vous aimez la viande ?",      audio: "audio/s3_p3.mp3" },
+      { text: "Est-ce qu'il y a des moules ?",          audio: "audio/s3_p4.mp3" },
+      { text: "Est-ce que vous avez du vin italien ?",  audio: "audio/s3_p5.mp3" },
+      { text: "Qu'est-ce que vous prenez ?",            audio: "audio/s3_p6.mp3" },
+      { text: "J'aime les fruits.",                     audio: "audio/s3_p7.mp3" },
+      { text: "Il y a des frites.",                     audio: "audio/s3_p8.mp3" },
+      { text: "J'ai du fromage et des chips.",          audio: "audio/s3_p9.mp3" },
+      { text: "Je prends des croissants.",              audio: "audio/s3_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Je prends le plat du jour.",      correct:6, opts:[4,5,6,7], audio:"audio/s3_syl1.mp3" },
+      { phrase:"J'aime les légumes.",              correct:4, opts:[3,4,5,6], audio:"audio/s3_syl2.mp3" },
+      { phrase:"Est-ce que vous voulez du pain ?", correct:7, opts:[5,6,7,8], audio:"audio/s3_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>🍫</span>", fr:"le chocolat / du chocolat",  en:"chocolate",  audio:"audio/s3_fc_chocolat.mp3" },
+      { flag:"<span style='font-size:2rem'>🥩</span>", fr:"la viande / de la viande",   en:"meat",       audio:"audio/s3_fc_viande.mp3" },
+      { flag:"<span style='font-size:2rem'>🐟</span>", fr:"le poisson / du poisson",    en:"fish",       audio:"audio/s3_fc_poisson.mp3" },
+      { flag:"<span style='font-size:2rem'>🍟</span>", fr:"les frites / des frites",    en:"fries",      audio:"audio/s3_fc_frites.mp3" },
+      { flag:"<span style='font-size:2rem'>🥚</span>", fr:"l'œuf / de l'œuf",           en:"egg",        audio:"audio/s3_fc_oeuf.mp3" },
+      { flag:"<span style='font-size:2rem'>🥦</span>", fr:"les légumes / des légumes",    en:"vegetables", audio:"audio/s3_fc_legumes.mp3" },
+      { flag:"<span style='font-size:2rem'>💧</span>", fr:"l'eau / de l'eau", en:"water", audio:"audio/s3_fc_eau.mp3" },
+      { flag:"<span style='font-size:2rem'>🧈</span>", fr:"le beurre / du beurre",      en:"butter",     audio:"audio/s3_fc_beurre.mp3" },
+      { flag:"<span style='font-size:2rem'>🍦</span>", fr:"la glace / de la glace",       en:"ice cream",  audio:"audio/s3_fc_glace.mp3" },
+      { flag:"<span style='font-size:2rem'>🍷</span>", fr:"le vin / du vin",             en:"wine",       audio:"audio/s3_fc_vin.mp3" },
+      { flag:"<span style='font-size:2rem'>🍺</span>", fr:"la bière / de la bière",     en:"beer",       audio:"audio/s3_fc_biere.mp3" },
+      { flag:"<span style='font-size:2rem'>🧇🧇</span>", fr:"les gaufres / des gaufres",  en:"waffles",    audio:"audio/s3_fc_gaufres.mp3" }
+    ],
+    vocabQuizzes: [
+      { audio:"audio/s3_qv1.mp3", correct:1, opts:["🐟","🥩","🍺"] },
+      { audio:"audio/s3_qv2.mp3", correct:2, opts:["🧈","🍫","💧"] },
+      { audio:"audio/s3_qv3.mp3", correct:2, opts:["🍷","🥚","🍦"] },
+      { audio:"audio/s3_qv4.mp3", correct:0, opts:["🍫","🍟","🧇"] },
+      { audio:"audio/s3_qv5.mp3", correct:1, opts:["🦪","🐟","🥩"] },
+      { audio:"audio/s3_qv6.mp3", correct:2, opts:["🍺","💧","🍷"] }
+    ],
+    conjugaison: {
+      verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer"],
+      rows: [
+        ["Je",   "viens","habite","suis","vais","ai","prends","aime"],
+        ["Tu",   "viens","habites","es","vas","as","prends","aimes"],
+        ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez"],
+        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons"]
+      ]
+    },
+    gramFormulas: [
+      { label:"THE",         formula:"le · la · les · l'" },
+      { label:"A / AN",      formula:"un · une · des" },
+      { label:"SOME",        formula:"du · de la · des · de l'" },
+      { label:"NOT ANY",     formula:"pas de / pas d'" },
+      { label:"J'aime…",    formula:"j'aime + le / la / les / l'" },
+      { label:"Je n'aime pas…", formula:"je n'aime pas + le / la / les / l'" },
+      { label:"J'ai…",      formula:"j'ai + du / de la / des / de l'" },
+      { label:"Je n'ai pas…", formula:"je n'ai pas de" },
+      { label:"Il y a…",    formula:"il y a + du / de la / des / un / une / des" },
+      { label:"Il n'y a pas…", formula:"il n'y a pas de" }
+    ],
+    gramQuizzes: [
+      { q:"J'aime ___", opts:["du fromage","le fromage"], correct:1 },
+      { q:"Il y a ___", opts:["le vin","du vin"], correct:1 },
+      { q:"Je n'ai pas ___", opts:["le pain","de pain"], correct:1 },
+      { q:"J'ai ___", opts:["de moules","des moules"], correct:1 }
+    ],
+    conjQuizzes: [
+      { q:"Vous ___ du vin ?", opts:["avez","as","avons","ai"], correct:0 },
+      { q:"Je ___ un café.", opts:["prends","prenez","prenons","prend"], correct:0 },
+      { q:"Tu ___ les frites ?", opts:["aimez","aimons","aimes","aime"], correct:2 },
+      { q:"Nous ___ de l'eau.", opts:["avez","avons","ai","as"], correct:1 }
+    ],
+    sitQuizzes: [
+      { q:"You're at the restaurant. Which question will the waiter ask you?", opts:["Vous allez où ?","Qu'est-ce que vous prenez au restaurant ?","Est-ce que vous êtes belge ?"], correct:1 },
+      { q:"You want to know if there are mussels on the menu.", opts:["Est-ce que vous aimez les moules ?","Il y a des moules ?","Je prends des moules."], correct:1 },
+      { q:"You want to say you don't eat meat.", opts:["J'aime la viande.","Je prends de la viande.","Je ne mange pas de viande."], correct:2 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s3_dial.mp3",
+      coTitle: "Michel & Sara · Au restaurant",
+      img: "<span style='font-size:3rem'>🍽️</span>",
+      caption: "Au restaurant · Bruxelles",
+      quizzes: [
+        { q:"Michel prend…",             opts:["le plat du jour","des moules","une salade","des frites"],      correct:0 },
+        { q:"Est-ce qu'il y a du vin ?",  opts:["Oui, il y a du vin.","Non, pas de vin.","Il y a de la bière.","Je ne sais pas."], correct:0 },
+        { q:"Sara aime…",                opts:["le poisson","la viande","les frites","les gaufres"],           correct:2 },
+        { q:"Qu'est-ce que Sara prend ?", opts:["des moules","le plat du jour","une gaufre","du fromage"],     correct:0 }
+      ]
+    },
+    recordPrompts: ["Qu'est-ce que vous aimez ?","Qu'est-ce que vous prenez ?"],
     memo: "memos/s3_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
     title: "Combien ça coûte ?",
     sub: "Ordering at the restaurant · asking information in shops",
@@ -475,7 +564,7 @@ const SESSIONS = [
     conjQuizzes: [],sitQuizzes: [],
     video:{url:"",quizzes:[]},
     recordPrompts: ["Combien ça coûte ?","Est-ce que vous aimez… ?","Qu'est-ce que vous prenez ?"],
-    memo: "memos/s4_memo.pdf",
+    memo: "memos/s3_memo.pdf",
     splitAfter: 0,
     comingSoon: true
   },{
@@ -613,7 +702,7 @@ function buildUI() {
     btn.className = 'nav-btn' + (i === 0 ? ' active' : '');
     // Welcome and Observation (i=0,1) show no number — sessions start at 1
     const isStatic = i < STATIC.length;
-    const sessionNum = i - STATIC.length + 1;
+    const sessionNum = i - STATIC.length;
     btn.innerHTML = isStatic
       ? (s.navLabel || s.title)
       : `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`;
@@ -654,7 +743,7 @@ function renderSession(s, idx) {
   let html = '';
 
   // TITLE
-  html += `<div class="sec-title">${s.title}</div>
+  html += `<div class="sec-title">${idx < STATIC.length ? '' : (idx - STATIC.length) + '. '} ${s.title}</div>
             <div class="sec-sub">${s.sub}</div>`;
 
   // KEY PHRASES BANNER — always shown
@@ -778,11 +867,11 @@ function renderSession(s, idx) {
     html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
     <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
   }
-  html += `<div class="divider-label">🌍 Quiz — which place do you hear?</div>`;
+  html += `<div class="divider-label">🌍 Quiz — which word do you hear?</div>`;
   s.vocabQuizzes.forEach((q, qi) => {
     const qid = `voc_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
-      <div class="q-text">Listen — which nationality do you hear?</div>
+      <div class="q-text">Listen — which word do you hear?</div>
       <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
       <audio id="aud_${qid}" src="${q.audio}"></audio>
       <div class="flag-opts">
@@ -809,7 +898,7 @@ function renderSession(s, idx) {
   <div class="card">
     <h3>Formules</h3>
     <div class="gram-formulas">
-      ${s.gramFormulas.map(f=>`<div class="gram-formula">${f}</div>`).join('')}
+      ${s.gramFormulas.map(f=>typeof f === 'object' ? `<div class="gram-formula" style="display:flex;flex-direction:column;gap:2px"><span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;color:#afc1d0">${f.label}</span><span style="font-weight:600;color:#0d2c4f">${f.formula}</span></div>` : `<div class="gram-formula">${f}</div>`).join('')}
     </div>
   </div>`;
 
@@ -862,7 +951,10 @@ function renderSession(s, idx) {
   const imgSrc = s.video && s.video.img ? s.video.img : '';
   html += `<div style="background:#0d2c4f;min-height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">`;
 
-  if (imgSrc) {
+  if (imgSrc && imgSrc.startsWith('<')) {
+    // Emoji span
+    html += `<div style="text-align:center;padding:2rem">${imgSrc}${s.video.caption ? `<div style="font-size:0.8rem;color:#afc1d0;letter-spacing:0.06em;text-transform:uppercase;margin-top:0.5rem">${s.video.caption}</div>` : ''}</div>`;
+  } else if (imgSrc) {
     html += `<img src="${imgSrc}" alt="situation" style="width:100%;height:200px;object-fit:cover;opacity:0.85">`;
   } else {
     html += `<div style="text-align:center;padding:2rem">
@@ -875,7 +967,7 @@ function renderSession(s, idx) {
 
   // Audio button bar
   html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
-    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">Diego & Caroline · Bruxelles</div>`;
+    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">${(s.video && s.video.coTitle) || ""}</div>`;
 
   if (s.video && s.video.dial) {
     html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the dialogue</button>
@@ -959,7 +1051,7 @@ function goTo(i) {
   nav.scrollLeft = navBtns[i].offsetLeft - nav.offsetWidth/2 + navBtns[i].offsetWidth/2;
   window.scrollTo({top:0, behavior:'smooth'});
   const isStaticSection = i < STATIC.length;
-  const displayNum = isStaticSection ? (i === 0 ? 'Welcome' : 'Observation') : (i - STATIC.length + 1) + ' / ' + (total - STATIC.length);
+  const displayNum = isStaticSection ? (i === 0 ? 'Welcome' : 'Observation') : (i - STATIC.length) + ' / ' + (total - STATIC.length - 1);
   document.getElementById('prog-label').textContent = isStaticSection ? displayNum : 'Session ' + displayNum;
 }
 
