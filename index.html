@@ -234,7 +234,7 @@ const SESSIONS = [
       },
       {
         label: "✏️ L'orthographe française",
-        youtube: "BABBEL_VIDEO_ID"
+        youtube: "j2qyouyBTX0"
       }
     ],
     dicteeQuizzes: [
@@ -361,17 +361,92 @@ const SESSIONS = [
   }
   ,{
     title: "Vous allez où ?",
-    sub: "Asking for destinations · directions · transport",
-    keyPhrases: ["Vous allez où ?","C'est où ?","Il faut aller…"],
-    pills: ["aller","prendre","tout droit · à gauche · à droite","à · en · au · aux"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Vous allez où ?","C'est où, la gare ?"],
+    sub: "Asking for destinations · places in the city · aller",
+    keyPhrases: ["Vous allez où ?","Je vais à / en / au / aux…","C'est comment ?"],
+    pills: ["aller","à · en · au · aux","lieux de la ville","c'est + adjectif"],
+    phrases: [
+      { text: "Vous allez où ?",            audio: "audio/s2_p1.mp3" },
+      { text: "Je vais en Belgique",          audio: "audio/s2_p2.mp3" },
+      { text: "Je vais au Portugal",          audio: "audio/s2_p3.mp3" },
+      { text: "Je vais aux États-Unis",       audio: "audio/s2_p4.mp3" },
+      { text: "Je vais à Bruxelles",          audio: "audio/s2_p5.mp3" },
+      { text: "Je vais au musée",             audio: "audio/s2_p6.mp3" },
+      { text: "Je vais à la gare",            audio: "audio/s2_p7.mp3" },
+      { text: "Je vais à l'aéroport",         audio: "audio/s2_p8.mp3" },
+      { text: "Je ne vais pas au cinéma",     audio: "audio/s2_p9.mp3" }
+    ],
+    sylQuizzes: [
+      { audio: "audio/s2_syl1.mp3", phrase: "Vous allez où ?",            correct: 4, opts: [2,3,4,5] },
+      { audio: "audio/s2_syl2.mp3", phrase: "Je vais aux États-Unis",     correct: 7, opts: [5,6,7,8] },
+      { audio: "audio/s2_syl3.mp3", phrase: "Je ne vais pas à la piscine",correct: 8, opts: [6,7,8,9] }
+    ],
+    flashcards: [
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMjJWMTIiLz48cGF0aCBkPSJNMTIgMTJhNSA1IDAgMSAwLTMuNS04LjVBNCA0IDAgMCAwIDUgOGE0IDQgMCAwIDAgMyA0Ii8+PHBhdGggZD0iTTEyIDEyYTUgNSAwIDEgMSAzLjUtOC41QTQgNCAwIDAgMSAxOSA4YTQgNCAwIDAgMS0zIDQiLz48L3N2Zz4=' alt='parc' style='width:32px;height:32px'>", fr:"le parc",        en:"the park",        audio:"audio/s2_loc_parc.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNCAxOSA4IDUiLz48cGF0aCBkPSJNMTYgNWw0IDE0Ii8+PHBhdGggZD0iTTEyIDZ2MSIvPjxwYXRoIGQ9Ik0xMiAxMXYxIi8+PHBhdGggZD0iTTEyIDE2djEiLz48L3N2Zz4=' alt='rue' style='width:32px;height:32px'>", fr:"dans la rue",    en:"in the street",   audio:"audio/s2_loc_rue.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAydjdhMyAzIDAgMCAwIDYgMFYyIi8+PHBhdGggZD0iTTYgMnYyMCIvPjxwYXRoIGQ9Ik0xOCAydjIwIi8+PHBhdGggZD0iTTE4IDljMC0zIDEtNyAzLTd2MTYiLz48L3N2Zz4=' alt='restaurant' style='width:32px;height:32px'>", fr:"le restaurant",  en:"the restaurant",  audio:"audio/s2_loc_restaurant.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMmgxOCIvPjxwYXRoIGQ9Ik01IDIyVjExbDctNSA3IDV2MTEiLz48cGF0aCBkPSJNOSAyMnYtNmg2djYiLz48cGF0aCBkPSJNMiA5bDEwLTYgMTAgNiIvPjwvc3ZnPg==' alt='musée' style='width:32px;height:32px'>", fr:"le musée",       en:"the museum",      audio:"audio/s2_loc_musee.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAxOGMuNi41IDEuMiAxIDIuNSAxIDIuNSAwIDIuNS0yIDUtMnMyLjUgMiA1IDIgMi41LTIgNS0yYzEuMyAwIDEuOS41IDIuNSAxIi8+PHBhdGggZD0iTTIgMTRjLjYuNSAxLjIgMSAyLjUgMSAyLjUgMCAyLjUtMiA1LTJzMi41IDIgNSAyIDIuNS0yIDUtMmMxLjMgMCAxLjkuNSAyLjUgMSIvPjxwYXRoIGQ9Ik03IDE0VjVhMiAyIDAgMCAxIDQgMCIvPjwvc3ZnPg==' alt='piscine' style='width:32px;height:32px'>", fr:"la piscine",    en:"the pool",        audio:"audio/s2_loc_piscine.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSI0IiB5PSIzIiB3aWR0aD0iMTYiIGhlaWdodD0iMTQiIHJ4PSIyIi8+PHBhdGggZD0iTTQgMTFoMTYiLz48cGF0aCBkPSJNMTIgM3Y4Ii8+PHBhdGggZD0iTTggMTdsLTIgNCIvPjxwYXRoIGQ9Ik0xNiAxN2wyIDQiLz48Y2lyY2xlIGN4PSI4IiBjeT0iMTQiIHI9IjAuNSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTQiIHI9IjAuNSIvPjwvc3ZnPg==' alt='gare' style='width:32px;height:32px'>", fr:"la gare",        en:"the station",     audio:"audio/s2_loc_gare.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSI4IiBjeT0iMjEiIHI9IjEiLz48Y2lyY2xlIGN4PSIxOSIgY3k9IjIxIiByPSIxIi8+PHBhdGggZD0iTTIuMDUgMi4wNWgybDIuNjYgMTIuNDJhMiAyIDAgMCAwIDIgMS41OGg5Ljc4YTIgMiAwIDAgMCAxLjk1LTEuNTdsMS42NS03LjQzSDUuMTIiLz48L3N2Zz4=' alt='supermarché' style='width:32px;height:32px'>", fr:"le supermarché", en:"the supermarket", audio:"audio/s2_loc_supermarche.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgOGgxYTQgNCAwIDEgMSAwIDhoLTEiLz48cGF0aCBkPSJNMyA4aDE0djlhNCA0IDAgMCAxLTQgNEg3YTQgNCAwIDAgMS00LTRaIi8+PHBhdGggZD0iTTYgMnYyIi8+PHBhdGggZD0iTTEwIDJ2MiIvPjxwYXRoIGQ9Ik0xNCAydjIiLz48L3N2Zz4=' alt='café' style='width:32px;height:32px'>", fr:"le café",        en:"the café",        audio:"audio/s2_loc_cafe.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgN3YxMCIvPjxwYXRoIGQ9Ik03IDEyaDEwIi8+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMyIvPjwvc3ZnPg==' alt='pharmacie' style='width:32px;height:32px'>", fr:"la pharmacie",  en:"the pharmacy",    audio:"audio/s2_loc_pharmacie.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAyMlY0YTEgMSAwIDAgMSAxLTFoMTZhMSAxIDAgMCAxIDEgMXYxOCIvPjxwYXRoIGQ9Ik0yIDIyaDIwIi8+PHBhdGggZD0iTTEyIDd2NiIvPjxwYXRoIGQ9Ik05IDEwaDYiLz48L3N2Zz4=' alt='hôpital' style='width:32px;height:32px'>", fr:"l'hôpital",    en:"the hospital",    audio:"audio/s2_loc_hopital.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgM3YxOCIvPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIyIi8+PHBhdGggZD0iTTYgOHY1YTMgMyAwIDAgMCAzIDMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjIiLz48cGF0aCBkPSJNMTggOHY1YTMgMyAwIDAgMS0zIDMiLz48L3N2Zz4=' alt='toilettes' style='width:32px;height:32px'>", fr:"les toilettes", en:"the toilets",     audio:"audio/s2_loc_toilettes.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiA0djE2Ii8+PHBhdGggZD0iTTIgOGgxOGEyIDIgMCAwIDEgMiAydjEwIi8+PHBhdGggZD0iTTIgMTdoMjAiLz48cGF0aCBkPSJNNiA4di0yYTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiLz48L3N2Zz4=' alt='hôtel' style='width:32px;height:32px'>", fr:"l'hôtel",      en:"the hotel",       audio:"audio/s2_loc_hotel.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtNCA2IDgtNCA4IDQtOCA0WiIvPjxwYXRoIGQ9Ik00IDZ2NmMwIDEuNSAzLjUgMyA4IDNzOC0xLjUgOC0zVjYiLz48cGF0aCBkPSJNMjAgMTB2NSIvPjwvc3ZnPg==' alt='école' style='width:32px;height:32px'>", fr:"l'école",      en:"the school",      audio:"audio/s2_loc_ecole.mp3" },
+      { flag:"<img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGQyYzRmIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDEtNWgxNmwxIDUiLz48cGF0aCBkPSJNNCA5djExYTEgMSAwIDAgMCAxIDFoMTRhMSAxIDAgMCAwIDEtMVY5Ii8+PHBhdGggZD0iTTMgOWgxOCIvPjxwYXRoIGQ9Ik05IDIxdi02aDZ2NiIvPjwvc3ZnPg==' alt='magasin' style='width:32px;height:32px'>", fr:"le magasin",    en:"the shop",        audio:"audio/s2_loc_magasin.mp3" }
+    ],
+    vocabQuizzes: [],
+    conjugaison: {
+      verbs: ["Aller"],
+      rows: [
+        ["Je",   "vais"],
+        ["Tu",   "vas"],
+        ["Vous", "allez"]
+      ]
+    },
+    gramFormulas: [
+      "Je vais à + ville",
+      "Je vais en + pays féminin",
+      "Je vais au + pays masculin",
+      "Je vais aux + pays pluriel",
+      "Je vais au + lieu masculin",
+      "Je vais à la + lieu féminin",
+      "Je vais à l' + lieu (voyelle)",
+      "Je vais aux + lieux pluriel"
+    ],
+    gramQuizzes: [
+      { q:"Je vais ___ Belgique.",     opts:["au","en","à","aux"],     correct:1 },
+      { q:"Je vais ___ Portugal.",     opts:["en","à","au","aux"],     correct:2 },
+      { q:"Je vais ___ États-Unis.",   opts:["au","en","aux","à"],     correct:2 },
+      { q:"Je vais ___ Bruxelles.",    opts:["à","en","au","aux"],     correct:0 },
+      { q:"Je vais ___ musée.",        opts:["à la","au","aux","à l'"],correct:1 },
+      { q:"Je vais ___ gare.",         opts:["au","à l'","à la","aux"],correct:2 }
+    ],
+    conjQuizzes: [
+      { q:"Vous ___ où ? (aller)",    opts:["vais","vas","allez","vont"],   correct:2 },
+      { q:"Je ___ au musée. (aller)", opts:["vas","vais","allez","va"],     correct:1 },
+      { q:"Tu ___ à la gare. (aller)",opts:["allez","vais","va","vas"],     correct:3 }
+    ],
+    sitQuizzes: [
+      { q:"You loved the museum. How do you react?", opts:["C'est chouette !","C'est pas cher","C'est où ?"], correct:0 },
+      { q:"The food was delicious. What do you say?", opts:["C'est beau","C'est bon !","C'est cool"], correct:1 },
+      { q:"The view is beautiful. What do you say?", opts:["C'est bien","C'est beau !","C'est bon"], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s2_dial.mp3",
+      img: "",
+      quizzes: [
+        { q:"Michel va…", opts:["à Paris","au Japon","en Italie","aux États-Unis"], correct:0 },
+        { q:"Caroline va…", opts:["à Bruxelles","au Maroc","en Allemagne","au Japon"], correct:0 },
+        { q:"Michel ne va pas…", opts:["au supermarché","à la pharmacie","aux urgences","au cinéma"], correct:3 },
+        { q:"Caroline ne va pas…", opts:["à la gare","à l'aéroport","au restaurant","au musée"], correct:3 }
+      ]
+    },
+    recordPrompts: ["Vous allez où ?","C'est comment ?"],
     memo: "memos/s2_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
     title: "Qu'est-ce que vous prenez ?",
     sub: "Au restaurant · alimentation · ingrédients · boissons",
