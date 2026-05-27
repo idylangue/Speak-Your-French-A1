@@ -461,6 +461,7 @@ const SESSIONS = [
     sub: "Au restaurant · alimentation · ingrédients · boissons",
     keyPhrases: ["Qu'est-ce que vous prenez ?","Est-ce qu'il y a… ?","Est-ce que vous aimez… ?"],
     pills: ["avoir","prendre","aimer","du · de la · des","il y a"],
+    fcTitle: "Food",
     phrases: [
       { text: "Est-ce que vous aimez Bruxelles ?",     audio: "audio/s3_p1.mp3" },
       { text: "Est-ce que vous aimez le restaurant ?",  audio: "audio/s3_p2.mp3" },
@@ -541,11 +542,11 @@ const SESSIONS = [
     video: {
       url: "",
       dial: "audio/s3_dial.mp3",
-      coTitle: "Michel & Sara · Au restaurant",
+      coTitle: "Émilie & Sara · Au restaurant",
       img: "<span style='font-size:3rem'>🍽️</span>",
       caption: "Au restaurant · Bruxelles",
       quizzes: [
-        { q:"Michel prend…",             opts:["le plat du jour","des moules","une salade","des frites"],      correct:0 },
+        { q:"Émilie prend…",             opts:["le plat du jour","des moules","une salade","des frites"],      correct:0 },
         { q:"Est-ce qu'il y a du vin ?",  opts:["Oui, il y a du vin.","Non, pas de vin.","Il y a de la bière.","Je ne sais pas."], correct:0 },
         { q:"Sara aime…",                opts:["le poisson","la viande","les frites","les gaufres"],           correct:2 },
         { q:"Qu'est-ce que Sara prend ?", opts:["des moules","le plat du jour","une gaufre","du fromage"],     correct:0 }
@@ -556,17 +557,96 @@ const SESSIONS = [
     splitAfter: 4
   },{
     title: "Combien ça coûte ?",
-    sub: "Ordering at the restaurant · asking information in shops",
-    keyPhrases: ["Est-ce que vous avez… ?","Est-ce que vous aimez… ?","Combien ça coûte ?"],
-    pills: ["prendre","aimer","du · de la · des","combien"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Combien ça coûte ?","Est-ce que vous aimez… ?","Qu'est-ce que vous prenez ?"],
-    memo: "memos/s3_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    sub: "Shopping · daily life · asking permission",
+    fcTitle: "Animals & Objects",
+    vocabVideo: { id: "s4_vid_chiffres", title: "Les chiffres en français" },
+    keyPhrases: ["Combien ça coûte ?","Est-ce que je peux… ?","Je voudrais…"],
+    pills: ["avoir","pouvoir","vouloir","un · une · des","pas de"],
+    phrases: [
+      { text: "Est-ce que vous avez une maison ?",          audio: "audio/s4_p1.mp3" },
+      { text: "Est-ce que vous avez un chien ?",            audio: "audio/s4_p2.mp3" },
+      { text: "J'ai un chien.",                             audio: "audio/s4_p3.mp3" },
+      { text: "Je n'ai pas de maison.",                     audio: "audio/s4_p4.mp3" },
+      { text: "Est-ce que je peux payer par carte ?",       audio: "audio/s4_p5.mp3" },
+      { text: "Est-ce que je peux prendre le métro ?",      audio: "audio/s4_p6.mp3" },
+      { text: "Est-ce que je peux avoir une bière s'il vous plaît ?", audio: "audio/s4_p7.mp3" },
+      { text: "Est-ce que vous voulez un café ?",           audio: "audio/s4_p8.mp3" },
+      { text: "Je voudrais un thé.",                        audio: "audio/s4_p9.mp3" },
+      { text: "Qu'est-ce que vous voulez ?",                audio: "audio/s4_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Qu'est-ce que vous voulez ?",        correct:5, opts:[4,5,6,7], audio:"audio/s4_syl1.mp3" },
+      { phrase:"Est-ce que je peux avoir le menu ?", correct:9, opts:[7,8,9,10], audio:"audio/s4_syl2.mp3" },
+      { phrase:"J'ai un chien.",                     correct:3, opts:[2,3,4,5], audio:"audio/s4_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>🐕</span>", fr:"un chien",           en:"a dog",          audio:"audio/s4_fc_chien.mp3" },
+      { flag:"<span style='font-size:2rem'>🐈</span>", fr:"un chat",            en:"a cat",          audio:"audio/s4_fc_chat.mp3" },
+      { flag:"<span style='font-size:2rem'>🏠</span>", fr:"une maison",         en:"a house",        audio:"audio/s4_fc_maison.mp3" },
+      { flag:"<span style='font-size:2rem'>🏍️</span>", fr:"une moto",           en:"a motorbike",    audio:"audio/s4_fc_moto.mp3" },
+      { flag:"<span style='font-size:2rem'>☕</span>", fr:"un café",            en:"a coffee",       audio:"audio/s4_fc_cafe.mp3" },
+      { flag:"<span style='font-size:2rem'>🍺</span>", fr:"une bière",          en:"a beer",         audio:"audio/s4_fc_biere.mp3" },
+      { flag:"<span style='font-size:2rem'>💳</span>", fr:"une carte de crédit", en:"a credit card", audio:"audio/s4_fc_carte.mp3" },
+      { flag:"<span style='font-size:2rem'>📋</span>", fr:"un menu",            en:"a menu",         audio:"audio/s4_fc_menu.mp3" },
+      { flag:"<span style='font-size:2rem'>💻</span>", fr:"un ordinateur",      en:"a computer",     audio:"audio/s4_fc_ordinateur.mp3" },
+      { flag:"<span style='font-size:2rem'>🚲</span>", fr:"un vélo",            en:"a bicycle",      audio:"audio/s4_fc_velo.mp3" },
+      { flag:"<span style='font-size:2rem'>⌚</span>", fr:"une montre",         en:"a watch",        audio:"audio/s4_fc_montre.mp3" },
+      { flag:"<span style='font-size:2rem'>🚗</span>", fr:"une voiture",        en:"a car",          audio:"audio/s4_fc_voiture.mp3" }
+    ],
+    vocabQuizzes: [
+      { audio:"audio/s4_qv1.mp3", correct:0, opts:["🐈","🏠","🚲"] },
+      { audio:"audio/s4_qv2.mp3", correct:1, opts:["🐕","🏠","💻"] },
+      { audio:"audio/s4_qv3.mp3", correct:2, opts:["📋","🍺","💳"] }
+    ],
+    conjugaison: {
+      verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer","Pouvoir","Vouloir"],
+      rows: [
+        ["Je",   "viens","habite","suis","vais","ai","prends","aime","peux","veux"],
+        ["Tu",   "viens","habites","es","vas","as","prends","aimes","peux","veux"],
+        ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez","pouvez","voulez"],
+        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons","pouvons","voulons"],
+        ["* Je", "—","—","—","—","—","—","—","—","voudrais ✨"]
+      ]
+    },
+    gramFormulas: [
+      { label:"A / AN",        formula:"un · une · des" },
+      { label:"NOT ANY",       formula:"pas de / pas d'" },
+      { label:"Je peux…",     formula:"je peux + verbe infinitif" },
+      { label:"Je voudrais…", formula:"je voudrais + verbe  /  je voudrais + nom" }
+    ],
+    gramQuizzes: [
+      { q:"J'ai ___", opts:["un chien","de chien"], correct:0 },
+      { q:"Je n'ai pas ___", opts:["une voiture","de voiture"], correct:1 },
+      { q:"Est-ce que je peux ___", opts:["payer","payant"], correct:0 },
+      { q:"Je voudrais ___", opts:["le café","un café"], correct:1 }
+    ],
+    conjQuizzes: [
+      { q:"Vous ___ un café ?", opts:["voulez","voulons","veux","voudrais"], correct:0 },
+      { q:"Je ___ payer par carte.", opts:["pouvez","peux","peut","pouvons"], correct:1 },
+      { q:"Tu ___ un chien ?", opts:["avez","avons","as","ai"], correct:2 },
+      { q:"Nous ___ une maison.", opts:["avez","avons","ai","as"], correct:1 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask how much something costs.", opts:["C'est cher !","Combien ça coûte ?","Je voudrais…"], correct:1 },
+      { q:"You want to ask if you can pay by card.", opts:["Est-ce que je peux payer par carte ?","Est-ce que vous avez une carte ?","Je voudrais payer."], correct:0 },
+      { q:"You want to politely order a tea.", opts:["Je veux un thé.","Je voudrais un thé.","Donnez-moi un thé."], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s4_dial.mp3",
+      coTitle: "Au magasin · Bruxelles",
+      img: "<span style='font-size:3rem'>🛍️</span>",
+      caption: "Shopping in Brussels",
+      quizzes: [
+        { q:"Combien coûte le vélo ?",        opts:["50€","200€","75€","150€"],            correct:1 },
+        { q:"Est-ce qu'il peut payer par carte ?", opts:["Oui.","Non.","Il ne sait pas.","Peut-être."], correct:0 },
+        { q:"Qu'est-ce qu'elle voudrais ?",   opts:["un café","une bière","un thé","un jus"],  correct:2 },
+        { q:"Est-ce qu'il a un chien ?",       opts:["Oui, il a un chien.","Non, pas de chien.","Il a un chat.","Il a deux chiens."], correct:0 }
+      ]
+    },
+    recordPrompts: ["Combien ça coûte ?","Qu'est-ce que vous avez ?","Qu'est-ce que vous voulez ?"],
+    memo: "memos/s4_memo.pdf",
+    splitAfter: 4
   },{
     title: "Pourquoi ?",
     sub: "Expressing reasons · opinions · parce que",
@@ -845,7 +925,7 @@ function renderSession(s, idx) {
   });
 
   // FLASHCARDS
-  html += `<div class="divider-label">🌍 Nationalities — tap to reveal</div>
+  html += `<div class="divider-label">🌍 ${s.fcTitle || 'Vocabulary'} — tap to reveal</div>
   <div class="card">
     <h3>Tap an image to see the word in French</h3>
     <div class="fc-grid">
@@ -860,6 +940,18 @@ function renderSession(s, idx) {
     </div>
     <div class="fc-hint">Tap again to flip back</div>
   </div>`;
+
+  // VOCAB VIDEO (optionnel)
+  if (s.vocabVideo) {
+    html += `<div class="divider-label">🎬 ${s.vocabVideo.title || 'Video'}</div>
+  <div class="card">
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px">
+      <iframe src="https://www.youtube.com/embed/${s.vocabVideo.id}" 
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" 
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>`;
+  }
 
   // VOCAB QUIZ
   // Split divider after flashcards
