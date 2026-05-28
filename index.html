@@ -74,6 +74,10 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 .btn-quiz-listen:active{background:#1a4270}
 .quiz-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .quiz-opt{padding:0.58rem 0.75rem;background:#f9f8f4;border:1.5px solid #ddd;border-radius:8px;font-size:0.84rem;cursor:pointer;text-align:left;color:#333;width:100%;font-family:'DM Sans',sans-serif;transition:border-color 0.12s}
+.vq-opt{font-size:1.6rem;padding:0.8rem 1rem;min-width:70px;min-height:70px;display:flex;align-items:center;justify-content:center;}
+@media(max-width:380px){.flag-opts{grid-template-columns:1fr 1fr 1fr;gap:4px}.flag-opt{padding:0.6rem 0.3rem;font-size:1.7rem;min-height:60px}}
+@media(max-width:400px){.vq-opt{font-size:1.4rem;min-width:60px;min-height:60px;padding:0.6rem;}}
+
 .quiz-opt:active{border-color:#0d2c4f}
 .quiz-opt.correct{background:#eef3f8;border-color:#0d2c4f;color:#0d2c4f;font-weight:600}
 .quiz-opt.wrong{background:#fdf0ee;border-color:#c0503a;color:#8a2a1a}
@@ -85,7 +89,7 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 
 /* ── FLAG QUIZ OPTS ── */
 .flag-opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:0}
-.flag-opt{background:#f9f8f4;border:1.5px solid #ddd;border-radius:10px;padding:0.75rem 0.5rem;text-align:center;cursor:pointer;font-size:2rem;transition:border-color 0.12s;display:flex;align-items:center;justify-content:center}
+.flag-opt{background:#f9f8f4;border:1.5px solid #ddd;border-radius:10px;padding:0.9rem 0.5rem;text-align:center;cursor:pointer;font-size:2rem;transition:border-color 0.12s;display:flex;align-items:center;justify-content:center;min-height:70px}
 .flag-opt:active{border-color:#0d2c4f}
 .flag-opt img, .fc img{width:44px;height:33px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
 .flag-opt.correct{background:#eef3f8;border-color:#0d2c4f}
@@ -147,7 +151,7 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 .word-pill.on{background:#0d2c4f;color:#fff;border-color:#0d2c4f}
 
 /* ── SECTION DIVIDER LABEL ── */
-.divider-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#0d2c4f;margin:1.3rem 0 0.6rem}
+.divider-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#0d2c4f;margin:1.3rem 0 0.6rem;display:flex;align-items:center;gap:6px}.divider-label .ico{font-size:0.95rem;line-height:1}
 
 /* ── SPLIT DIVIDER ── */
 .split-divider{margin:1.8rem 0;display:flex;align-items:center;gap:10px}
@@ -191,7 +195,7 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 /* ── RESPONSIVE ── */
 @media(max-width:400px){
   .quiz-opts-grid{grid-template-columns:1fr}
-  .flag-opts{grid-template-columns:1fr 1fr 1fr}
+  .flag-opts{grid-template-columns:1fr 1fr 1fr;gap:6px}
 }
 </style>
 </head>
@@ -599,13 +603,13 @@ const SESSIONS = [
       { audio:"audio/s4_qv3.mp3", correct:2, opts:["📋","🍺","💳"] }
     ],
     conjugaison: {
+      note: "✨ <strong>Je voudrais</strong> = forme polie de « je veux » (I would like).",
       verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer","Pouvoir","Vouloir"],
       rows: [
         ["Je",   "viens","habite","suis","vais","ai","prends","aime","peux","veux"],
         ["Tu",   "viens","habites","es","vas","as","prends","aimes","peux","veux"],
         ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez","pouvez","voulez"],
-        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons","pouvons","voulons"],
-        ["* Je", "—","—","—","—","—","—","—","—","voudrais ✨"]
+        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons","pouvons","voulons"]
       ]
     },
     gramFormulas: [
@@ -890,7 +894,7 @@ function renderSession(s, idx) {
   }
 
   // PHRASES + LISTEN
-  html += `<div class="divider-label">🔤 Phrases — listen & repeat</div>
+  html += `<div class="divider-label"><span class="ico">🎵</span>Phrases — listen & repeat</div>
   <div class="rhythm-tip">🎵 <strong>Rhythm tip:</strong> Tap the table as you say each phrase. Every syllable has equal weight in French.</div>
   <div class="phrase-block">`;
   s.phrases.forEach((p, i) => {
@@ -909,7 +913,7 @@ function renderSession(s, idx) {
     html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
     <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
   }
-  html += `<div class="divider-label">🎵 Quiz — syllables</div>`;
+  html += `<div class="divider-label"><span class="ico">🎵</span>Quiz — syllables</div>`;
   s.sylQuizzes.forEach((q, qi) => {
     const qid = `syl_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -925,7 +929,7 @@ function renderSession(s, idx) {
   });
 
   // FLASHCARDS
-  html += `<div class="divider-label">🌍 ${s.fcTitle || 'Vocabulary'} — tap to reveal</div>
+  html += `<div class="divider-label"><span class="ico">📖</span>${s.fcTitle || 'Vocabulary'} — tap to reveal</div>
   <div class="card">
     <h3>Tap an image to see the word in French</h3>
     <div class="fc-grid">
@@ -943,7 +947,7 @@ function renderSession(s, idx) {
 
   // VOCAB VIDEO (optionnel)
   if (s.vocabVideo) {
-    html += `<div class="divider-label">🎬 ${s.vocabVideo.title || 'Video'}</div>
+    html += `<div class="divider-label"><span class="ico">🎬</span>${s.vocabVideo.title || 'Video'}</div>
   <div class="card">
     <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px">
       <iframe src="https://www.youtube.com/embed/${s.vocabVideo.id}" 
@@ -955,11 +959,8 @@ function renderSession(s, idx) {
 
   // VOCAB QUIZ
   // Split divider after flashcards
-  if (s.splitAfter === 3) {
-    html += `<div class="split-divider"><div class="split-divider-line"></div><div class="split-divider-label">After class</div><div class="split-divider-line"></div></div>
-    <div class="split-divider-badge">↓ Come back after class for the rest ↓</div><br>`;
-  }
-  html += `<div class="divider-label">🌍 Quiz — which word do you hear?</div>`;
+  // splitAfter 3 — no separator
+  html += `<div class="divider-label"><span class="ico">📖</span>Quiz — which word do you hear?</div>`;
   s.vocabQuizzes.forEach((q, qi) => {
     const qid = `voc_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -974,19 +975,39 @@ function renderSession(s, idx) {
   });
 
   // CONJUGAISON
-  html += `<div class="divider-label">📐 Conjugaison</div>
-  <div class="card">
-    <h3>${s.conjugaison.verbs.join(' · ')}</h3>
-    <div class="conj-wrap">
-      <table class="conj-table">
-        <thead><tr><th></th>${s.conjugaison.verbs.map(v=>`<th>${v}</th>`).join('')}</tr></thead>
-        <tbody>${s.conjugaison.rows.map(row=>`<tr>${row.map((c,ci)=>ci===0?`<td>${c}</td>`:`<td><em>${c}</em></td>`).join('')}</tr>`).join('')}</tbody>
-      </table>
-    </div>
-  </div>`;
+  html += `<div class="divider-label"><span class="ico">📐</span>Conjugaison</div>`;
+  // Découpe les verbes en groupes de 3 max — un tableau par groupe (progression)
+  {
+    const verbs = s.conjugaison.verbs;
+    const rows = s.conjugaison.rows;
+    const GROUP = 3;
+    for (let g = 0; g < verbs.length; g += GROUP) {
+      const vSlice = verbs.slice(g, g + GROUP);
+      // colonnes : index 0 (pronom) + colonnes du groupe (décalées de +1)
+      html += `<div class="card" style="margin-bottom:0.6rem">
+        <h3>${vSlice.join(' · ')}</h3>
+        <div class="conj-wrap">
+          <table class="conj-table">
+            <thead><tr><th></th>${vSlice.map(v=>`<th>${v}</th>`).join('')}</tr></thead>
+            <tbody>${rows.map(row=>{
+              const cells = vSlice.map((_,vi)=>{
+                const colIdx = g + vi + 1;
+                const val = row[colIdx] !== undefined ? row[colIdx] : '';
+                return `<td><em>${val}</em></td>`;
+              }).join('');
+              return `<tr><td>${row[0]}</td>${cells}</tr>`;
+            }).join('')}</tbody>
+          </table>
+        </div>
+      </div>`;
+    }
+    if (s.conjugaison.note) {
+      html += `<div class="rhythm-tip" style="margin-top:0.4rem">💡 ${s.conjugaison.note}</div>`;
+    }
+  }
 
   // GRAMMAR FORMULAS
-  html += `<div class="divider-label">📐 Grammaire</div>
+  html += `<div class="divider-label"><span class="ico">📐</span>Grammaire</div>
   <div class="card">
     <h3>Formules</h3>
     <div class="gram-formulas">
@@ -995,7 +1016,7 @@ function renderSession(s, idx) {
   </div>`;
 
   // QUIZ GRAMMAIRE
-  html += `<div class="divider-label">📐 Quiz — grammaire</div>`;
+  html += `<div class="divider-label"><span class="ico">📐</span>Quiz — grammaire</div>`;
   s.gramQuizzes.forEach((q,qi) => {
     const qid = `gram_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -1008,7 +1029,7 @@ function renderSession(s, idx) {
   });
 
   // QUIZ CONJUGAISON
-  html += `<div class="divider-label">📐 Quiz — conjugaison</div>`;
+  html += `<div class="divider-label"><span class="ico">📐</span>Quiz — conjugaison</div>`;
   s.conjQuizzes.forEach((q,qi) => {
     const qid = `conj_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -1021,7 +1042,7 @@ function renderSession(s, idx) {
   });
 
   // QUIZ SITUATION
-  html += `<div class="divider-label">💬 Quiz — which phrase fits the situation?</div>`;
+  html += `<div class="divider-label"><span class="ico">💬</span>Quiz — which phrase fits the situation?</div>`;
   s.sitQuizzes.forEach((q,qi) => {
     const qid = `sit_${idx}_${qi}`;
     html += `<div class="quiz-wrap">
@@ -1034,7 +1055,7 @@ function renderSession(s, idx) {
   });
 
   // VIDEO + DIALOGUE
-  html += `<div class="divider-label">🎬 Compréhension orale</div>`;
+  html += `<div class="divider-label"><span class="ico">🎬</span>Compréhension orale</div>`;
 
   // Situation card — image + audio only, no text
   html += `<div class="card" style="padding:0;overflow:hidden;margin-bottom:0.85rem">`;
@@ -1083,7 +1104,7 @@ function renderSession(s, idx) {
 
   // CO Quiz
   if (s.video && s.video.quizzes && s.video.quizzes.length > 0) {
-    html += `<div class="divider-label">🎧 Quiz — compréhension orale</div>`;
+    html += `<div class="divider-label"><span class="ico">🎧</span>Quiz — compréhension orale</div>`;
     s.video.quizzes.forEach((q,qi) => {
       const qid = `vid_${idx}_${qi}`;
       html += `<div class="quiz-wrap">
@@ -1097,7 +1118,7 @@ function renderSession(s, idx) {
   }
 
   // POST SESSION
-  html += `<div class="divider-label">🎙 After class</div>
+  html += `<div class="divider-label"><span class="ico">🎙</span>After class</div>
   <div class="post-card">
     <div class="post-label">Record yourself</div>
     <div class="post-text">Answer out loud and send the audio to your teacher:</div>
@@ -1107,7 +1128,7 @@ function renderSession(s, idx) {
   </div>`;
 
   // MEMO PDF
-  html += `<div class="divider-label">📄 Session memo</div>`;
+  html += `<div class="divider-label"><span class="ico">📄</span>Session memo</div>`;
   if (s.memo) {
     html += `<a class="memo-btn" href="${s.memo}" target="_blank" download>
       <div class="memo-icon">📄</div>
@@ -1242,5 +1263,3 @@ buildUI();
 </script>
 </body>
 </html>
-
-
