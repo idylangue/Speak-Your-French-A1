@@ -19,7 +19,7 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 .hero p{color:rgba(255,255,255,0.65);font-size:0.9rem;max-width:460px;margin:0 auto}
 
 /* ── NAV ── */
-.progress-nav{display:flex;background:#fff;border-bottom:1px solid #e5e5e0;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0;scrollbar-width:none}
+.progress-nav{display:flex;background:#fff;border-bottom:1px solid #e5e5e0;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0;scrollbar-width:none;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
 .progress-nav::-webkit-scrollbar{display:none}
 .nav-btn{flex:0 0 auto;padding:0.8rem 1rem;font-size:0.75rem;font-weight:500;color:#999;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:all 0.18s;font-family:'DM Sans',sans-serif}
 .nav-btn.active{color:#0d2c4f;border-bottom-color:#0d2c4f}
@@ -53,6 +53,10 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 .kp-list li{font-size:1.05rem;font-weight:600;color:#fff;line-height:1.55}
 .pill-row{display:flex;flex-wrap:wrap;gap:5px}
 .pill{background:rgba(197,224,246,0.15);border:1px solid rgba(197,224,246,0.28);color:#c5e0f6;border-radius:20px;padding:3px 11px;font-size:0.73rem}
+.word-pill{background:#eef3f8;border:1.5px solid #0d2c4f;color:#0d2c4f;border-radius:20px;padding:6px 13px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:background 0.12s;display:inline-flex;align-items:center;gap:5px}
+.word-pill:active{background:#0d2c4f;color:#fff}
+.word-pill-ico{font-size:0.62rem;color:#7a93ac}
+.word-pill-row{width:100%;justify-content:space-between;padding:8px 14px}
 
 /* ── RHYTHM TIP ── */
 .rhythm-tip{background:#fef9ec;border:1px solid #f5d877;border-radius:8px;padding:0.65rem 1rem;font-size:0.82rem;color:#7a5c00;margin-bottom:0.9rem}
@@ -639,83 +643,586 @@ const SESSIONS = [
       url: "",
       dial: "audio/s4_dial.mp3",
       coTitle: "Au magasin · Bruxelles",
-      img: "<span style='font-size:3rem'>🛍️</span>",
-      caption: "Shopping in Brussels",
+      img: "<span style='font-size:3rem'>🎒</span>",
+      caption: "At the shop · Brussels",
       quizzes: [
-        { q:"Combien coûte le vélo ?",        opts:["50€","200€","75€","150€"],            correct:1 },
-        { q:"Est-ce qu'il peut payer par carte ?", opts:["Oui.","Non.","Il ne sait pas.","Peut-être."], correct:0 },
-        { q:"Qu'est-ce qu'elle voudrais ?",   opts:["un café","une bière","un thé","un jus"],  correct:2 },
-        { q:"Est-ce qu'il a un chien ?",       opts:["Oui, il a un chien.","Non, pas de chien.","Il a un chat.","Il a deux chiens."], correct:0 }
+        { q:"Qu'est-ce que Clémence voudrais ?", opts:["un sac à dos","une valise","un sac à main","un parapluie"], correct:0 },
+        { q:"C'est pour aller où ?",             opts:["à la plage","à la montagne","à l'école","au bureau"],       correct:1 },
+        { q:"Est-ce qu'elle préfère un grand ou un petit sac ?", opts:["un grand sac","un petit sac","les deux","elle ne sait pas"], correct:1 },
+        { q:"Combien ça coûte ?",                opts:["46€","65€","56€","15€"],                                   correct:2 },
+        { q:"Est-ce qu'elle peut payer par carte ?", opts:["Oui.","Non.","Seulement en espèces.","Elle ne demande pas."], correct:0 }
       ]
     },
-    recordPrompts: ["Combien ça coûte ?","Qu'est-ce que vous avez ?","Qu'est-ce que vous voulez ?"],
+    recordNote: "Look at the restaurant menu in the session memo, then answer out loud and send the audio to your teacher:",
+    recordPrompts: ["Qu'est-ce que vous voulez ?","Qu'est-ce que vous prenez ?","Combien ça coûte ?"],
     memo: "memos/s4_memo.pdf",
     splitAfter: 4
   },{
-    title: "Pourquoi ?",
+    title: "Qu'est-ce que vous aimez ?",
     sub: "Expressing reasons · opinions · parce que",
-    keyPhrases: ["Pourquoi ?","Parce que c'est + adj…","Parce qu'il y a + nom…"],
-    pills: ["parce que","c'est + adj","il y a + nom","Est-ce que vous aimez Bruxelles ?"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Est-ce que vous aimez Bruxelles ? Pourquoi ?"],
+    fcTitle: "Adjectives",
+    keyPhrases: ["Pourquoi ?","Parce que c'est + adjectif","Parce qu'il y a + nom"],
+    pills: ["aimer","parce que","c'est + adj","il y a + nom"],
+    phrases: [
+      { text: "Est-ce que vous aimez Bruxelles ?",   audio: "audio/s5_p1.mp3" },
+      { text: "Est-ce que vous aimez voyager ?",      audio: "audio/s5_p2.mp3" },
+      { text: "Est-ce que vous aimez le chocolat ?",  audio: "audio/s5_p3.mp3" },
+      { text: "J'aime voyager.",                      audio: "audio/s5_p4.mp3" },
+      { text: "Je n'aime pas le chocolat.",           audio: "audio/s5_p5.mp3" },
+      { text: "Pourquoi ?",                           audio: "audio/s5_p6.mp3" },
+      { text: "Parce que c'est sucré.",               audio: "audio/s5_p7.mp3" },
+      { text: "Parce que c'est intéressant.",         audio: "audio/s5_p8.mp3" },
+      { text: "Parce qu'il y a la plage.",            audio: "audio/s5_p9.mp3" },
+      { text: "Qu'est-ce que vous aimez ?",           audio: "audio/s5_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Qu'est-ce que vous aimez ?",       correct:5, opts:[4,5,6,7], audio:"audio/s5_syl1.mp3" },
+      { phrase:"Je n'aime pas les transports.",    correct:6, opts:[5,6,7,8], audio:"audio/s5_syl2.mp3" },
+      { phrase:"Il n'y a pas de métro.",           correct:7, opts:[5,6,7,8], audio:"audio/s5_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>😍</span>", fr:"beau / belle",      en:"beautiful",     audio:"audio/s5_fc_beau.mp3" },
+      { flag:"<span style='font-size:2rem'>😌</span>", fr:"calme",            en:"calm",          audio:"audio/s5_fc_calme.mp3" },
+      { flag:"<span style='font-size:2rem'>🏛️</span>", fr:"historique",       en:"historic",      audio:"audio/s5_fc_historique.mp3" },
+      { flag:"<span style='font-size:2rem'>🤓</span>", fr:"intéressant·e",    en:"interesting",   audio:"audio/s5_fc_interessant.mp3" },
+      { flag:"<span style='font-size:2rem'>😎</span>", fr:"sympa",            en:"nice / cool",   audio:"audio/s5_fc_sympa.mp3" },
+      { flag:"<span style='font-size:2rem'>🌍</span>", fr:"international·e",   en:"international", audio:"audio/s5_fc_international.mp3" },
+      { flag:"<span style='font-size:2rem'>💸</span>", fr:"cher",             en:"expensive",     audio:"audio/s5_fc_cher.mp3" },
+      { flag:"<span style='font-size:2rem'>😣</span>", fr:"difficile",        en:"difficult",     audio:"audio/s5_fc_difficile.mp3" },
+      { flag:"<span style='font-size:2rem'>👍</span>", fr:"facile",           en:"easy",          audio:"audio/s5_fc_facile.mp3" },
+      { flag:"<span style='font-size:2rem'>😋</span>", fr:"bon / bonne",      en:"good / tasty",  audio:"audio/s5_fc_bon.mp3" },
+      { flag:"<span style='font-size:2rem'>⚡</span>", fr:"dynamique",        en:"dynamic",       audio:"audio/s5_fc_dynamique.mp3" },
+      { flag:"<span style='font-size:2rem'>🤩</span>", fr:"chouette",          en:"great / cool",  audio:"audio/s5_fc_chouette.mp3" }
+    ],
+    vocabQuizzes: [
+      { audio:"audio/s5_qv1.mp3", correct:0, opts:["😋","😣","💸"] },
+      { audio:"audio/s5_qv2.mp3", correct:1, opts:["😌","😍","👍"] },
+      { audio:"audio/s5_qv3.mp3", correct:2, opts:["😣","💸","👍"] },
+      { audio:"audio/s5_qv4.mp3", correct:0, opts:["😣","😋","😎"] }
+    ],
+    conjugaison: {
+      note: "Révision — tous les verbes vus jusqu'ici.",
+      verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer","Pouvoir","Vouloir"],
+      rows: [
+        ["Je",   "viens","habite","suis","vais","ai","prends","aime","peux","veux"],
+        ["Tu",   "viens","habites","es","vas","as","prends","aimes","peux","veux"],
+        ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez","pouvez","voulez"],
+        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons","pouvons","voulons"]
+      ]
+    },
+    gramFormulas: [
+      { label:"J'aime + verbe",  formula:"j'aime voyager" },
+      { label:"J'aime + nom",    formula:"j'aime le chocolat" },
+      { label:"Parce que c'est…", formula:"parce que c'est + adjectif" },
+      { label:"Parce qu'il y a…", formula:"parce qu'il y a + nom" }
+    ],
+    gramQuizzes: [
+      { q:"J'aime ___", opts:["voyager","le voyage"], correct:0 },
+      { q:"___ c'est sucré.", opts:["Parce que","Parce qu'"], correct:0 },
+      { q:"___ il y a la plage.", opts:["Parce que","Parce qu'"], correct:1 },
+      { q:"Je n'aime pas ___", opts:["le chocolat","de chocolat"], correct:0 }
+    ],
+    conjQuizzes: [
+      { q:"Est-ce que vous ___ Bruxelles ?", opts:["aimez","aimes","aimons","aime"], correct:0 },
+      { q:"J'___ voyager.", opts:["aime","aimes","aimez","aimons"], correct:0 },
+      { q:"Nous ___ le chocolat.", opts:["aimez","aimons","aiment","aime"], correct:1 },
+      { q:"Tu ___ la plage ?", opts:["aimez","aime","aimes","aimons"], correct:2 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask why someone likes Brussels.", opts:["Pourquoi ?","Combien ?","Où ?"], correct:0 },
+      { q:"You want to explain you like a place because it's calm.", opts:["Parce qu'il y a la plage.","Parce que c'est calme.","Parce que c'est cher."], correct:1 },
+      { q:"You want to say you don't like chocolate.", opts:["J'aime le chocolat.","Je n'aime pas le chocolat.","Je voudrais du chocolat."], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s5_dial.mp3",
+      coTitle: "Opinions · Bruxelles",
+      listenLabel: "monologue",
+      img: "<span style='font-size:3rem'>💭</span>",
+      caption: "What do you like in Brussels?",
+      quizzes: [
+        { q:"Elle aime Bruxelles ?",         opts:["Oui.","Non.","Un peu.","Pas du tout."],          correct:0 },
+        { q:"Pourquoi elle aime Bruxelles ?", opts:["C'est calme.","C'est international.","C'est cher.","C'est petit."], correct:1 },
+        { q:"Elle aime voyager ?",            opts:["Oui.","Non.","Parfois.","Elle déteste."],        correct:0 },
+        { q:"Pourquoi ?",                    opts:["Parce que c'est intéressant.","Parce que c'est cher.","Parce que c'est difficile.","Parce que c'est calme."], correct:0 }
+      ]
+    },
+    recordPrompts: ["Est-ce que vous aimez Bruxelles ? Pourquoi ?","Qu'est-ce que vous aimez ?"],
     memo: "memos/s5_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
-    title: "Est-ce que c'est gratuit ?",
-    sub: "Asking for information · questions words · everyday life",
-    keyPhrases: ["Est-ce que c'est gratuit ?","Est-ce qu'il y a le wifi ?","Combien · Comment · Où · Qui · Qu'est-ce que · Quand"],
-    pills: ["est-ce que","mots interrogatifs","il y a","c'est"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Est-ce que c'est gratuit ?","Est-ce qu'il y a le wifi ici ?"],
+    title: "Qu'est-ce que vous faites ?",
+    sub: "Activities · hobbies · daily life · faire",
+    fcTitle: "Activities & Days",
+    keyPhrases: ["Qu'est-ce que vous faites ?","Je fais…","Est-ce que vous faites… ?"],
+    pills: ["faire","du · de la · des","fréquence","jours · semaine"],
+    phrases: [
+      { text: "Est-ce que vous faites du sport ?",       audio: "audio/s6_p1.mp3" },
+      { text: "Est-ce que tu fais de la musique ?",      audio: "audio/s6_p2.mp3" },
+      { text: "Est-ce qu'il fait le ménage ?",           audio: "audio/s6_p3.mp3" },
+      { text: "Quand est-ce que vous faites les courses ?", audio: "audio/s6_p4.mp3" },
+      { text: "Est-ce que vous faites souvent la fête ?", audio: "audio/s6_p5.mp3" },
+      { text: "Elle ne fait jamais les courses.",        audio: "audio/s6_p6.mp3" },
+      { text: "Je ne fais pas de sport.",                audio: "audio/s6_p7.mp3" },
+      { text: "On fait du yoga de temps en temps.",      audio: "audio/s6_p8.mp3" },
+      { text: "Je fais le ménage une fois par semaine.", audio: "audio/s6_p9.mp3" },
+      { text: "Qu'est-ce que vous faites ?",             audio: "audio/s6_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Est-ce que vous faites du sport ?", correct:6, opts:[5,6,7,8], audio:"audio/s6_syl1.mp3" },
+      { phrase:"Je ne fais pas de sport.",          correct:6, opts:[4,5,6,7], audio:"audio/s6_syl2.mp3" },
+      { phrase:"On fait du yoga.",                  correct:5, opts:[3,4,5,6], audio:"audio/s6_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>⚽</span>", fr:"faire du foot",      en:"play football",  audio:"audio/s6_fc_foot.mp3" },
+      { flag:"<span style='font-size:2rem'>🎾</span>", fr:"faire du tennis",    en:"play tennis",    audio:"audio/s6_fc_tennis.mp3" },
+      { flag:"<span style='font-size:2rem'>🎹</span>", fr:"du piano",           en:"piano",          audio:"audio/s6_fc_piano.mp3" },
+      { flag:"<span style='font-size:2rem'>🧘</span>", fr:"du yoga",            en:"yoga",           audio:"audio/s6_fc_yoga.mp3" },
+      { flag:"<span style='font-size:2rem'>🎸</span>", fr:"de la guitare",      en:"guitar",         audio:"audio/s6_fc_guitare.mp3" },
+      { flag:"<span style='font-size:2rem'>🧁</span>", fr:"de la pâtisserie",   en:"baking",         audio:"audio/s6_fc_patisserie.mp3" },
+      { flag:"<span style='font-size:2rem'>🥾</span>", fr:"de la randonnée",    en:"hiking",         audio:"audio/s6_fc_randonnee.mp3" },
+      { flag:"<span style='font-size:2rem'>🎨</span>", fr:"de la peinture",     en:"painting",       audio:"audio/s6_fc_peinture.mp3" },
+      { flag:"<span style='font-size:2rem'>🛍️</span>", fr:"du shopping",        en:"shopping",       audio:"audio/s6_fc_shopping.mp3" },
+      { flag:"<span style='font-size:2rem'>🛒</span>", fr:"les courses",        en:"grocery shopping", audio:"audio/s6_fc_courses.mp3" },
+      { flag:"<span style='font-size:2rem'>🧹</span>", fr:"le ménage",          en:"cleaning",       audio:"audio/s6_fc_menage.mp3" },
+      { flag:"<span style='font-size:2rem'>🎉</span>", fr:"la fête",            en:"partying",       audio:"audio/s6_fc_fete.mp3" }
+    ],
+    freqScale: {
+      title: "Fréquence",
+      items: [
+        { fr:"tous les jours",    en:"every day",      level:5 },
+        { fr:"souvent",           en:"often",          level:4 },
+        { fr:"de temps en temps", en:"from time to time", level:3 },
+        { fr:"parfois",           en:"sometimes",      level:3 },
+        { fr:"jamais",            en:"never",          level:0 }
+      ],
+      daysClick: [
+        { fr:"lundi",    audio:"audio/s6_j_lundi.mp3" },
+        { fr:"mardi",    audio:"audio/s6_j_mardi.mp3" },
+        { fr:"mercredi", audio:"audio/s6_j_mercredi.mp3" },
+        { fr:"jeudi",    audio:"audio/s6_j_jeudi.mp3" },
+        { fr:"vendredi", audio:"audio/s6_j_vendredi.mp3" },
+        { fr:"samedi",   audio:"audio/s6_j_samedi.mp3" },
+        { fr:"dimanche", audio:"audio/s6_j_dimanche.mp3" }
+      ],
+      periodsClick: [
+        { fr:"un jour",     en:"a day",   audio:"audio/s6_d_jour.mp3" },
+        { fr:"une semaine", en:"a week",  audio:"audio/s6_d_semaine.mp3" },
+        { fr:"un mois",     en:"a month", audio:"audio/s6_d_mois.mp3" },
+        { fr:"un an",       en:"a year",  audio:"audio/s6_d_an.mp3" }
+      ]
+    },
+    vocabVideo: { id: "SAISONS_VIDEO_ID", title: "Les saisons" },
+    vocabQuizzes: [
+      { audio:"audio/s6_qv1.mp3", correct:0, opts:["⚽","🎹","🧘"] },
+      { audio:"audio/s6_qv2.mp3", correct:1, opts:["🧹","🛒","🎉"] },
+      { audio:"audio/s6_qv3.mp3", correct:2, opts:["🎸","🧁","🥾"] }
+    ],
+    conjugaison: {
+      note: "⚠️ <strong>Nous faisons</strong> se prononce « fe-zon » (et non « fè-zon »).",
+      verbs: ["Faire"],
+      rows: [
+        ["Je",   "fais"],
+        ["Tu",   "fais"],
+        ["Il/Elle/On", "fait"],
+        ["Nous", "faisons"],
+        ["Vous", "faites"],
+        ["Ils/Elles", "font"]
+      ]
+    },
+    gramFormulas: [
+      { label:"Faire + activité",  formula:"faire du / de la / des / de l'" },
+      { label:"Sport · musique",   formula:"faire du sport · faire de la musique" },
+      { label:"Tâches maison",     formula:"faire le ménage · faire les courses" },
+      { label:"Négation",          formula:"ne … pas de  →  je ne fais pas de sport" }
+    ],
+    gramQuizzes: [
+      { q:"Je fais ___ sport.", opts:["du","de la"], correct:0 },
+      { q:"Elle fait ___ musique.", opts:["du","de la"], correct:1 },
+      { q:"Je ne fais ___ sport.", opts:["pas de","pas du"], correct:0 },
+      { q:"On fait ___ courses.", opts:["le","les"], correct:1 }
+    ],
+    conjQuizzes: [
+      { q:"Est-ce que vous ___ du sport ?", opts:["faites","faisons","fais","fait"], correct:0 },
+      { q:"Nous ___ du yoga.", opts:["faites","faisons","fait","fais"], correct:1 },
+      { q:"Il ___ le ménage.", opts:["fais","faites","fait","faisons"], correct:2 },
+      { q:"Je ___ les courses.", opts:["fait","fais","faites","faisons"], correct:1 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask what someone does in their free time.", opts:["Qu'est-ce que vous faites ?","Combien ça coûte ?","Vous allez où ?"], correct:0 },
+      { q:"You want to say you do yoga sometimes.", opts:["Je fais du yoga tous les jours.","Je fais du yoga de temps en temps.","Je ne fais pas de yoga."], correct:1 },
+      { q:"You want to say you never go shopping.", opts:["Je fais souvent les courses.","Je ne fais jamais les courses.","Je fais les courses le dimanche."], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s6_dial.mp3",
+      coTitle: "Nina & Lola · activités",
+      img: "<span style='font-size:3rem'>🗓️</span>",
+      caption: "What do you do during the week?",
+      quizzes: [
+        { q:"Lola fait du yoga combien de fois par semaine ?", opts:["une fois","deux fois","trois fois","jamais"], correct:0 },
+        { q:"Est-ce que Nina aime le sport ?", opts:["Oui.","Non.","Un peu.","Beaucoup."], correct:1 },
+        { q:"Qu'est-ce que Nina préfère faire ?", opts:["du sport","faire la fête","le ménage","du yoga"], correct:1 },
+        { q:"Quand est-ce que Lola fait le ménage ?", opts:["le samedi","le dimanche","le lundi","jamais"], correct:1 },
+        { q:"Nina fait les courses combien de fois par semaine ?", opts:["1 fois","2 ou 3 fois","tous les jours","jamais"], correct:1 }
+      ]
+    },
+    recordPrompts: ["Qu'est-ce que vous faites pendant la semaine ?","Qu'est-ce que vous faites le week-end ?"],
     memo: "memos/s6_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
     title: "Qu'est-ce que vous allez faire ?",
-    sub: "Organizing an event · futur proche · planning",
-    keyPhrases: ["Qu'est-ce que vous allez faire ?","On va…","Je vais + verbe"],
-    pills: ["aller + infinitif","futur proche","on · nous"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Qu'est-ce que vous allez faire ce week-end ?"],
+    sub: "Future plans · futur proche · aller + infinitif",
+    fcTitle: "Activities & Plans",
+    keyPhrases: ["Qu'est-ce que vous allez faire ?","On va + verbe","Quand ?"],
+    pills: ["aller + infinitif","futur proche","on = nous","quand ?"],
+    phrases: [
+      { text: "Je vais visiter Bruxelles.",                      audio: "audio/s7_p1.mp3" },
+      { text: "Est-ce que vous allez voir le Manneken-Pis ?",    audio: "audio/s7_p2.mp3" },
+      { text: "On va aller au cinéma et au restaurant.",         audio: "audio/s7_p3.mp3" },
+      { text: "Elle va aller à la piscine demain.",              audio: "audio/s7_p4.mp3" },
+      { text: "Je ne vais pas aller au bureau la semaine prochaine.", audio: "audio/s7_p5.mp3" },
+      { text: "Est-ce que vous allez organiser une fête ?",      audio: "audio/s7_p6.mp3" },
+      { text: "Je vais réserver une table pour ce soir.",        audio: "audio/s7_p7.mp3" },
+      { text: "Il va téléphoner à l'hôtel.",                     audio: "audio/s7_p8.mp3" },
+      { text: "Nous allons acheter une maison.",                 audio: "audio/s7_p9.mp3" },
+      { text: "Qu'est-ce que vous allez faire ?",                audio: "audio/s7_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Je vais visiter Bruxelles.",        correct:7, opts:[5,6,7,8], audio:"audio/s7_syl1.mp3" },
+      { phrase:"On va aller au cinéma.",            correct:8, opts:[6,7,8,9], audio:"audio/s7_syl2.mp3" },
+      { phrase:"Qu'est-ce que vous allez faire ?",  correct:6, opts:[5,6,7,8], audio:"audio/s7_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>🎬</span>", fr:"aller au cinéma",       en:"go to the cinema",     audio:"audio/s7_fc_cinema.mp3" },
+      { flag:"<span style='font-size:2rem'>🍽️</span>", fr:"aller au restaurant",   en:"go to the restaurant", audio:"audio/s7_fc_restaurant.mp3" },
+      { flag:"<span style='font-size:2rem'>🏋️</span>", fr:"aller à la salle de sport", en:"go to the gym",    audio:"audio/s7_fc_sport.mp3" },
+      { flag:"<span style='font-size:2rem'>🏛️</span>", fr:"visiter un musée",      en:"visit a museum",       audio:"audio/s7_fc_musee.mp3" },
+      { flag:"<span style='font-size:2rem'>🏘️</span>", fr:"visiter un quartier",   en:"visit a neighbourhood", audio:"audio/s7_fc_quartier.mp3" },
+      { flag:"<span style='font-size:2rem'>🌆</span>", fr:"visiter une ville",     en:"visit a city",         audio:"audio/s7_fc_ville.mp3" },
+      { flag:"<span style='font-size:2rem'>🎉</span>", fr:"organiser une fête",    en:"organise a party",     audio:"audio/s7_fc_fete.mp3" },
+      { flag:"<span style='font-size:2rem'>✈️</span>", fr:"organiser un voyage",   en:"organise a trip",      audio:"audio/s7_fc_voyage.mp3" },
+      { flag:"<span style='font-size:2rem'>🍽️</span>", fr:"réserver une table",    en:"book a table",         audio:"audio/s7_fc_table.mp3" },
+      { flag:"<span style='font-size:2rem'>🎫</span>", fr:"réserver un billet d'avion", en:"book a flight",   audio:"audio/s7_fc_billet.mp3" },
+      { flag:"<span style='font-size:2rem'>🧑‍🤝‍🧑</span>", fr:"voir des amis",         en:"see friends",          audio:"audio/s7_fc_amis.mp3" },
+      { flag:"<span style='font-size:2rem'>👨‍👩‍👧</span>", fr:"voir sa famille",       en:"see family",           audio:"audio/s7_fc_famille.mp3" }
+    ],
+    freqScale: {
+      title: "Dans combien de temps ? — In how long?",
+      items: [],
+      timeWords: [
+        { fr:"demain",              en:"tomorrow",        audio:"audio/s7_t_demain.mp3" },
+        { fr:"dans 3 jours",        en:"in 3 days",       audio:"audio/s7_t_3jours.mp3" },
+        { fr:"dans une semaine",    en:"in a week",       audio:"audio/s7_t_semaine.mp3" },
+        { fr:"dans quelques mois",  en:"in a few months", audio:"audio/s7_t_mois.mp3" },
+        { fr:"dans un an",          en:"in a year",       audio:"audio/s7_t_an.mp3" },
+        { fr:"bientôt",             en:"soon",            audio:"audio/s7_t_bientot.mp3" },
+        { fr:"la semaine prochaine", en:"next week",      audio:"audio/s7_t_semproch.mp3" },
+        { fr:"le week-end prochain", en:"next weekend",   audio:"audio/s7_t_wkproch.mp3" }
+      ]
+    },
+    vocabVideo: { id: "DATE_HEURE_VIDEO_ID", title: "La date et l'heure" },
+    vocabQuizzes: [
+      { audio:"audio/s7_qv1.mp3", correct:0, opts:["🎬","🍽️","🏋️"] },
+      { audio:"audio/s7_qv2.mp3", correct:1, opts:["🏛️","🎉","✈️"] },
+      { audio:"audio/s7_qv3.mp3", correct:2, opts:["🌆","🎫","🏘️"] }
+    ],
+    conjugaison: {
+      note: "✨ <strong>On va</strong> = « nous allons » à l'oral. <em>On</em> a le sens de « nous » mais se conjugue comme <em>il/elle</em> (3e personne).",
+      verbs: ["Aller (futur proche)"],
+      rows: [
+        ["Je",          "vais + infinitif"],
+        ["Tu",          "vas + infinitif"],
+        ["Il/Elle/On",  "va + infinitif"],
+        ["Nous",        "allons + infinitif"],
+        ["Vous",        "allez + infinitif"],
+        ["Ils/Elles",   "vont + infinitif"]
+      ]
+    },
+    gramFormulas: [
+      { label:"Futur proche",   formula:"aller + verbe à l'infinitif" },
+      { label:"On va…",         formula:"on va + infinitif  (= nous allons)" },
+      { label:"Quand ?",        formula:"ce soir · demain · ce week-end · la semaine prochaine" },
+      { label:"Négation",       formula:"ne … pas  →  je ne vais pas aller" }
+    ],
+    gramQuizzes: [
+      { q:"Je vais ___ Bruxelles.", opts:["visiter","visité"], correct:0 },
+      { q:"On va ___ au cinéma.", opts:["aller","allé"], correct:0 },
+      { q:"Elle ___ aller à la piscine.", opts:["va","vais"], correct:0 },
+      { q:"Nous ___ acheter une maison.", opts:["allez","allons"], correct:1 }
+    ],
+    conjQuizzes: [
+      { q:"Je ___ réserver une table.", opts:["vais","vas","va","allons"], correct:0 },
+      { q:"Vous ___ organiser une fête ?", opts:["allez","allons","vais","va"], correct:0 },
+      { q:"On ___ aller au restaurant.", opts:["vais","vas","va","allez"], correct:2 },
+      { q:"Nous ___ visiter un musée.", opts:["allez","allons","vais","va"], correct:1 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask what someone is going to do this weekend.", opts:["Qu'est-ce que vous allez faire ce week-end ?","Qu'est-ce que vous faites ?","Qu'est-ce que vous avez fait ?"], correct:0 },
+      { q:"You want to say you're going to book a table tonight.", opts:["Je réserve une table.","Je vais réserver une table ce soir.","J'ai réservé une table."], correct:1 },
+      { q:"You want to say 'we' are going to the cinema (informal).", opts:["Nous allons au cinéma.","On va aller au cinéma.","Je vais au cinéma."], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s7_dial.mp3",
+      coTitle: "Chloé & Valentin · le week-end",
+      img: "<span style='font-size:3rem'>🗓️</span>",
+      caption: "Weekend plans",
+      quizzes: [
+        { q:"Où va Valentin ce week-end ?", opts:["à Paris","à Marseille","à Bruxelles","à Lyon"], correct:1 },
+        { q:"Pourquoi il va à Marseille ?", opts:["pour le travail","pour l'anniversaire de sa grand-mère","pour les vacances","pour un mariage"], correct:1 },
+        { q:"Qu'est-ce que Chloé va faire samedi matin ?", opts:["du sport","les courses","la fête","le ménage"], correct:0 },
+        { q:"Quand est-ce que Chloé va faire la fête ?", opts:["samedi soir","dimanche","vendredi","jamais"], correct:0 },
+        { q:"Qu'est-ce que Chloé voudrait faire dimanche ?", opts:["du sport","le ménage","la fête","les courses"], correct:1 }
+      ]
+    },
+    recordPrompts: ["Qu'est-ce que vous allez faire ce week-end ?","Qu'est-ce que vous allez faire l'été prochain ?"],
     memo: "memos/s7_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
-    title: "Est-ce que vous faites… ?",
-    sub: "Activities and leisure · hobbies · sports · culture",
-    keyPhrases: ["Est-ce que vous faites… ?","Qu'est-ce que vous faites ?","Je fais…"],
-    pills: ["faire","du · de la · des","sports · loisirs","fréquence"],
-    phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
-    conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
-    conjQuizzes: [],sitQuizzes: [],
-    video:{url:"",quizzes:[]},
-    recordPrompts: ["Est-ce que vous faites du sport ?","Qu'est-ce que vous faites le week-end ?"],
+    title: "Qu'est-ce que vous avez fait ?",
+    sub: "Talking about the past · passé composé · culture",
+    fcTitle: "Cultural Places",
+    keyPhrases: ["Qu'est-ce que vous avez visité… ?","Qu'est-ce que vous avez vu… ?","J'ai visité…"],
+    pills: ["passé composé","avoir + pp","être + pp","hier"],
+    phrases: [
+      { text: "Nous avons visité Paris.",                     audio: "audio/s8_p1.mp3" },
+      { text: "Est-ce que vous avez pris le métro ?",         audio: "audio/s8_p2.mp3" },
+      { text: "Est-ce que tu as vu la Joconde ?",             audio: "audio/s8_p3.mp3" },
+      { text: "Est-ce qu'elle a mangé des croissants ?",      audio: "audio/s8_p4.mp3" },
+      { text: "J'ai pris l'avion.",                           audio: "audio/s8_p5.mp3" },
+      { text: "Je suis allé·e au musée.",                     audio: "audio/s8_p6.mp3" },
+      { text: "Est-ce que vous êtes allés au musée du Louvre ?", audio: "audio/s8_p7.mp3" },
+      { text: "Je n'ai pas mangé d'escargots.",               audio: "audio/s8_p8.mp3" },
+      { text: "Elle n'est pas allée au supermarché.",         audio: "audio/s8_p9.mp3" },
+      { text: "Qu'est-ce que vous avez fait ?",               audio: "audio/s8_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"J'ai vu mes amis.",          correct:5, opts:[4,5,6,7], audio:"audio/s8_syl1.mp3" },
+      { phrase:"Nous sommes allés au Maroc.", correct:7, opts:[5,6,7,8], audio:"audio/s8_syl2.mp3" },
+      { phrase:"On a parlé français.",       correct:6, opts:[4,5,6,7], audio:"audio/s8_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>📸</span>", fr:"prendre des photos",        en:"take photos",            audio:"audio/s8_fc_photos.mp3" },
+      { flag:"<span style='font-size:2rem'>🎁</span>", fr:"acheter des souvenirs",     en:"buy souvenirs",          audio:"audio/s8_fc_souvenirs.mp3" },
+      { flag:"<span style='font-size:2rem'>🍲</span>", fr:"goûter une spécialité locale", en:"taste a local dish",  audio:"audio/s8_fc_specialite.mp3" },
+      { flag:"<span style='font-size:2rem'>🎤</span>", fr:"aller à un concert",        en:"go to a concert",        audio:"audio/s8_fc_concert.mp3" },
+      { flag:"<span style='font-size:2rem'>📺</span>", fr:"regarder la télé",          en:"watch TV",               audio:"audio/s8_fc_tele.mp3" },
+      { flag:"<span style='font-size:2rem'>🚶</span>", fr:"faire une promenade",       en:"go for a walk",          audio:"audio/s8_fc_promenade.mp3" },
+      { flag:"<span style='font-size:2rem'>📖</span>", fr:"lire un livre",             en:"read a book",            audio:"audio/s8_fc_livre.mp3" },
+      { flag:"<span style='font-size:2rem'>🎧</span>", fr:"écouter de la musique",     en:"listen to music",        audio:"audio/s8_fc_musique.mp3" },
+      { flag:"<span style='font-size:2rem'>🛁</span>", fr:"prendre un bain",           en:"take a bath",            audio:"audio/s8_fc_bain.mp3" },
+      { flag:"<span style='font-size:2rem'>🚆</span>", fr:"prendre le train",          en:"take the train",         audio:"audio/s8_fc_train.mp3" },
+      { flag:"<span style='font-size:2rem'>🧑‍🤝‍🧑</span>", fr:"inviter des amis",          en:"invite friends",         audio:"audio/s8_fc_amis.mp3" },
+      { flag:"<span style='font-size:2rem'>🍷</span>", fr:"prendre un verre",          en:"have a drink",           audio:"audio/s8_fc_verre.mp3" }
+    ],
+    freqScale: {
+      title: "C'était quand ? — When was it?",
+      items: [],
+      timeWords: [
+        { fr:"hier",                en:"yesterday",       audio:"audio/s8_t_hier.mp3" },
+        { fr:"la semaine dernière", en:"last week",       audio:"audio/s8_t_semaine.mp3" },
+        { fr:"l'année dernière",    en:"last year",       audio:"audio/s8_t_annee.mp3" },
+        { fr:"il y a 3 jours",      en:"3 days ago",      audio:"audio/s8_t_3jours.mp3" },
+        { fr:"il y a 10 ans",       en:"10 years ago",    audio:"audio/s8_t_10ans.mp3" }
+      ]
+    },
+    vocabQuizzes: [
+      { audio:"audio/s8_qv1.mp3", correct:0, opts:["📸","🎁","🎤"] },
+      { audio:"audio/s8_qv2.mp3", correct:1, opts:["📺","📖","🎧"] },
+      { audio:"audio/s8_qv3.mp3", correct:2, opts:["🛁","🚆","🍷"] }
+    ],
+    ppTable: {
+      title: "Infinitif → Participe passé",
+      columns: true,
+      groups: [
+        { ending:"-é", color:"#0d2c4f", verbs:[["manger","mangé"],["parler","parlé"],["aller","allé"]] },
+        { ending:"-u", color:"#dd490a", verbs:[["voir","vu"],["boire","bu"]] },
+        { ending:"-i / -is", color:"#fdb324", verbs:[["prendre","pris"],["mettre","mis"]] }
+      ]
+    },
+    conjugaison: {
+      note: "Le passé composé = <strong>avoir</strong> ou <strong>être</strong> (au présent) + participe passé.",
+      verbs: ["Avoir","Être"],
+      rows: [
+        ["Je",          "ai",    "suis"],
+        ["Tu",          "as",    "es"],
+        ["Il/Elle/On",  "a",     "est"],
+        ["Nous",        "avons", "sommes"],
+        ["Vous",        "avez",  "êtes"],
+        ["Ils/Elles",   "ont",   "sont"]
+      ]
+    },
+    gramFormulas: [
+      { label:"Passé composé (avoir)", formula:"avoir + participe passé  →  j'ai mangé" },
+      { label:"Passé composé (être)",  formula:"être + participe passé  →  je suis allé·e" },
+      { label:"Négation (avoir)",      formula:"je n'ai pas + pp  →  je n'ai pas mangé" },
+      { label:"Négation (être)",       formula:"je ne suis pas + pp  →  je ne suis pas allé·e" }
+    ],
+    gramQuizzes: [
+      { q:"J'___ mangé un croissant.", opts:["ai","suis"], correct:0 },
+      { q:"Je ___ allé au musée.", opts:["ai","suis"], correct:1 },
+      { q:"Nous ___ visité Paris.", opts:["avons","sommes"], correct:0 },
+      { q:"Elle ___ allée au marché.", opts:["a","est"], correct:1 }
+    ],
+    auxQuizzes: {
+      title: "Auxiliaire — avoir ou être ?",
+      instruction: "Listen and choose the correct auxiliary:",
+      items: [
+        { audio:"audio/s8_aux1.mp3", sentence:"J'___ mangé un pain au chocolat hier matin.", correct:"avoir" },
+        { audio:"audio/s8_aux2.mp3", sentence:"Je ___ allée au cinéma hier soir.", correct:"être" },
+        { audio:"audio/s8_aux3.mp3", sentence:"J'___ vu un éléphant au zoo.", correct:"avoir" },
+        { audio:"audio/s8_aux4.mp3", sentence:"Nous ___ allés à Tokyo l'année dernière.", correct:"être" },
+        { audio:"audio/s8_aux5.mp3", sentence:"Elle ___ pris le bus.", correct:"avoir" }
+      ]
+    },
+    conjQuizzes: [
+      { q:"Tu ___ vu la Joconde ?", opts:["as","es","a","est"], correct:0 },
+      { q:"Je ___ allé au musée.", opts:["ai","suis","as","es"], correct:1 },
+      { q:"Vous ___ pris le métro ?", opts:["êtes","avez","avons","sommes"], correct:1 },
+      { q:"Elle ___ allée au supermarché.", opts:["a","est","as","es"], correct:1 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask if someone visited Brussels.", opts:["Est-ce que vous avez visité Bruxelles ?","Vous allez à Bruxelles ?","Vous êtes belge ?"], correct:0 },
+      { q:"You want to ask what someone saw.", opts:["Qu'est-ce que vous allez voir ?","Qu'est-ce que vous avez vu ?","Qu'est-ce que vous voyez ?"], correct:1 },
+      { q:"You want to say you went to the museum (female).", opts:["Je vais au musée.","Je suis allée au musée.","J'ai allé au musée."], correct:1 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s8_dial.mp3",
+      coTitle: "Un week-end à Amsterdam",
+      listenLabel: "monologue",
+      img: "<span style='font-size:3rem'>🏛️</span>",
+      caption: "A trip to Amsterdam",
+      quizzes: [
+        { q:"Où est-elle allée ?",                opts:["à Paris","à Amsterdam","à Bruxelles","à Londres"], correct:1 },
+        { q:"Avec qui ?",                         opts:["ses amis","sa famille","son petit copain","seule"], correct:2 },
+        { q:"Qu'est-ce qu'ils ont fait ?",        opts:["du bateau","du vélo","du ski","de la randonnée"], correct:0 },
+        { q:"Comment était l'hôtel ?",            opts:["mignon mais cher","grand et pas cher","sale","loin"], correct:0 },
+        { q:"Est-ce qu'elle a pris le bus ?",     opts:["Oui.","Non, ils ont marché.","Oui, tous les jours.","Non, le métro."], correct:1 }
+      ]
+    },
+    recordPrompts: ["Qu'est-ce que vous avez fait la semaine dernière ?","Qu'est-ce que vous avez fait hier ?"],
     memo: "memos/s8_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    splitAfter: 4
   },{
-    title: "Est-ce que vous avez visité… ?",
-    sub: "Talking about past actions · passé composé · experiences",
-    keyPhrases: ["Est-ce que vous avez visité… ?","Est-ce que vous avez vu… ?","J'ai visité…"],
-    pills: ["avoir + participe passé","être + participe passé","passé composé"],
+    title: "Qu'est-ce qu'il faut ?",
+    sub: "Cooking · recipes · giving instructions · il faut",
+    fcTitle: "Food & Kitchen",
+    keyPhrases: ["Qu'est-ce qu'il faut ? → il faut + nom","Qu'est-ce qu'il faut faire ? → il faut + verbe"],
+    pills: ["il faut","mettre","acheter","mots interrogatifs"],
+    phrases: [
+      { text: "Est-ce que vous aimez cuisiner ?",     audio: "audio/s9_p1.mp3" },
+      { text: "Quelle est votre recette préférée ?",  audio: "audio/s9_p2.mp3" },
+      { text: "Il faut couper les oignons.",          audio: "audio/s9_p3.mp3" },
+      { text: "Il faut cuire la pizza au four.",      audio: "audio/s9_p4.mp3" },
+      { text: "Il ne faut pas couper les pâtes.",     audio: "audio/s9_p5.mp3" },
+      { text: "Il faut manger des légumes.",          audio: "audio/s9_p6.mp3" },
+      { text: "Il faut servir chaud.",                audio: "audio/s9_p7.mp3" },
+      { text: "Il ne faut pas mettre trop de sel.",   audio: "audio/s9_p8.mp3" },
+      { text: "Il faut cuire le riz.",                audio: "audio/s9_p9.mp3" },
+      { text: "Qu'est-ce qu'il faut faire ?",         audio: "audio/s9_p10.mp3" }
+    ],
+    sylQuizzes: [
+      { phrase:"Est-ce qu'il faut acheter du pain ?", correct:7, opts:[6,7,8,9], audio:"audio/s9_syl1.mp3" },
+      { phrase:"Il ne faut pas couper les pâtes.",    correct:8, opts:[6,7,8,9], audio:"audio/s9_syl2.mp3" },
+      { phrase:"C'est vraiment très bon.",            correct:5, opts:[4,5,6,7], audio:"audio/s9_syl3.mp3" }
+    ],
+    flashcards: [
+      { flag:"<span style='font-size:2rem'>🍚</span>", fr:"du riz",          en:"rice",       audio:"audio/s9_fc_riz.mp3" },
+      { flag:"<span style='font-size:2rem'>🍝</span>", fr:"des pâtes",       en:"pasta",      audio:"audio/s9_fc_pates.mp3" },
+      { flag:"<span style='font-size:2rem'>🍗</span>", fr:"du poulet",       en:"chicken",    audio:"audio/s9_fc_poulet.mp3" },
+      { flag:"<span style='font-size:2rem'>🧅</span>", fr:"un oignon",       en:"an onion",   audio:"audio/s9_fc_oignon.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='36' height='36' xmlns='http://www.w3.org/2000/svg'><line x1='24' y1='42' x2='24' y2='14' stroke='#d4a843' stroke-width='2'/><g fill='#e8b94a' stroke='#c4982f' stroke-width='0.5'><ellipse cx='24' cy='12' rx='2.5' ry='4'/><ellipse cx='19' cy='18' rx='2.5' ry='4' transform='rotate(-30 19 18)'/><ellipse cx='29' cy='18' rx='2.5' ry='4' transform='rotate(30 29 18)'/><ellipse cx='19' cy='25' rx='2.5' ry='4' transform='rotate(-30 19 25)'/><ellipse cx='29' cy='25' rx='2.5' ry='4' transform='rotate(30 29 25)'/><ellipse cx='19' cy='32' rx='2.5' ry='4' transform='rotate(-30 19 32)'/><ellipse cx='29' cy='32' rx='2.5' ry='4' transform='rotate(30 29 32)'/></g></svg>", fr:"de la farine",    en:"flour",      audio:"audio/s9_fc_farine.mp3" },
+      { flag:"<span style='font-size:2rem'>🔪</span>", fr:"un couteau",      en:"a knife",    audio:"audio/s9_fc_couteau.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='32' height='32' xmlns='http://www.w3.org/2000/svg'><g stroke='#0d2c4f' stroke-width='2' stroke-linecap='round' fill='none'><line x1='18' y1='8' x2='18' y2='16'/><line x1='24' y1='8' x2='24' y2='16'/><line x1='30' y1='8' x2='30' y2='16'/><path d='M18 16 Q18 22 24 22 Q30 22 30 16' fill='#0d2c4f'/><line x1='24' y1='22' x2='24' y2='40'/></g></svg>", fr:"une fourchette",  en:"a fork",     audio:"audio/s9_fc_fourchette.mp3" },
+      { flag:"<span style='font-size:2rem'>🥄</span>", fr:"une cuillère",    en:"a spoon",    audio:"audio/s9_fc_cuillere.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='36' height='36' xmlns='http://www.w3.org/2000/svg'><rect x='8' y='8' width='32' height='34' rx='3' fill='#e8e6df' stroke='#0d2c4f' stroke-width='1.5'/><rect x='11' y='17' width='26' height='20' rx='2' fill='#1a2b3a' stroke='#0d2c4f' stroke-width='1'/><line x1='8' y1='13' x2='40' y2='13' stroke='#0d2c4f' stroke-width='1'/><circle cx='13' cy='11' r='1' fill='#0d2c4f'/><circle cx='18' cy='11' r='1' fill='#0d2c4f'/><rect x='20' y='20' width='14' height='3' rx='1' fill='#dd490a' opacity='0.7'/><rect x='14' y='38' width='20' height='2' rx='1' fill='#0d2c4f'/></svg>", fr:"un four",         en:"an oven",    audio:"audio/s9_fc_four.mp3" },
+      { flag:"<span style='font-size:2rem'>🍳</span>", fr:"une poêle",       en:"a pan",      audio:"audio/s9_fc_poele.mp3" },
+      { flag:"<span style='font-size:2rem'>🥘</span>", fr:"une casserole",   en:"a pot",      audio:"audio/s9_fc_casserole.mp3" },
+      { flag:"<span style='font-size:2rem'>🥗</span>", fr:"des légumes",     en:"vegetables", audio:"audio/s9_fc_legumes.mp3" },
+      { flag:"<span style='font-size:2rem'>🍼</span>", fr:"du lait",         en:"milk",       audio:"audio/s9_fc_lait.mp3" },
+      { flag:"<span style='font-size:2rem'>🐟</span>", fr:"du poisson",      en:"fish",       audio:"audio/s9_fc_poisson.mp3" },
+      { flag:"<span style='font-size:1.6rem'>🍎🍌</span>", fr:"des fruits",      en:"fruit",      audio:"audio/s9_fc_fruits.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='32' height='32' xmlns='http://www.w3.org/2000/svg'><g stroke='#0d2c4f' stroke-width='2' stroke-linecap='round' fill='none'><line x1='14' y1='8' x2='14' y2='15'/><line x1='18' y1='8' x2='18' y2='15'/><path d='M14 15 Q14 19 16 19 Q18 19 18 15' fill='#0d2c4f'/><line x1='16' y1='19' x2='16' y2='40'/><line x1='32' y1='8' x2='32' y2='40'/><path d='M32 8 Q28 10 28 16 Q28 20 32 20' fill='#0d2c4f'/></g></svg>", fr:"les couverts",     en:"cutlery",    audio:"audio/s9_fc_couverts.mp3" },
+      { flag:"<span style='font-size:2rem'>🧂</span>", fr:"le sel",          en:"salt",       audio:"audio/s9_fc_sel.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='30' height='34' xmlns='http://www.w3.org/2000/svg'><path d='M16 18 L16 40 Q16 42 18 42 L30 42 Q32 42 32 40 L32 18 Z' fill='#8a5a2b' stroke='#6b4420' stroke-width='1'/><path d='M16 18 Q16 12 24 12 Q32 12 32 18 Z' fill='#a06a35' stroke='#6b4420' stroke-width='1'/><circle cx='21' cy='15' r='0.8' fill='#3d2410'/><circle cx='24' cy='14' r='0.8' fill='#3d2410'/><circle cx='27' cy='15' r='0.8' fill='#3d2410'/><rect x='18' y='24' width='12' height='1.5' fill='#6b4420' opacity='0.4'/></svg>", fr:"le poivre",       en:"pepper",     audio:"audio/s9_fc_poivre.mp3" }
+    ],
+    vocabQuizzes: [
+      { audio:"audio/s9_qv1.mp3", correct:0, opts:["🍚","🍝","🍗"] },
+      { audio:"audio/s9_qv2.mp3", correct:1, opts:["🥕","🧅","🌾"] },
+      { audio:"audio/s9_qv3.mp3", correct:2, opts:["🍳","🥘","🔪"] }
+    ],
+    conjugaison: {
+      verbs: ["Mettre","Acheter"],
+      rows: [
+        ["Je",         "mets",   "achète"],
+        ["Tu",         "mets",   "achètes"],
+        ["Il/Elle/On", "met",    "achète"],
+        ["Nous",       "mettons","achetons"],
+        ["Vous",       "mettez", "achetez"],
+        ["Ils/Elles",  "mettent","achètent"]
+      ]
+    },
+    infinitiveBox: {
+      title: "Il faut + infinitif",
+      note: "✨ <strong>Il faut</strong> + verbe à l'infinitif = expression impersonnelle (one must / you need to).",
+      verbs: ["casser","mélanger","cuire","ajouter","servir","couper","éplucher","verser"]
+    },
+    gramFormulas: [
+      { label:"Est-ce que…",      formula:"Est-ce que + phrase" },
+      { label:"Qu'est-ce que…",   formula:"Qu'est-ce que + phrase" },
+      { label:"Question words",   formula:"Quel · Quelle · Quels · Quelles" },
+      { label:"Il faut…",         formula:"il faut + verbe infinitif" },
+      { label:"Prépositions",     formula:"pendant · jusqu'à · à gauche · à droite · dans · sur · avec · avant · après" }
+    ],
+    gramQuizzes: [
+      { q:"___ vous aimez cuisiner ?", opts:["Est-ce que","Qu'est-ce que"], correct:0 },
+      { q:"___ il faut faire ?", opts:["Est-ce que","Qu'est-ce que"], correct:1 },
+      { q:"Il faut ___ les oignons.", opts:["couper","coupé"], correct:0 },
+      { q:"___ est votre recette préférée ?", opts:["Quel","Quelle"], correct:1 }
+    ],
+    conjQuizzes: [
+      { q:"Je ___ la pizza au four.", opts:["mets","met","mettez","mettons"], correct:0 },
+      { q:"Nous ___ des carottes.", opts:["achète","achetez","achetons","achètent"], correct:2 },
+      { q:"Vous ___ la table ?", opts:["mets","mettez","mettons","met"], correct:1 },
+      { q:"Il faut ___ le riz.", opts:["cuire","cuit","cuis","cuisez"], correct:0 }
+    ],
+    sitQuizzes: [
+      { q:"You want to ask how to get to Schuman by metro.", opts:["Il faut prendre le métro.","Il faut aller à gauche et prendre le métro jusqu'à Schuman.","Il faut prendre le bus pendant 20 minutes."], correct:1 },
+      { q:"You want to say you must take the bus for 20 minutes.", opts:["Il faut prendre le bus pendant 20 minutes.","Il faut prendre le métro.","Il faut aller à droite."], correct:0 },
+      { q:"You want to ask what needs to be done.", opts:["Qu'est-ce qu'il faut faire ?","Quelle est votre recette ?","Est-ce que vous aimez cuisiner ?"], correct:0 }
+    ],
+    video: {
+      url: "",
+      dial: "audio/s9_dial.mp3",
+      coTitle: "Une recette · cuisine",
+      listenLabel: "recipe",
+      img: "<span style='font-size:3rem'>👩‍🍳</span>",
+      caption: "A cooking recipe",
+      quizzes: [
+        { q:"Qu'est-ce qu'il faut acheter ?",      opts:["du riz","des pâtes","du poulet","des oignons"], correct:1 },
+        { q:"Il faut couper quoi ?",                opts:["les oignons","les pâtes","le pain","le riz"],   correct:0 },
+        { q:"Il faut cuire combien de temps ?",     opts:["10 minutes","20 minutes","30 minutes","1 heure"], correct:1 },
+        { q:"Il faut servir comment ?",             opts:["froid","chaud","tiède","glacé"],               correct:1 }
+      ]
+    },
+    recordPrompts: ["Present a recipe using the memo: Pour la recette, il faut…","D'abord… Après… Enfin…"],
+    memo: "memos/s9_memo.pdf",
+    splitAfter: 4
+  },{
+    title: "Auto-évaluation",
+    sub: "Your A1 results · self-assessment",
+    selfEval: true,
+    keyPhrases: ["Bravo !","Vous avez terminé le niveau A1","Next step → A2"],
+    pills: ["résultats","score","A1 → A2"],
     phrases: [],sylQuizzes: [],flashcards: [],vocabQuizzes: [],
     conjugaison:{verbs:[],rows:[]},gramFormulas: [],gramQuizzes: [],
     conjQuizzes: [],sitQuizzes: [],
     video:{url:"",quizzes:[]},
-    recordPrompts: ["Est-ce que vous avez visité Bruxelles ?","Qu'est-ce que vous avez vu ?"],
-    memo: "memos/s9_memo.pdf",
-    splitAfter: 0,
-    comingSoon: true
+    recordPrompts: [],
+    memo: "",
+    splitAfter: 0
   }
 ];
 
@@ -724,10 +1231,49 @@ const SESSIONS = [
    STATIC SECTIONS (Welcome + Observation)
    These never change — hardcoded here
    ════════════════════════════════════ */
+const VERBS_DATA = [
+  { inf:"Venir", en:"to come", aux:"être",
+    present:[["je","viens"],["tu","viens"],["il/elle/on","vient"],["nous","venons"],["vous","venez"],["ils/elles","viennent"]],
+    pc:"je suis venu·e" },
+  { inf:"Habiter", en:"to live", aux:"avoir",
+    present:[["j'","habite"],["tu","habites"],["il/elle/on","habite"],["nous","habitons"],["vous","habitez"],["ils/elles","habitent"]],
+    pc:"j'ai habité" },
+  { inf:"Être", en:"to be", aux:"avoir",
+    present:[["je","suis"],["tu","es"],["il/elle/on","est"],["nous","sommes"],["vous","êtes"],["ils/elles","sont"]],
+    pc:"j'ai été" },
+  { inf:"Aller", en:"to go", aux:"être",
+    present:[["je","vais"],["tu","vas"],["il/elle/on","va"],["nous","allons"],["vous","allez"],["ils/elles","vont"]],
+    pc:"je suis allé·e" },
+  { inf:"Avoir", en:"to have", aux:"avoir",
+    present:[["j'","ai"],["tu","as"],["il/elle/on","a"],["nous","avons"],["vous","avez"],["ils/elles","ont"]],
+    pc:"j'ai eu" },
+  { inf:"Prendre", en:"to take", aux:"avoir",
+    present:[["je","prends"],["tu","prends"],["il/elle/on","prend"],["nous","prenons"],["vous","prenez"],["ils/elles","prennent"]],
+    pc:"j'ai pris" },
+  { inf:"Aimer", en:"to like/love", aux:"avoir",
+    present:[["j'","aime"],["tu","aimes"],["il/elle/on","aime"],["nous","aimons"],["vous","aimez"],["ils/elles","aiment"]],
+    pc:"j'ai aimé" },
+  { inf:"Pouvoir", en:"can/to be able", aux:"avoir",
+    present:[["je","peux"],["tu","peux"],["il/elle/on","peut"],["nous","pouvons"],["vous","pouvez"],["ils/elles","peuvent"]],
+    pc:"j'ai pu" },
+  { inf:"Vouloir", en:"to want", aux:"avoir",
+    present:[["je","veux"],["tu","veux"],["il/elle/on","veut"],["nous","voulons"],["vous","voulez"],["ils/elles","veulent"]],
+    pc:"j'ai voulu" },
+  { inf:"Faire", en:"to do/make", aux:"avoir",
+    present:[["je","fais"],["tu","fais"],["il/elle/on","fait"],["nous","faisons"],["vous","faites"],["ils/elles","font"]],
+    pc:"j'ai fait" },
+  { inf:"Mettre", en:"to put", aux:"avoir",
+    present:[["je","mets"],["tu","mets"],["il/elle/on","met"],["nous","mettons"],["vous","mettez"],["ils/elles","mettent"]],
+    pc:"j'ai mis" },
+  { inf:"Acheter", en:"to buy", aux:"avoir",
+    present:[["j'","achète"],["tu","achètes"],["il/elle/on","achète"],["nous","achetons"],["vous","achetez"],["ils/elles","achètent"]],
+    pc:"j'ai acheté" }
+];
+
 const STATIC = [
   {
     id: "welcome",
-    navLabel: "Welcome",
+    navLabel: "Menu",
     render: () => `
       <div class="sec-title">Welcome! 👋</div>
       <div class="sec-sub">Your self-guided French programme — Speak Your French.</div>
@@ -743,10 +1289,13 @@ const STATIC = [
         </div>
       </div>
       <div style="margin-top:1.5rem">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:0.75rem">📚 Programme — 10 sessions</div>
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:0.75rem">📚 Programme</div>
         <div id="programme-list" style="display:flex;flex-direction:column;gap:6px"></div>
       </div>`
-  },
+  }
+];
+
+const STATIC_END = [
   {
     id: "observation",
     navLabel: "Observation",
@@ -765,6 +1314,104 @@ const STATIC = [
         <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
         <a href="musee.html" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
       </div>`
+  },
+  {
+    id: "verbs",
+    navLabel: "Verbs",
+    render: () => {
+      let h = `<div class="sec-title">📐 Les verbes · Verbs</div>
+        <div class="sec-sub">The 12 key verbs of Speak Your French — present & passé composé.</div>`;
+      // Tableaux de conjugaison
+      VERBS_DATA.forEach(v => {
+        h += `<div class="card" style="margin-bottom:0.7rem">
+          <h3 style="display:flex;justify-content:space-between;align-items:baseline">
+            <span>${v.inf}</span>
+            <span style="font-size:0.78rem;font-weight:400;color:#7a93ac">${v.en}</span>
+          </h3>
+          <div class="conj-wrap">
+            <table class="conj-table">
+              <thead><tr><th></th><th>Présent</th></tr></thead>
+              <tbody>${v.present.map(p=>`<tr><td>${p[0]}</td><td><em>${p[1]}</em></td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+          <div style="margin-top:0.6rem;padding:0.6rem 0.9rem;background:#f0f4f9;border-left:3px solid ${v.aux==='être'?'#dd490a':'#0d2c4f'};border-radius:0 8px 8px 0">
+            <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#afc1d0">Passé composé · ${v.aux}</span><br>
+            <span style="font-weight:600;color:#0d2c4f">${v.pc}</span>
+          </div>
+        </div>`;
+      });
+      // Encart futur proche
+      const FP_LIST = [
+        ["je vais","manger","je vais manger"],
+        ["tu vas","venir","tu vas venir"],
+        ["il va","habiter","il va habiter"],
+        ["elle va","prendre","elle va prendre"],
+        ["on va","faire","on va faire"],
+        ["nous allons","aimer","nous allons aimer"],
+        ["vous allez","mettre","vous allez mettre"],
+        ["ils vont","acheter","ils vont acheter"],
+        ["elles vont","pouvoir","elles vont pouvoir"],
+        ["je vais","vouloir","je vais vouloir"],
+        ["tu vas","être","tu vas être"],
+        ["on va","aller","on va aller"]
+      ];
+      h += `<div class="divider-label"><span class="ico">🔜</span>Le futur proche</div>
+        <div class="card" style="background:#eef3f8;border:1.5px solid #0d2c4f">
+          <h3 style="color:#0d2c4f">aller (présent) + infinitif</h3>
+          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Pour parler du futur, on utilise <strong>aller</strong> conjugué + un verbe à l'infinitif :</p>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:0.6rem">
+            ${FP_LIST.map(f=>`<div style="font-size:0.88rem;padding:6px 10px;background:#fff;border-radius:8px"><span style="color:#7a93ac">${f[0]}</span> <strong style="color:#0d2c4f">+ ${f[1]}</strong> <span style="color:#dd490a">→</span> <strong style="color:#0d2c4f">${f[2]}</strong></div>`).join('')}
+          </div>
+        </div>`;
+      // Encart il faut + infinitif
+      h += `<div class="divider-label"><span class="ico">📐</span>Il faut + infinitif</div>
+        <div class="card" style="background:#fff8ec;border:1.5px solid #fdb324">
+          <h3 style="color:#0d2c4f">il faut + infinitif</h3>
+          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Expression impersonnelle = <em>one must / you need to</em>. Le verbe reste à l'infinitif :</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem">
+            ${VERBS_DATA.map(v=>`<span class="pill" style="background:#fdb324;border-color:#fdb324;color:#0d2c4f;font-weight:600">il faut ${v.inf.toLowerCase()}</span>`).join('')}
+          </div>
+        </div>`;
+      return h;
+    }
+  },
+  {
+    id: "spoken",
+    navLabel: "Spoken French",
+    render: () => {
+      const SPOKEN = [
+        { full:"je suis", spoken:"chui", en:"I am", audio:"audio/bonus_chui.mp3" },
+        { full:"je sais", spoken:"ché", en:"I know", audio:"audio/bonus_che.mp3" },
+        { full:"je ne sais pas", spoken:"ché pa", en:"I don't know", audio:"audio/bonus_chepa.mp3" },
+        { full:"je veux", spoken:"jveu", en:"I want", audio:"audio/bonus_jveu.mp3" },
+        { full:"je ne veux pas", spoken:"jveu pa", en:"I don't want", audio:"audio/bonus_jveupa.mp3" },
+        { full:"je peux", spoken:"jpeu", en:"I can", audio:"audio/bonus_jpeu.mp3" },
+        { full:"je ne peux pas", spoken:"jpeu pa", en:"I can't", audio:"audio/bonus_jpeupa.mp3" },
+        { full:"tu es", spoken:"t'es", en:"you are", audio:"audio/bonus_tes.mp3" },
+        { full:"tu n'es pas", spoken:"t'es pa", en:"you aren't", audio:"audio/bonus_tespa.mp3" },
+        { full:"tu as", spoken:"t'a", en:"you have", audio:"audio/bonus_ta.mp3" },
+        { full:"tu n'as pas", spoken:"t'a pa", en:"you don't have", audio:"audio/bonus_tapa.mp3" },
+        { full:"il y a", spoken:"ya", en:"there is/are", audio:"audio/bonus_ya.mp3" },
+        { full:"il n'y a pas", spoken:"ya pa", en:"there isn't/aren't", audio:"audio/bonus_yapa.mp3" }
+      ];
+      let h = `<div class="sec-title">💬 Bonus · Spoken French</div>
+        <div class="sec-sub">How French is really spoken — informal contractions you'll hear every day.</div>
+        <div class="card">
+          <h3>Le français parlé</h3>
+          <p style="font-size:0.88rem;color:#555">In everyday speech, French speakers contract words. Tap each card to hear the spoken version. These are <strong>informal</strong> — great for understanding, but write the full form!</p>
+        </div>`;
+      SPOKEN.forEach(s => {
+        h += `<button class="card" style="width:100%;text-align:left;border:1.5px solid #e8e6df;cursor:pointer;display:flex;align-items:center;gap:14px;margin-bottom:0.5rem" onclick="playAud('${s.audio}',this)">
+          <div style="flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#0d2c4f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem">▶</div>
+          <div style="flex:1">
+            <div style="font-size:0.95rem;color:#0d2c4f"><span style="color:#7a93ac">${s.full}</span> <span style="color:#dd490a;font-weight:700">→ ${s.spoken}</span></div>
+            <div style="font-size:0.78rem;color:#afc1d0">${s.en}</div>
+          </div>
+        </button>`;
+      });
+      h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
+      return h;
+    }
   }
 ];
 
@@ -773,23 +1420,27 @@ const STATIC = [
    ════════════════════════════════════ */
 var current = 0;
 var answered = {};
+var scoreTracker = { correct: 0, total: 0 };
 
 function buildUI() {
   const nav = document.getElementById('nav');
   const wrap = document.getElementById('sections-wrap');
-  const allSections = [...STATIC, ...SESSIONS];
+  const allSections = [...STATIC, ...SESSIONS, ...STATIC_END];
   const total = allSections.length;
 
   allSections.forEach((s, i) => {
     // NAV BUTTON
     const btn = document.createElement('button');
     btn.className = 'nav-btn' + (i === 0 ? ' active' : '');
-    // Welcome and Observation (i=0,1) show no number — sessions start at 1
-    const isStatic = i < STATIC.length;
+    // Welcome/Observation (start) and Verbs/Bonus (end) show no number — sessions numbered
+    const isStaticStart = i < STATIC.length;
+    const isSession = i >= STATIC.length && i < (STATIC.length + SESSIONS.length);
     const sessionNum = i - STATIC.length;
-    btn.innerHTML = isStatic
-      ? (s.navLabel || s.title)
-      : `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`;
+    const sectionIcons = { observation:'👀', verbs:'📐', spoken:'💬' };
+    const ic = sectionIcons[s.id] ? sectionIcons[s.id] + ' ' : '';
+    btn.innerHTML = isSession
+      ? `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`
+      : `${ic}${s.navLabel || s.title}`;
     btn.onclick = () => goTo(i);
     nav.appendChild(btn);
 
@@ -801,7 +1452,7 @@ function buildUI() {
     wrap.appendChild(div);
   });
 
-  document.getElementById('prog-label').textContent = 'Section 1 / ' + total;
+  document.getElementById('prog-label').textContent = 'Menu';
 
   // Build programme overview on Welcome page
   const progList = document.getElementById('programme-list');
@@ -810,9 +1461,22 @@ function buildUI() {
       const sectionIdx = i + STATIC.length;
       const div = document.createElement('div');
       div.className = 'prog-item unlocked';
+      const numLabel = s.selfEval ? '★' : i;
       div.innerHTML = `
-        <div class="prog-item-num">${i+1}</div>
+        <div class="prog-item-num">${numLabel}</div>
         <div class="prog-item-title">${s.title}</div>
+        <div class="prog-item-status">→</div>`;
+      div.onclick = () => goTo(sectionIdx);
+      progList.appendChild(div);
+    });
+    // Add Verbs + Bonus links
+    STATIC_END.forEach((s, k) => {
+      const sectionIdx = STATIC.length + SESSIONS.length + k;
+      const div = document.createElement('div');
+      div.className = 'prog-item unlocked';
+      div.innerHTML = `
+        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : s.id === 'observation' ? '👀' : '💬'}</div>
+        <div class="prog-item-title">${s.navLabel}</div>
         <div class="prog-item-status">→</div>`;
       div.onclick = () => goTo(sectionIdx);
       progList.appendChild(div);
@@ -829,6 +1493,127 @@ function renderSession(s, idx) {
   // TITLE
   html += `<div class="sec-title">${idx < STATIC.length ? '' : (idx - STATIC.length) + '. '} ${s.title}</div>
             <div class="sec-sub">${s.sub}</div>`;
+
+  // SELF-EVALUATION (session 10)
+  if (s.selfEval) {
+    html += `
+      <div class="card" style="text-align:center;padding:2rem 1.5rem">
+        <svg width="130" height="130" viewBox="0 0 130 130" style="margin-bottom:1rem">
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#eef3f8" stroke-width="11"/>
+          <circle id="selfeval-ring" cx="65" cy="65" r="52" fill="none" stroke="#fdb324" stroke-width="11"
+            stroke-linecap="round" transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 0.5s,stroke 0.3s"/>
+          <text id="selfeval-score" x="65" y="73" text-anchor="middle" font-size="2rem" font-weight="700" fill="#0d2c4f">0%</text>
+        </svg>
+        <div id="selfeval-detail" style="font-size:0.85rem;color:#7a93ac;margin-bottom:0.5rem">0 / 0 correct answers</div>
+        <div id="selfeval-msg" style="font-size:0.92rem;color:#0d2c4f;font-weight:500">Start answering quizzes in the sessions to see your score grow!</div>
+      </div>
+      <div class="card">
+        <h3>📝 Test your A1 level</h3>
+        <p style="font-size:0.88rem;color:#555">Answer the quizzes below — a quick test covering everything from the 10 sessions. Your score updates live in the circle above.</p>
+      </div>`;
+
+    // ===== AUTO-GENERATED REVIEW QUIZZES =====
+    // Helper: shuffle + pick n
+    function pick(arr, n) {
+      const copy = arr.slice();
+      for (let k = copy.length - 1; k > 0; k--) {
+        const j = Math.floor(Math.random() * (k + 1));
+        [copy[k], copy[j]] = [copy[j], copy[k]];
+      }
+      return copy.slice(0, n);
+    }
+    // Aggregate all quizzes from sessions 0-9
+    const allSyl = [], allVoc = [], allSit = [], allGram = [], allConj = [];
+    SESSIONS.forEach(sess => {
+      if (sess.selfEval || sess.comingSoon) return;
+      (sess.sylQuizzes||[]).forEach(q => allSyl.push(q));
+      (sess.vocabQuizzes||[]).forEach(q => allVoc.push(q));
+      (sess.sitQuizzes||[]).forEach(q => allSit.push(q));
+      (sess.gramQuizzes||[]).forEach(q => allGram.push(q));
+      (sess.conjQuizzes||[]).forEach(q => allConj.push(q));
+    });
+
+    // 1. SYLLABES (10)
+    html += `<div class="divider-label"><span class="ico">🎵</span>Quiz — syllables</div>`;
+    pick(allSyl, 5).forEach((q, qi) => {
+      const qid = `ev_syl_${qi}`;
+      html += `<div class="quiz-wrap">
+        <button class="btn-quiz-listen" onclick="playAud('${q.audio||''}',this)">▶ Listen</button>
+        <div class="q-text" style="margin-top:0.5rem">How many syllables?</div>
+        <div class="quiz-opts-grid">
+          ${q.opts.map(o=>`<button class="quiz-opt" onclick="ansNum(this,'${qid}',${o},${q.correct})">${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+
+    // 2. VOCABULAIRE (10)
+    html += `<div class="divider-label"><span class="ico">📖</span>Quiz — which word do you hear?</div>`;
+    pick(allVoc, 5).forEach((q, qi) => {
+      const qid = `ev_voc_${qi}`;
+      html += `<div class="quiz-wrap">
+        <button class="btn-quiz-listen" onclick="playAud('${q.audio||''}',this)">▶ Listen</button>
+        <div class="flag-opts" style="margin-top:0.5rem">
+          ${q.opts.map((flag,fi)=>`<button class="flag-opt" onclick="ansFlag(this,'${qid}',${fi},${q.correct})">${flag}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+
+    // 3. SITUATIONS (6)
+    html += `<div class="divider-label"><span class="ico">💬</span>Quiz — which phrase fits the situation?</div>`;
+    pick(allSit, 4).forEach((q, qi) => {
+      const qid = `ev_sit_${qi}`;
+      html += `<div class="quiz-wrap">
+        <div class="q-text">${q.q}</div>
+        <div class="quiz-opts-grid">
+          ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+
+    // 4. GRAMMAIRE (10)
+    html += `<div class="divider-label"><span class="ico">📐</span>Quiz — grammaire</div>`;
+    pick(allGram, 5).forEach((q, qi) => {
+      const qid = `ev_gram_${qi}`;
+      html += `<div class="quiz-wrap">
+        <div class="q-text">${q.q}</div>
+        <div class="quiz-opts-grid">
+          ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+
+    // 5. CONJUGAISON (10)
+    html += `<div class="divider-label"><span class="ico">📐</span>Quiz — conjugaison</div>`;
+    pick(allConj, 5).forEach((q, qi) => {
+      const qid = `ev_conj_${qi}`;
+      html += `<div class="quiz-wrap">
+        <div class="q-text">${q.q}</div>
+        <div class="quiz-opts-grid">
+          ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansIdx(this,'${qid}',${oi},${q.correct})">${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+
+    // ===== BRAVO + A2 message at the bottom =====
+    html += `
+      <div class="card" style="background:#0d2c4f;color:#fff;text-align:center;padding:2rem 1.5rem;margin-top:1rem">
+        <div style="font-size:2rem;margin-bottom:0.5rem">🎉</div>
+        <h3 style="color:#fff;font-size:1.15rem;margin-bottom:0.6rem">Bravo ! Vous avez terminé le niveau A1 !</h3>
+        <p style="font-size:0.9rem;color:#c5e0f6;line-height:1.5;margin-bottom:0">
+          <strong>Next step → A2 level:</strong> same method, but more words, more complex sentences,
+          more situations, and more speaking. You will keep activating your French, step by step.
+        </p>
+      </div>
+      <div class="rhythm-tip" style="margin-top:0.4rem">💡 The score is informative and resets if you reload the page — nothing is stored.</div>`;
+    // Trigger update after render
+    setTimeout(() => { if (typeof updateScoreDisplay === 'function') updateScoreDisplay(); }, 50);
+    return html;
+  }
 
   // KEY PHRASES BANNER — always shown
   html += `<div class="kp-banner">
@@ -945,6 +1730,52 @@ function renderSession(s, idx) {
     <div class="fc-hint">Tap again to flip back</div>
   </div>`;
 
+  // FREQUENCY SCALE + DAYS/PERIODS/TIMEWORDS (optionnel)
+  if (s.freqScale) {
+    const fs = s.freqScale;
+    html += `<div class="divider-label"><span class="ico">📊</span>${fs.title || 'Fréquence'}</div>
+  <div class="card">
+    ${fs.items && fs.items.length ? `<div style="display:flex;flex-direction:column;gap:6px">
+      ${fs.items.map(it=>{
+        const pct = (it.level/5)*100;
+        return `<div style="display:flex;align-items:center;gap:10px">
+          <div style="flex:0 0 130px;font-size:0.85rem;font-weight:600;color:#0d2c4f">${it.fr}</div>
+          <div style="flex:1;height:14px;background:#eef3f8;border-radius:7px;overflow:hidden">
+            <div style="width:${pct}%;height:100%;background:#0d2c4f;border-radius:7px"></div>
+          </div>
+          <div style="flex:0 0 90px;font-size:0.72rem;color:#0d2c4f;font-weight:500">${it.en}</div>
+        </div>`;
+      }).join('')}
+    </div>` : ''}`;
+    // Jours cliquables
+    if (fs.daysClick) {
+      html += `<div style="margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">Les jours de la semaine · tap to listen</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${fs.daysClick.map(d=>`<button class="word-pill word-pill-row" onclick="playAud('${d.audio}',this)"><span>${d.fr}</span> <span class="word-pill-ico">▶</span></button>`).join('')}
+        </div>
+      </div>`;
+    }
+    // Durées cliquables
+    if (fs.periodsClick) {
+      html += `<div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">Durées · tap to listen</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${fs.periodsClick.map(p=>`<button class="word-pill word-pill-row" onclick="playAud('${p.audio}',this)"><span>${p.fr} <span style="color:#7a93ac">· ${p.en}</span></span> <span class="word-pill-ico">▶</span></button>`).join('')}
+        </div>
+      </div>`;
+    }
+    // Time words cliquables (futur proche)
+    if (fs.timeWords) {
+      html += `<div style="margin-top:0.5rem">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${fs.timeWords.map(t=>`<button class="word-pill word-pill-row" onclick="playAud('${t.audio}',this)"><span>${t.fr} <span style="color:#7a93ac">· ${t.en}</span></span> <span class="word-pill-ico">▶</span></button>`).join('')}
+        </div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
   // VOCAB VIDEO (optionnel)
   if (s.vocabVideo) {
     html += `<div class="divider-label"><span class="ico">🎬</span>${s.vocabVideo.title || 'Video'}</div>
@@ -1006,6 +1837,38 @@ function renderSession(s, idx) {
     }
   }
 
+  // INFINITIVE BOX (optionnel) — il faut + infinitif
+  if (s.infinitiveBox) {
+    const ib = s.infinitiveBox;
+    html += `<div class="card" style="margin-top:0.6rem;background:#fff8ec;border:1.5px solid #fdb324">
+      <h3 style="color:#0d2c4f">${ib.title}</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem">
+        ${ib.verbs.map(v=>`<span class="pill" style="background:#fdb324;border-color:#fdb324;color:#0d2c4f;font-weight:600">${v}</span>`).join('')}
+      </div>
+      ${ib.note ? `<div style="font-size:0.8rem;color:#0d2c4f;margin-top:0.7rem">${ib.note}</div>` : ''}
+    </div>`;
+  }
+
+  // PARTICIPE PASSÉ TABLE (optionnel)
+  if (s.ppTable) {
+    html += `<div class="divider-label"><span class="ico">📐</span>${s.ppTable.title || 'Participe passé'}</div>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+      ${s.ppTable.groups.map(g=>`
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:${g.color};color:#fff;font-weight:700;font-size:0.85rem;padding:5px 0;border-radius:10px;text-align:center">${g.ending}</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            ${g.verbs.map(v=>`<div style="display:flex;flex-direction:column;align-items:center;gap:1px;font-size:0.78rem;text-align:center">
+              <span style="color:#7a93ac">${v[0]}</span>
+              <span style="color:${g.color};font-weight:700;font-size:0.7rem">↓</span>
+              <span style="color:#0d2c4f;font-weight:700">${v[1]}</span>
+            </div>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+  }
+
   // GRAMMAR FORMULAS
   html += `<div class="divider-label"><span class="ico">📐</span>Grammaire</div>
   <div class="card">
@@ -1040,6 +1903,23 @@ function renderSession(s, idx) {
       <div class="feedback" id="fb-${qid}"></div>
     </div>`;
   });
+
+  // QUIZ AUXILIAIRE (avoir ou être) — optionnel
+  if (s.auxQuizzes) {
+    html += `<div class="divider-label"><span class="ico">📐</span>${s.auxQuizzes.title || 'Avoir ou être ?'}</div>`;
+    s.auxQuizzes.items.forEach((q,qi) => {
+      const qid = `aux_${idx}_${qi}`;
+      html += `<div class="quiz-wrap">
+        <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+        <div class="q-text" style="margin-top:0.5rem">${q.sentence}</div>
+        <div class="quiz-opts-grid" style="grid-template-columns:1fr 1fr">
+          <button class="quiz-opt" onclick="ansAux(this,'${qid}','avoir','${q.correct}')">avoir</button>
+          <button class="quiz-opt" onclick="ansAux(this,'${qid}','être','${q.correct}')">être</button>
+        </div>
+        <div class="feedback" id="fb-${qid}"></div>
+      </div>`;
+    });
+  }
 
   // QUIZ SITUATION
   html += `<div class="divider-label"><span class="ico">💬</span>Quiz — which phrase fits the situation?</div>`;
@@ -1083,10 +1963,10 @@ function renderSession(s, idx) {
     <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">${(s.video && s.video.coTitle) || ""}</div>`;
 
   if (s.video && s.video.dial) {
-    html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the dialogue</button>
+    html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>
       <audio src="${s.video.dial}"></audio>`;
   } else {
-    html += `<button class="btn-quiz-listen" onclick="this.textContent='⏳ Coming soon';setTimeout(()=>this.textContent='▶ Listen to the dialogue',1500)">▶ Listen to the dialogue</button>`;
+    html += `<button class="btn-quiz-listen" onclick="this.textContent='⏳ Coming soon';setTimeout(()=>this.textContent='▶ Listen to the ${s.video.listenLabel || 'dialogue'}',1500)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>`;
   }
 
   html += `</div></div>`;
@@ -1121,7 +2001,7 @@ function renderSession(s, idx) {
   html += `<div class="divider-label"><span class="ico">🎙</span>After class</div>
   <div class="post-card">
     <div class="post-label">Record yourself</div>
-    <div class="post-text">Answer out loud and send the audio to your teacher:</div>
+    <div class="post-text">${s.recordNote || 'Answer out loud and send the audio to your teacher:'}</div>
     <ul class="record-prompts">
       ${s.recordPrompts.map(p=>`<li>${p}</li>`).join('')}
     </ul>
@@ -1163,9 +2043,22 @@ function goTo(i) {
   const nav = document.getElementById('nav');
   nav.scrollLeft = navBtns[i].offsetLeft - nav.offsetWidth/2 + navBtns[i].offsetWidth/2;
   window.scrollTo({top:0, behavior:'smooth'});
-  const isStaticSection = i < STATIC.length;
-  const displayNum = isStaticSection ? (i === 0 ? 'Welcome' : 'Observation') : (i - STATIC.length) + ' / ' + (total - STATIC.length - 1);
-  document.getElementById('prog-label').textContent = isStaticSection ? displayNum : 'Session ' + displayNum;
+  const isSession = i >= STATIC.length && i < (STATIC.length + SESSIONS.length);
+  if (isSession) {
+    const sNum = i - STATIC.length;
+    const allS2 = [...STATIC, ...SESSIONS, ...STATIC_END];
+    // Session 10 (selfEval) shows its title, not a number ratio
+    if (allS2[i] && allS2[i].selfEval) {
+      document.getElementById('prog-label').textContent = 'Auto-évaluation';
+    } else {
+      document.getElementById('prog-label').textContent = 'Session ' + sNum + ' / 9';
+    }
+  } else {
+    const allS = [...STATIC, ...SESSIONS, ...STATIC_END];
+    document.getElementById('prog-label').textContent = allS[i].navLabel || allS[i].title || '';
+  }
+  // Refresh self-eval score if present
+  if (typeof updateScoreDisplay === 'function') updateScoreDisplay();
 }
 
 function goNext() {
@@ -1183,10 +2076,35 @@ function goPrev() {
 function markAnswered(qid, btn, isCorrect) {
   if (answered[qid]) return false;
   answered[qid] = true;
+  scoreTracker.total++;
+  if (isCorrect) scoreTracker.correct++;
+  updateScoreDisplay();
   const fb = document.getElementById('fb-' + qid);
   if (isCorrect) { fb.textContent = '✅ Correct!'; fb.className = 'feedback show ok'; }
   else { fb.textContent = '❌ Not quite — the correct answer is highlighted in blue.'; fb.className = 'feedback show nope'; }
   return true;
+}
+
+function updateScoreDisplay() {
+  const el = document.getElementById('selfeval-score');
+  if (!el) return;
+  const pct = scoreTracker.total ? Math.round((scoreTracker.correct / scoreTracker.total) * 100) : 0;
+  const ring = document.getElementById('selfeval-ring');
+  el.textContent = pct + '%';
+  document.getElementById('selfeval-detail').textContent = scoreTracker.correct + ' / ' + scoreTracker.total + ' correct answers';
+  if (ring) {
+    const circ = 2 * Math.PI * 52;
+    ring.style.strokeDasharray = circ;
+    ring.style.strokeDashoffset = circ * (1 - pct/100);
+    ring.style.stroke = pct >= 80 ? '#1a7a5e' : pct >= 50 ? '#fdb324' : '#dd490a';
+  }
+  const msg = document.getElementById('selfeval-msg');
+  if (msg) {
+    if (scoreTracker.total === 0) msg.textContent = 'Start answering quizzes in the sessions to see your score grow!';
+    else if (pct >= 80) msg.textContent = '🎉 Excellent! You are ready for the A2 level.';
+    else if (pct >= 50) msg.textContent = '💪 Good progress! Review the sessions and keep practising.';
+    else msg.textContent = '📚 Keep going — revisit the sessions and try the quizzes again.';
+  }
 }
 
 function ansDictee(btn, qid, idx, correct) {
@@ -1230,6 +2148,14 @@ function ansFlag(btn, qid, idx, correct) {
   markAnswered(qid, btn, idx === correct);
 }
 
+function ansAux(btn, qid, choice, correct) {
+  if (answered[qid]) return;
+  const opts = btn.closest('.quiz-wrap').querySelectorAll('.quiz-opt');
+  opts.forEach(o => { o.disabled = true; if (o.textContent.trim() === correct) o.classList.add('correct'); });
+  if (choice !== correct) btn.classList.add('wrong');
+  markAnswered(qid, btn, choice === correct);
+}
+
 function flipCard(el, audioSrc) {
   el.classList.toggle('flipped');
   if (el.classList.contains('flipped') && audioSrc) {
@@ -1263,4 +2189,3 @@ buildUI();
 </script>
 </body>
 </html>
-
