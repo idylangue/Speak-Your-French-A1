@@ -54,6 +54,11 @@ body{font-family:'DM Sans',sans-serif;background:#f7f6f2;color:#1a1a1a;line-heig
 .pill-row{display:flex;flex-wrap:wrap;gap:5px}
 .pill{background:rgba(197,224,246,0.15);border:1px solid rgba(197,224,246,0.28);color:#c5e0f6;border-radius:20px;padding:3px 11px;font-size:0.73rem}
 .word-pill{background:#eef3f8;border:1.5px solid #0d2c4f;color:#0d2c4f;border-radius:20px;padding:6px 13px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:background 0.12s;display:inline-flex;align-items:center;gap:5px}
+.audio-pill{display:flex;align-items:center;gap:9px;width:100%;background:#eef3f8;border:1.5px solid #0d2c4f;color:#0d2c4f;border-radius:12px;padding:9px 14px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.15s,color 0.15s;text-align:left;font-family:'DM Sans',sans-serif}
+.audio-pill .audio-pill-tri{color:#0d2c4f;font-size:0.65rem;transition:color 0.15s}
+.audio-pill.playing{background:#0d2c4f;color:#fff}
+.audio-pill.playing .audio-pill-tri{color:#fff}
+.audio-pill.playing span{color:#fff !important}
 .word-pill:active{background:#0d2c4f;color:#fff}
 .word-pill-ico{font-size:0.62rem;color:#7a93ac}
 .word-pill-row{width:100%;justify-content:space-between;padding:8px 14px}
@@ -678,7 +683,7 @@ const SESSIONS = [
     sylQuizzes: [
       { phrase:"Qu'est-ce que vous aimez ?",       correct:5, opts:[4,5,6,7], audio:"audio/s5_syl1.mp3" },
       { phrase:"Je n'aime pas les transports.",    correct:6, opts:[5,6,7,8], audio:"audio/s5_syl2.mp3" },
-      { phrase:"Il n'y a pas de métro.",           correct:7, opts:[5,6,7,8], audio:"audio/s5_syl3.mp3" }
+      { phrase:"Il n'y a pas de métro.",           correct:6, opts:[5,6,7,8], audio:"audio/s5_syl3.mp3" }
     ],
     flashcards: [
       { flag:"<span style='font-size:2rem'>😍</span>", fr:"beau / belle",      en:"beautiful",     audio:"audio/s5_fc_beau.mp3" },
@@ -754,7 +759,7 @@ const SESSIONS = [
     title: "Qu'est-ce que vous faites ?",
     sub: "Activities · hobbies · daily life · faire",
     fcTitle: "Activities & Days",
-    keyPhrases: ["Qu'est-ce que vous faites ?","Je fais…","Est-ce que vous faites… ?"],
+    keyPhrases: ["Qu'est-ce que vous faites ?","Est-ce que vous faites… ?","Je fais…"],
     pills: ["faire","du · de la · des","fréquence","jours · semaine"],
     phrases: [
       { text: "Est-ce que vous faites du sport ?",       audio: "audio/s6_p1.mp3" },
@@ -774,8 +779,8 @@ const SESSIONS = [
       { phrase:"On fait du yoga.",                  correct:5, opts:[3,4,5,6], audio:"audio/s6_syl3.mp3" }
     ],
     flashcards: [
-      { flag:"<span style='font-size:2rem'>⚽</span>", fr:"faire du foot",      en:"play football",  audio:"audio/s6_fc_foot.mp3" },
-      { flag:"<span style='font-size:2rem'>🎾</span>", fr:"faire du tennis",    en:"play tennis",    audio:"audio/s6_fc_tennis.mp3" },
+      { flag:"<span style='font-size:2rem'>⚽</span>", fr:"du foot",            en:"football",       audio:"audio/s6_fc_foot.mp3" },
+      { flag:"<span style='font-size:2rem'>🎾</span>", fr:"du tennis",          en:"tennis",         audio:"audio/s6_fc_tennis.mp3" },
       { flag:"<span style='font-size:2rem'>🎹</span>", fr:"du piano",           en:"piano",          audio:"audio/s6_fc_piano.mp3" },
       { flag:"<span style='font-size:2rem'>🧘</span>", fr:"du yoga",            en:"yoga",           audio:"audio/s6_fc_yoga.mp3" },
       { flag:"<span style='font-size:2rem'>🎸</span>", fr:"de la guitare",      en:"guitar",         audio:"audio/s6_fc_guitare.mp3" },
@@ -909,6 +914,7 @@ const SESSIONS = [
     ],
     freqScale: {
       title: "Dans combien de temps ? — In how long?",
+      icon: "📅",
       items: [],
       timeWords: [
         { fr:"demain",              en:"tomorrow",        audio:"audio/s7_t_demain.mp3" },
@@ -1018,6 +1024,7 @@ const SESSIONS = [
     ],
     freqScale: {
       title: "C'était quand ? — When was it?",
+      icon: "📅",
       items: [],
       timeWords: [
         { fr:"hier",                en:"yesterday",       audio:"audio/s8_t_hier.mp3" },
@@ -1037,8 +1044,8 @@ const SESSIONS = [
       columns: true,
       groups: [
         { ending:"-é", color:"#0d2c4f", verbs:[["manger","mangé"],["parler","parlé"],["aller","allé"]] },
-        { ending:"-u", color:"#dd490a", verbs:[["voir","vu"],["boire","bu"]] },
-        { ending:"-i / -is", color:"#fdb324", verbs:[["prendre","pris"],["mettre","mis"]] }
+        { ending:"-u", color:"#dd490a", verbs:[["voir","vu"],["boire","bu"],["pouvoir","pu"]] },
+        { ending:"-i / -is", color:"#fdb324", verbs:[["prendre","pris"],["mettre","mis"],["finir","fini"]] }
       ]
     },
     conjugaison: {
@@ -1421,6 +1428,7 @@ const STATIC_END = [
 var current = 0;
 var answered = {};
 var scoreTracker = { correct: 0, total: 0 };
+var EVAL_TOTAL = 24; // Total questions in the session 10 self-evaluation
 
 function buildUI() {
   const nav = document.getElementById('nav');
@@ -1610,7 +1618,8 @@ function renderSession(s, idx) {
         </p>
       </div>
       <div class="rhythm-tip" style="margin-top:0.4rem">💡 The score is informative and resets if you reload the page — nothing is stored.</div>`;
-    // Trigger update after render
+    // Reset score for a fresh evaluation, then update
+    scoreTracker = { correct: 0, total: 0 };
     setTimeout(() => { if (typeof updateScoreDisplay === 'function') updateScoreDisplay(); }, 50);
     return html;
   }
@@ -1733,7 +1742,7 @@ function renderSession(s, idx) {
   // FREQUENCY SCALE + DAYS/PERIODS/TIMEWORDS (optionnel)
   if (s.freqScale) {
     const fs = s.freqScale;
-    html += `<div class="divider-label"><span class="ico">📊</span>${fs.title || 'Fréquence'}</div>
+    html += `<div class="divider-label"><span class="ico">${fs.icon || '📊'}</span>${fs.title || 'Fréquence'}</div>
   <div class="card">
     ${fs.items && fs.items.length ? `<div style="display:flex;flex-direction:column;gap:6px">
       ${fs.items.map(it=>{
@@ -1750,18 +1759,18 @@ function renderSession(s, idx) {
     // Jours cliquables
     if (fs.daysClick) {
       html += `<div style="margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">Les jours de la semaine · tap to listen</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">📅 Les jours de la semaine</div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.daysClick.map(d=>`<button class="word-pill word-pill-row" onclick="playAud('${d.audio}',this)"><span>${d.fr}</span> <span class="word-pill-ico">▶</span></button>`).join('')}
+          ${fs.daysClick.map(d=>`<button class="audio-pill" onclick="playAudPill('${d.audio}',this)"><span class="audio-pill-tri">▶</span><span>${d.fr}</span></button>`).join('')}
         </div>
       </div>`;
     }
     // Durées cliquables
     if (fs.periodsClick) {
       html += `<div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">Durées · tap to listen</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">⏱️ Durées</div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.periodsClick.map(p=>`<button class="word-pill word-pill-row" onclick="playAud('${p.audio}',this)"><span>${p.fr} <span style="color:#7a93ac">· ${p.en}</span></span> <span class="word-pill-ico">▶</span></button>`).join('')}
+          ${fs.periodsClick.map(p=>`<button class="audio-pill" onclick="playAudPill('${p.audio}',this)"><span class="audio-pill-tri">▶</span><span>${p.fr} <span style="color:#7a93ac">· ${p.en}</span></span></button>`).join('')}
         </div>
       </div>`;
     }
@@ -1769,7 +1778,7 @@ function renderSession(s, idx) {
     if (fs.timeWords) {
       html += `<div style="margin-top:0.5rem">
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.timeWords.map(t=>`<button class="word-pill word-pill-row" onclick="playAud('${t.audio}',this)"><span>${t.fr} <span style="color:#7a93ac">· ${t.en}</span></span> <span class="word-pill-ico">▶</span></button>`).join('')}
+          ${fs.timeWords.map(t=>`<button class="audio-pill" onclick="playAudPill('${t.audio}',this)"><span class="audio-pill-tri">▶</span><span>${t.fr} <span style="color:#7a93ac">· ${t.en}</span></span></button>`).join('')}
         </div>
       </div>`;
     }
@@ -2076,9 +2085,12 @@ function goPrev() {
 function markAnswered(qid, btn, isCorrect) {
   if (answered[qid]) return false;
   answered[qid] = true;
-  scoreTracker.total++;
-  if (isCorrect) scoreTracker.correct++;
-  updateScoreDisplay();
+  // Only the self-evaluation quizzes (session 10, ids start with 'ev_') count towards the gauge
+  if (qid.indexOf('ev_') === 0) {
+    scoreTracker.total++;
+    if (isCorrect) scoreTracker.correct++;
+    updateScoreDisplay();
+  }
   const fb = document.getElementById('fb-' + qid);
   if (isCorrect) { fb.textContent = '✅ Correct!'; fb.className = 'feedback show ok'; }
   else { fb.textContent = '❌ Not quite — the correct answer is highlighted in blue.'; fb.className = 'feedback show nope'; }
@@ -2088,10 +2100,11 @@ function markAnswered(qid, btn, isCorrect) {
 function updateScoreDisplay() {
   const el = document.getElementById('selfeval-score');
   if (!el) return;
-  const pct = scoreTracker.total ? Math.round((scoreTracker.correct / scoreTracker.total) * 100) : 0;
+  // Percentage = correct answers out of the full test (24 questions)
+  const pct = Math.round((scoreTracker.correct / EVAL_TOTAL) * 100);
   const ring = document.getElementById('selfeval-ring');
   el.textContent = pct + '%';
-  document.getElementById('selfeval-detail').textContent = scoreTracker.correct + ' / ' + scoreTracker.total + ' correct answers';
+  document.getElementById('selfeval-detail').textContent = scoreTracker.correct + ' / ' + EVAL_TOTAL + ' correct answers (' + scoreTracker.total + ' answered)';
   if (ring) {
     const circ = 2 * Math.PI * 52;
     ring.style.strokeDasharray = circ;
@@ -2100,10 +2113,11 @@ function updateScoreDisplay() {
   }
   const msg = document.getElementById('selfeval-msg');
   if (msg) {
-    if (scoreTracker.total === 0) msg.textContent = 'Start answering quizzes in the sessions to see your score grow!';
+    if (scoreTracker.total === 0) msg.textContent = 'Answer the ' + EVAL_TOTAL + ' questions below to complete your A1 self-assessment.';
+    else if (scoreTracker.total < EVAL_TOTAL) msg.textContent = '💪 Keep going — ' + (EVAL_TOTAL - scoreTracker.total) + ' questions left!';
     else if (pct >= 80) msg.textContent = '🎉 Excellent! You are ready for the A2 level.';
-    else if (pct >= 50) msg.textContent = '💪 Good progress! Review the sessions and keep practising.';
-    else msg.textContent = '📚 Keep going — revisit the sessions and try the quizzes again.';
+    else if (pct >= 50) msg.textContent = '👍 Good job! Review some sessions and try again.';
+    else msg.textContent = '📚 Keep practising — revisit the sessions and try again.';
   }
 }
 
@@ -2180,6 +2194,18 @@ function playAud(src, btn) {
     btn.textContent = '⚠️ Not found';
     setTimeout(() => { btn.innerHTML = orig; }, 1800);
   });
+}
+
+function playAudPill(src, btn) {
+  // Remove playing state from all other audio pills
+  document.querySelectorAll('.audio-pill.playing').forEach(p => { if (p !== btn) p.classList.remove('playing'); });
+  if (_currentAudio) { _currentAudio.pause(); _currentAudio.currentTime = 0; }
+  if (!src || src === '') return;
+  const audio = new Audio(src);
+  _currentAudio = audio;
+  btn.classList.add('playing');
+  audio.addEventListener('ended', () => btn.classList.remove('playing'));
+  audio.play().catch(() => { btn.classList.remove('playing'); });
 }
 
 /* ════════════════════════════════════
