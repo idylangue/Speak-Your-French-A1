@@ -825,7 +825,7 @@ const SESSIONS = [
         { fr:"un an",       en:"a year",  audio:"audio/s6_d_an.mp3" }
       ]
     },
-    vocabVideo: { id: "SAISONS_VIDEO_ID", title: "Les saisons" },
+    vocabVideo: { id: "0F8J50aRBc8", title: "Les saisons" },
     vocabQuizzes: [
       { audio:"audio/s6_qv1.mp3", correct:0, opts:["⚽","🎹","🧘"] },
       { audio:"audio/s6_qv2.mp3", correct:1, opts:["🧹","🛒","🎉"] },
@@ -1440,6 +1440,17 @@ var answered = {};
 var scoreTracker = { correct: 0, total: 0 };
 var EVAL_TOTAL = 24; // Total questions in the session 10 self-evaluation
 
+const FOOTER_HTML = `
+  <div style="margin-top:2.5rem;padding:1.5rem 0 1rem;border-top:1px solid #e8e6df;text-align:center">
+    <a href="mailto:contact@idylangue.com?subject=Speak%20Your%20French%20A1" style="display:inline-flex;align-items:center;gap:8px;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.7rem 1.6rem;border-radius:10px;font-size:0.88rem;font-weight:600;font-family:'DM Sans',sans-serif">
+      ✉️ Contacter Idylangue
+    </a>
+    <p style="font-size:0.78rem;color:#888;margin-top:1rem;line-height:1.5">
+      Want personalised feedback on your spoken French? Contact me to discover my courses (group or individual).<br>
+      <span style="font-size:0.72rem;color:#bbb">© Idylangue — Tous droits réservés</span>
+    </p>
+  </div>`;
+
 function buildUI() {
   const nav = document.getElementById('nav');
   const wrap = document.getElementById('sections-wrap');
@@ -1466,7 +1477,7 @@ function buildUI() {
     const div = document.createElement('div');
     div.id = 'sec-' + i;
     div.className = 'section' + (i === 0 ? ' active' : '');
-    div.innerHTML = s.render ? s.render() : renderSession(s, i);
+    div.innerHTML = (s.render ? s.render() : renderSession(s, i)) + FOOTER_HTML;
     wrap.appendChild(div);
   });
 
