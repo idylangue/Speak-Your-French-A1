@@ -418,11 +418,14 @@ const SESSIONS = [
       { audio:"audio/s2_qv3.mp3", correct:2, opts:["au restaurant","à l'hôtel","à la maison"] }
     ],
     conjugaison: {
-      verbs: ["Venir","Habiter","Être","Aller"],
+      verbs: ["Aller"],
       rows: [
-        ["Je",   "viens","habite","suis","vais"],
-        ["Tu",   "viens","habites","es","vas"],
-        ["Vous", "venez","habitez","êtes","allez"]
+        ["Je",   "vais"],
+        ["Tu",   "vas"],
+        ["Il/Elle/On", "va"],
+        ["Nous", "allons"],
+        ["Vous", "allez"],
+        ["Ils/Elles", "vont"]
       ]
     },
     gramFormulas: [
@@ -515,12 +518,15 @@ const SESSIONS = [
       { audio:"audio/s3_qv6.mp3", correct:2, opts:["🍺","💧","🍷"] }
     ],
     conjugaison: {
-      verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer"],
+      note: "✨ <strong>je</strong> → <strong>j'</strong> devant une voyelle : j'ai, j'aime, j'habite.",
+      verbs: ["Avoir","Prendre","Aimer"],
       rows: [
-        ["Je",   "viens","habite","suis","vais","ai","prends","aime"],
-        ["Tu",   "viens","habites","es","vas","as","prends","aimes"],
-        ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez"],
-        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons"]
+        ["J'",         "ai",    "prends",  "aime"],
+        ["Tu",         "as",    "prends",  "aimes"],
+        ["Il/Elle/On", "a",     "prend",   "aime"],
+        ["Nous",       "avons", "prenons", "aimons"],
+        ["Vous",       "avez",  "prenez",  "aimez"],
+        ["Ils/Elles",  "ont",   "prennent","aiment"]
       ]
     },
     gramFormulas: [
@@ -613,12 +619,14 @@ const SESSIONS = [
     ],
     conjugaison: {
       note: "✨ <strong>Je voudrais</strong> = forme polie de « je veux » (I would like).",
-      verbs: ["Venir","Habiter","Être","Aller","Avoir","Prendre","Aimer","Pouvoir","Vouloir"],
+      verbs: ["Pouvoir","Vouloir"],
       rows: [
-        ["Je",   "viens","habite","suis","vais","ai","prends","aime","peux","veux"],
-        ["Tu",   "viens","habites","es","vas","as","prends","aimes","peux","veux"],
-        ["Vous", "venez","habitez","êtes","allez","avez","prenez","aimez","pouvez","voulez"],
-        ["Nous", "venons","habitons","sommes","allons","avons","prenons","aimons","pouvons","voulons"]
+        ["Je",         "peux",    "veux"],
+        ["Tu",         "peux",    "veux"],
+        ["Il/Elle/On", "peut",    "veut"],
+        ["Nous",       "pouvons", "voulons"],
+        ["Vous",       "pouvez",  "voulez"],
+        ["Ils/Elles",  "peuvent", "veulent"]
       ]
     },
     gramFormulas: [
@@ -1076,11 +1084,11 @@ const SESSIONS = [
       title: "Auxiliaire — avoir ou être ?",
       instruction: "Listen and choose the correct auxiliary:",
       items: [
-        { audio:"audio/s8_aux1.mp3", sentence:"J'___ mangé un pain au chocolat hier matin.", correct:"avoir" },
-        { audio:"audio/s8_aux2.mp3", sentence:"Je ___ allée au cinéma hier soir.", correct:"être" },
-        { audio:"audio/s8_aux3.mp3", sentence:"J'___ vu un éléphant au zoo.", correct:"avoir" },
-        { audio:"audio/s8_aux4.mp3", sentence:"Nous ___ allés à Tokyo l'année dernière.", correct:"être" },
-        { audio:"audio/s8_aux5.mp3", sentence:"Elle ___ pris le bus.", correct:"avoir" }
+        { audio:"audio/s8_aux1.mp3", sentence:"J'___ mangé un pain au chocolat hier matin.", correct:"avoir", solved:"J'ai mangé un pain au chocolat hier matin." },
+        { audio:"audio/s8_aux2.mp3", sentence:"Je ___ allée au cinéma hier soir.", correct:"être", solved:"Je suis allée au cinéma hier soir." },
+        { audio:"audio/s8_aux3.mp3", sentence:"J'___ vu un éléphant au zoo.", correct:"avoir", solved:"J'ai vu un éléphant au zoo." },
+        { audio:"audio/s8_aux4.mp3", sentence:"Nous ___ allés à Tokyo l'année dernière.", correct:"être", solved:"Nous sommes allés à Tokyo l'année dernière." },
+        { audio:"audio/s8_aux5.mp3", sentence:"Elle ___ pris le bus.", correct:"avoir", solved:"Elle a pris le bus." }
       ]
     },
     conjQuizzes: [
@@ -1918,12 +1926,13 @@ function renderSession(s, idx) {
     html += `<div class="divider-label"><span class="ico">📐</span>${s.auxQuizzes.title || 'Avoir ou être ?'}</div>`;
     s.auxQuizzes.items.forEach((q,qi) => {
       const qid = `aux_${idx}_${qi}`;
+      const solvedEsc = (q.solved || '').replace(/'/g, "\\'");
       html += `<div class="quiz-wrap">
         <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
         <div class="q-text" style="margin-top:0.5rem">${q.sentence}</div>
         <div class="quiz-opts-grid" style="grid-template-columns:1fr 1fr">
-          <button class="quiz-opt" onclick="ansAux(this,'${qid}','avoir','${q.correct}')">avoir</button>
-          <button class="quiz-opt" onclick="ansAux(this,'${qid}','être','${q.correct}')">être</button>
+          <button class="quiz-opt" onclick="ansAux(this,'${qid}','avoir','${q.correct}','${solvedEsc}')">avoir</button>
+          <button class="quiz-opt" onclick="ansAux(this,'${qid}','être','${q.correct}','${solvedEsc}')">être</button>
         </div>
         <div class="feedback" id="fb-${qid}"></div>
       </div>`;
@@ -2162,12 +2171,19 @@ function ansFlag(btn, qid, idx, correct) {
   markAnswered(qid, btn, idx === correct);
 }
 
-function ansAux(btn, qid, choice, correct) {
+function ansAux(btn, qid, choice, correct, solved) {
   if (answered[qid]) return;
   const opts = btn.closest('.quiz-wrap').querySelectorAll('.quiz-opt');
   opts.forEach(o => { o.disabled = true; if (o.textContent.trim() === correct) o.classList.add('correct'); });
   if (choice !== correct) btn.classList.add('wrong');
-  markAnswered(qid, btn, choice === correct);
+  answered[qid] = true;
+  if (qid.indexOf('ev_') === 0) { scoreTracker.total++; if (choice === correct) scoreTracker.correct++; updateScoreDisplay(); }
+  const fb = document.getElementById('fb-' + qid);
+  if (fb) {
+    const ok = choice === correct;
+    fb.innerHTML = (ok ? '✅ ' : '❌ ') + '<strong>' + (solved || '') + '</strong>';
+    fb.className = 'feedback show ' + (ok ? 'ok' : 'nope');
+  }
 }
 
 function flipCard(el, audioSrc) {
