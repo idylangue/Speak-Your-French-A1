@@ -906,7 +906,7 @@ const SESSIONS = [
       { flag:"<span style='font-size:2rem'>🏘️</span>", fr:"visiter un quartier",   en:"visit a neighbourhood", audio:"audio/s7_fc_quartier.mp3" },
       { flag:"<span style='font-size:2rem'>🌆</span>", fr:"visiter une ville",     en:"visit a city",         audio:"audio/s7_fc_ville.mp3" },
       { flag:"<span style='font-size:2rem'>🎉</span>", fr:"organiser une fête",    en:"organise a party",     audio:"audio/s7_fc_fete.mp3" },
-      { flag:"<span style='font-size:2rem'>✈️</span>", fr:"organiser un voyage",   en:"organise a trip",      audio:"audio/s7_fc_voyage.mp3" },
+      { flag:"<span style='font-size:2rem'>✈️</span>", fr:"prendre l'avion",       en:"take the plane",       audio:"audio/s7_fc_avion.mp3" },
       { flag:"<span style='font-size:2rem'>🍽️</span>", fr:"réserver une table",    en:"book a table",         audio:"audio/s7_fc_table.mp3" },
       { flag:"<span style='font-size:2rem'>🎫</span>", fr:"réserver un billet d'avion", en:"book a flight",   audio:"audio/s7_fc_billet.mp3" },
       { flag:"<span style='font-size:2rem'>🧑‍🤝‍🧑</span>", fr:"voir des amis",         en:"see friends",          audio:"audio/s7_fc_amis.mp3" },
@@ -1761,7 +1761,7 @@ function renderSession(s, idx) {
       html += `<div style="margin-top:1rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">📅 Les jours de la semaine</div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.daysClick.map(d=>`<button class="audio-pill" onclick="playAudPill('${d.audio}',this)"><span class="audio-pill-tri">▶</span><span>${d.fr}</span></button>`).join('')}
+          ${fs.daysClick.map(d=>`<button class="audio-pill" onclick="playAudPill('${d.audio}',this)"><span>${d.fr}</span></button>`).join('')}
         </div>
       </div>`;
     }
@@ -1770,7 +1770,7 @@ function renderSession(s, idx) {
       html += `<div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid #eef3f8">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#0d2c4f;font-weight:600;margin-bottom:0.5rem">⏱️ Durées</div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.periodsClick.map(p=>`<button class="audio-pill" onclick="playAudPill('${p.audio}',this)"><span class="audio-pill-tri">▶</span><span>${p.fr} <span style="color:#7a93ac">· ${p.en}</span></span></button>`).join('')}
+          ${fs.periodsClick.map(p=>`<button class="audio-pill" onclick="playAudPill('${p.audio}',this)"><span>${p.fr} <span style="color:#7a93ac">· ${p.en}</span></span></button>`).join('')}
         </div>
       </div>`;
     }
@@ -1778,7 +1778,7 @@ function renderSession(s, idx) {
     if (fs.timeWords) {
       html += `<div style="margin-top:0.5rem">
         <div style="display:flex;flex-direction:column;gap:5px">
-          ${fs.timeWords.map(t=>`<button class="audio-pill" onclick="playAudPill('${t.audio}',this)"><span class="audio-pill-tri">▶</span><span>${t.fr} <span style="color:#7a93ac">· ${t.en}</span></span></button>`).join('')}
+          ${fs.timeWords.map(t=>`<button class="audio-pill" onclick="playAudPill('${t.audio}',this)"><span>${t.fr} <span style="color:#7a93ac">· ${t.en}</span></span></button>`).join('')}
         </div>
       </div>`;
     }
