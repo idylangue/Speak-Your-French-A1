@@ -1160,8 +1160,8 @@ const SESSIONS = [
       { flag:"<span style='font-size:2rem'>🐟</span>", fr:"du poisson",      en:"fish",       audio:"audio/s9_fc_poisson.mp3" },
       { flag:"<span style='font-size:1.6rem'>🍎🍌</span>", fr:"des fruits",      en:"fruit",      audio:"audio/s9_fc_fruits.mp3" },
       { flag:"<svg viewBox='0 0 48 48' width='32' height='32' xmlns='http://www.w3.org/2000/svg'><g stroke='#0d2c4f' stroke-width='2' stroke-linecap='round' fill='none'><line x1='14' y1='8' x2='14' y2='15'/><line x1='18' y1='8' x2='18' y2='15'/><path d='M14 15 Q14 19 16 19 Q18 19 18 15' fill='#0d2c4f'/><line x1='16' y1='19' x2='16' y2='40'/><line x1='32' y1='8' x2='32' y2='40'/><path d='M32 8 Q28 10 28 16 Q28 20 32 20' fill='#0d2c4f'/></g></svg>", fr:"les couverts",     en:"cutlery",    audio:"audio/s9_fc_couverts.mp3" },
-      { flag:"<span style='font-size:2rem'>🧂</span>", fr:"le sel",          en:"salt",       audio:"audio/s9_fc_sel.mp3" },
-      { flag:"<svg viewBox='0 0 48 48' width='30' height='34' xmlns='http://www.w3.org/2000/svg'><path d='M16 18 L16 40 Q16 42 18 42 L30 42 Q32 42 32 40 L32 18 Z' fill='#8a5a2b' stroke='#6b4420' stroke-width='1'/><path d='M16 18 Q16 12 24 12 Q32 12 32 18 Z' fill='#a06a35' stroke='#6b4420' stroke-width='1'/><circle cx='21' cy='15' r='0.8' fill='#3d2410'/><circle cx='24' cy='14' r='0.8' fill='#3d2410'/><circle cx='27' cy='15' r='0.8' fill='#3d2410'/><rect x='18' y='24' width='12' height='1.5' fill='#6b4420' opacity='0.4'/></svg>", fr:"le poivre",       en:"pepper",     audio:"audio/s9_fc_poivre.mp3" }
+      { flag:"<span style='font-size:2rem'>🧂</span>", fr:"du sel",          en:"salt",       audio:"audio/s9_fc_sel.mp3" },
+      { flag:"<svg viewBox='0 0 48 48' width='26' height='40' xmlns='http://www.w3.org/2000/svg'><path d='M18 4 Q18 2 20 2 L28 2 Q30 2 30 4 L29 9 L19 9 Z' fill='#6b4420' stroke='#4a2e16' stroke-width='0.8'/><path d='M19 9 L29 9 L28 16 L20 16 Z' fill='#8a5a2b' stroke='#4a2e16' stroke-width='0.8'/><path d='M20 16 L28 16 Q30 16 30 19 L31 40 Q31 44 27 44 L21 44 Q17 44 17 40 L18 19 Q18 16 20 16 Z' fill='#a06a35' stroke='#4a2e16' stroke-width='0.8'/><line x1='18' y1='24' x2='30' y2='24' stroke='#4a2e16' stroke-width='0.6' opacity='0.5'/><line x1='18' y1='32' x2='30' y2='32' stroke='#4a2e16' stroke-width='0.6' opacity='0.5'/><circle cx='24' cy='5' r='1.5' fill='#3d2410'/></svg>", fr:"du poivre",       en:"pepper",     audio:"audio/s9_fc_poivre.mp3" }
     ],
     vocabQuizzes: [
       { audio:"audio/s9_qv1.mp3", correct:0, opts:["🍚","🍝","🍗"] },
@@ -1213,8 +1213,10 @@ const SESSIONS = [
       dial: "audio/s9_dial.mp3",
       coTitle: "Une recette · cuisine",
       listenLabel: "recipe",
+      watchMode: true,
       img: "<span style='font-size:3rem'>👩‍🍳</span>",
-      caption: "A cooking recipe",
+      caption: "Watch the recipe",
+      videoEmbedId: "",
       quizzes: [
         { q:"Qu'est-ce qu'il faut acheter ?",      opts:["du riz","des pâtes","du poulet","des oignons"], correct:1 },
         { q:"Il faut couper quoi ?",                opts:["les oignons","les pâtes","le pain","le riz"],   correct:0 },
@@ -1312,25 +1314,6 @@ const STATIC = [
 
 const STATIC_END = [
   {
-    id: "observation",
-    navLabel: "Observation",
-    externalUrl: "https://bespoke-lolly-e1a992.netlify.app/",
-    render: () => `
-      <div class="sec-title">Observation Guide 👀</div>
-      <div class="sec-sub">Open your eyes and ears in Brussels before class starts.</div>
-      <div class="card" style="text-align:center;padding:2rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem">👀</div>
-        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">Your full observation guide opens in a new page.</p>
-        <a href="https://bespoke-lolly-e1a992.netlify.app/" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open Observation Guide →</a>
-      </div>
-      <div class="card" style="text-align:center;padding:2rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem">🏛️</div>
-        <div style="font-size:1.05rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem">Visite au musée</div>
-        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
-        <a href="musee.html" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
-      </div>`
-  },
-  {
     id: "verbs",
     navLabel: "Verbs",
     render: () => {
@@ -1427,6 +1410,25 @@ const STATIC_END = [
       h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
       return h;
     }
+  },
+  {
+    id: "observation",
+    navLabel: "Observation",
+    externalUrl: "https://bespoke-lolly-e1a992.netlify.app/",
+    render: () => `
+      <div class="sec-title">Observation Guide 🔍</div>
+      <div class="sec-sub">Open your eyes and ears in Brussels before class starts.</div>
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem">🔍</div>
+        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">Your full observation guide opens in a new page.</p>
+        <a href="https://bespoke-lolly-e1a992.netlify.app/" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open Observation Guide →</a>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem">🏛️</div>
+        <div style="font-size:1.05rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem">Visite au musée</div>
+        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
+        <a href="musee.html" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
+      </div>`
   }
 ];
 
@@ -1452,7 +1454,7 @@ function buildUI() {
     const isStaticStart = i < STATIC.length;
     const isSession = i >= STATIC.length && i < (STATIC.length + SESSIONS.length);
     const sessionNum = i - STATIC.length;
-    const sectionIcons = { observation:'👀', verbs:'📐', spoken:'💬' };
+    const sectionIcons = { observation:'🔍', verbs:'📐', spoken:'💬' };
     const ic = sectionIcons[s.id] ? sectionIcons[s.id] + ' ' : '';
     btn.innerHTML = isSession
       ? `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`
@@ -1491,7 +1493,7 @@ function buildUI() {
       const div = document.createElement('div');
       div.className = 'prog-item unlocked';
       div.innerHTML = `
-        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : s.id === 'observation' ? '👀' : '💬'}</div>
+        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : s.id === 'observation' ? '🔍' : '💬'}</div>
         <div class="prog-item-title">${s.navLabel}</div>
         <div class="prog-item-status">→</div>`;
       div.onclick = () => goTo(sectionIdx);
@@ -1513,19 +1515,9 @@ function renderSession(s, idx) {
   // SELF-EVALUATION (session 10)
   if (s.selfEval) {
     html += `
-      <div class="card" style="text-align:center;padding:2rem 1.5rem">
-        <svg width="130" height="130" viewBox="0 0 130 130" style="margin-bottom:1rem">
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#eef3f8" stroke-width="11"/>
-          <circle id="selfeval-ring" cx="65" cy="65" r="52" fill="none" stroke="#fdb324" stroke-width="11"
-            stroke-linecap="round" transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 0.5s,stroke 0.3s"/>
-          <text id="selfeval-score" x="65" y="73" text-anchor="middle" font-size="2rem" font-weight="700" fill="#0d2c4f">0%</text>
-        </svg>
-        <div id="selfeval-detail" style="font-size:0.85rem;color:#7a93ac;margin-bottom:0.5rem">0 / 0 correct answers</div>
-        <div id="selfeval-msg" style="font-size:0.92rem;color:#0d2c4f;font-weight:500">Start answering quizzes in the sessions to see your score grow!</div>
-      </div>
       <div class="card">
         <h3>📝 Test your A1 level</h3>
-        <p style="font-size:0.88rem;color:#555">Answer the quizzes below — a quick test covering everything from the 10 sessions. Your score updates live in the circle above.</p>
+        <p style="font-size:0.88rem;color:#555">Answer the 24 questions below — a quick test covering everything from the sessions. Your score appears at the end.</p>
       </div>`;
 
     // ===== AUTO-GENERATED REVIEW QUIZZES =====
@@ -1614,6 +1606,19 @@ function renderSession(s, idx) {
         <div class="feedback" id="fb-${qid}"></div>
       </div>`;
     });
+
+    // ===== SCORE GAUGE (after all quizzes) =====
+    html += `
+      <div class="card" style="text-align:center;padding:2rem 1.5rem;margin-top:1rem">
+        <svg width="130" height="130" viewBox="0 0 130 130" style="margin-bottom:1rem">
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#eef3f8" stroke-width="11"/>
+          <circle id="selfeval-ring" cx="65" cy="65" r="52" fill="none" stroke="#fdb324" stroke-width="11"
+            stroke-linecap="round" transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 0.5s,stroke 0.3s"/>
+          <text id="selfeval-score" x="65" y="73" text-anchor="middle" font-size="2rem" font-weight="700" fill="#0d2c4f">0%</text>
+        </svg>
+        <div id="selfeval-detail" style="font-size:0.85rem;color:#7a93ac;margin-bottom:0.5rem">0 / 24 correct answers</div>
+        <div id="selfeval-msg" style="font-size:0.92rem;color:#0d2c4f;font-weight:500">Answer the 24 questions above to complete your A1 self-assessment.</div>
+      </div>`;
 
     // ===== BRAVO + A2 message at the bottom =====
     html += `
@@ -1976,18 +1981,40 @@ function renderSession(s, idx) {
 
   html += `</div>`;
 
-  // Audio button bar
-  html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
-    <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">${(s.video && s.video.coTitle) || ""}</div>`;
-
-  if (s.video && s.video.dial) {
-    html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>
-      <audio src="${s.video.dial}"></audio>`;
+  // Audio/Video button bar
+  if (s.video && s.video.watchMode) {
+    // Watch mode: title bar + embedded video below
+    html += `<div style="padding:0.9rem 1.1rem;border-top:1px solid #e8e6df">
+      <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">${(s.video && s.video.coTitle) || ""}</div>
+    </div></div>`;
+    // Video embed (or placeholder if no ID yet)
+    if (s.video.videoEmbedId) {
+      html += `<div class="card" style="padding:0;overflow:hidden;margin-bottom:0.85rem">
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+          <iframe src="https://www.youtube.com/embed/${s.video.videoEmbedId}"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="video-placeholder" style="margin-bottom:0.85rem;padding:2rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">🎬</div>
+        <div style="font-size:0.85rem;color:#0d2c4f;font-weight:500">Watch the recipe video</div>
+        <div style="font-size:0.78rem;color:#aaa">Video coming soon.</div>
+      </div>`;
+    }
   } else {
-    html += `<button class="btn-quiz-listen" onclick="this.textContent='⏳ Coming soon';setTimeout(()=>this.textContent='▶ Listen to the ${s.video.listenLabel || 'dialogue'}',1500)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>`;
+    // Audio mode (default)
+    html += `<div style="padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e8e6df">
+      <div style="font-size:0.82rem;font-weight:600;color:#0d2c4f">${(s.video && s.video.coTitle) || ""}</div>`;
+    if (s.video && s.video.dial) {
+      html += `<button class="btn-quiz-listen" onclick="playAud('${s.video.dial}',this)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>
+        <audio src="${s.video.dial}"></audio>`;
+    } else {
+      html += `<button class="btn-quiz-listen" onclick="this.textContent='⏳ Coming soon';setTimeout(()=>this.textContent='▶ Listen to the ${s.video.listenLabel || 'dialogue'}',1500)">▶ Listen to the ${s.video.listenLabel || 'dialogue'}</button>`;
+    }
+    html += `</div></div>`;
   }
-
-  html += `</div></div>`;
 
   // Video link if available
   if (s.video && s.video.url) {
