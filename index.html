@@ -1293,15 +1293,14 @@ const STATIC = [
     navLabel: "Menu",
     render: () => `
       <div class="sec-title">Welcome! 👋</div>
-      <div class="sec-sub">Your self-guided French programme — Speak Your French.</div>
+      <div class="sec-sub">Your self-guided French programme — Speak Your French. A1 level</div>
       <div class="card"><h3>🎯 What is Speak Your French?</h3><p>The goal is simple: activate your French. Start speaking, even imperfectly. Each session builds on one key question with phrases, vocabulary, grammar and interactive activities.</p></div>
       <div class="card"><h3>🗺️ How to use this guide</h3><p>Navigate using the tabs above. Complete the quizzes, record yourself, and watch the videos at your own pace.</p></div>
-      <div class="card"><h3>📅 Before each session</h3><p>Observe · Collect · Listen · Ask.</p></div>
       <div style="margin-top:1.2rem;text-align:center">
         <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
-          <span class="word-pill on">👂 Listen</span>
-          <span class="word-pill on">👀 Observe</span>
-          <span class="word-pill on">🗣️ Speak</span>
+          <span class="word-pill on">👂 Écouter</span>
+          <span class="word-pill on">👀 Observer</span>
+          <span class="word-pill on">🗣️ Parler</span>
           <span class="word-pill on">😄 Have fun!</span>
         </div>
       </div>
@@ -1410,25 +1409,6 @@ const STATIC_END = [
       h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
       return h;
     }
-  },
-  {
-    id: "observation",
-    navLabel: "Observation",
-    externalUrl: "https://bespoke-lolly-e1a992.netlify.app/",
-    render: () => `
-      <div class="sec-title">Observation Guide 🔍</div>
-      <div class="sec-sub">Open your eyes and ears in Brussels before class starts.</div>
-      <div class="card" style="text-align:center;padding:2rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem">🔍</div>
-        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">Your full observation guide opens in a new page.</p>
-        <a href="https://bespoke-lolly-e1a992.netlify.app/" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open Observation Guide →</a>
-      </div>
-      <div class="card" style="text-align:center;padding:2rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem">🏛️</div>
-        <div style="font-size:1.05rem;font-weight:600;color:#0d2c4f;margin-bottom:0.5rem">Visite au musée</div>
-        <p style="margin-bottom:1.2rem;font-size:0.9rem;color:#555">A guided visit to the Migration Museum — coming soon.</p>
-        <a href="musee.html" target="_blank" style="display:inline-block;background:#0d2c4f;color:#fff;text-decoration:none;padding:0.65rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:500">Open your museum guide →</a>
-      </div>`
   }
 ];
 
@@ -1465,10 +1445,11 @@ function buildUI() {
     const isStaticStart = i < STATIC.length;
     const isSession = i >= STATIC.length && i < (STATIC.length + SESSIONS.length);
     const sessionNum = i - STATIC.length;
-    const sectionIcons = { observation:'🔍', verbs:'📐', spoken:'💬' };
+    const sectionIcons = { verbs:'📐', spoken:'💬' };
     const ic = sectionIcons[s.id] ? sectionIcons[s.id] + ' ' : '';
+    const displayNum = s.selfEval ? '★' : (sessionNum + 1);
     btn.innerHTML = isSession
-      ? `<span class="num">${sessionNum}</span>${s.navLabel || s.title}`
+      ? `<span class="num">${displayNum}</span>${s.navLabel || s.title}`
       : `${ic}${s.navLabel || s.title}`;
     btn.onclick = () => goTo(i);
     nav.appendChild(btn);
@@ -1490,7 +1471,7 @@ function buildUI() {
       const sectionIdx = i + STATIC.length;
       const div = document.createElement('div');
       div.className = 'prog-item unlocked';
-      const numLabel = s.selfEval ? '★' : i;
+      const numLabel = s.selfEval ? '★' : (i + 1);
       div.innerHTML = `
         <div class="prog-item-num">${numLabel}</div>
         <div class="prog-item-title">${s.title}</div>
@@ -1504,7 +1485,7 @@ function buildUI() {
       const div = document.createElement('div');
       div.className = 'prog-item unlocked';
       div.innerHTML = `
-        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : s.id === 'observation' ? '🔍' : '💬'}</div>
+        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : '💬'}</div>
         <div class="prog-item-title">${s.navLabel}</div>
         <div class="prog-item-status">→</div>`;
       div.onclick = () => goTo(sectionIdx);
@@ -1520,7 +1501,7 @@ function renderSession(s, idx) {
   let html = '';
 
   // TITLE
-  html += `<div class="sec-title">${idx < STATIC.length ? '' : (idx - STATIC.length) + '. '} ${s.title}</div>
+  html += `<div class="sec-title">${idx < STATIC.length ? '' : (s.selfEval ? '' : (idx - STATIC.length + 1) + '. ')} ${s.title}</div>
             <div class="sec-sub">${s.sub}</div>`;
 
   // SELF-EVALUATION (session 10)
@@ -2103,11 +2084,11 @@ function goTo(i) {
   if (isSession) {
     const sNum = i - STATIC.length;
     const allS2 = [...STATIC, ...SESSIONS, ...STATIC_END];
-    // Session 10 (selfEval) shows its title, not a number ratio
+    // Auto-évaluation (selfEval) shows its title, not a number ratio
     if (allS2[i] && allS2[i].selfEval) {
       document.getElementById('prog-label').textContent = 'Auto-évaluation';
     } else {
-      document.getElementById('prog-label').textContent = 'Session ' + sNum + ' / 9';
+      document.getElementById('prog-label').textContent = 'Session ' + (sNum + 1) + ' / 10';
     }
   } else {
     const allS = [...STATIC, ...SESSIONS, ...STATIC_END];
