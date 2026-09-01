@@ -1409,6 +1409,131 @@ const STATIC_END = [
       h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
       return h;
     }
+  },
+  {
+    id: "ears",
+    navLabel: "Train Your Ears",
+    render: () => {
+      // ===== DATA (à remplir dans le brief Train Your Ears) =====
+      // Quiz rythme : audio du rythme scandé (da da da) + 3 propositions
+      //   solved = phrase découpée en syllabes (espaces) → 1 point sous chaque syllabe
+      const RHYTHM = [
+        { audio:"audio/ears_ryth1.mp3", opts:["Est-ce que vous êtes belge ?","Vous allez où ?","C'est où ?"], correct:0,
+          solved:"Est-ce que vous êtes belge" },
+        { audio:"audio/ears_ryth2.mp3", opts:["Absolument !","Jamais","Non peut-être"], correct:2,
+          solved:"Non peut être" },
+        { audio:"audio/ears_ryth3.mp3", opts:["Vous allez où ?","Vous venez d'où ?","Vous êtes belge"], correct:2,
+          solved:"Vous êtes belge" },
+        { audio:"audio/ears_ryth4.mp3", opts:["Bon voyage","C'est où ?","Et vous ?"], correct:0,
+          solved:"Bon voy age" },
+        { audio:"audio/ears_ryth5.mp3", opts:["Je suis belge","Je ne suis pas belge","Je suis française"], correct:1,
+          solved:"Je ne suis pas belge" }
+      ];
+      // Quiz voyelles : audio enchaînement des voyelles + 3 propositions
+      //   solved = phrase ; les voyelles entendues sont en gras via {{...}} ; motif = les voyelles
+      const VOWELS = [
+        { audio:"audio/ears_voy1.mp3", opts:["Vous allez où ?","Vous venez d'où ?","Vous êtes où ?"], correct:1,
+          solved:"V{{ou}}s v{{e}}n{{ez}} d'{{où}}", pattern:"ou e ez ou" },
+        { audio:"audio/ears_voy2.mp3", opts:["Elle aime les frites.","Elle vient d'Italie.","Elle est née ici."], correct:2,
+          solved:"{{E}}lle {{e}}st n{{ée}} {{i}}c{{i}}", pattern:"e e ée i i" },
+        { audio:"audio/ears_voy3.mp3", opts:["Il a un chien","Il aime le vin","Il va bien"], correct:2,
+          solved:"{{I}}l v{{a}} b{{ien}}", pattern:"i a ien" },
+        { audio:"audio/ears_voy4.mp3", opts:["Je vais au cinéma","J'ai un chien","J'aime le chocolat"], correct:2,
+          solved:"J'{{ai}}me l{{e}} ch{{o}}c{{o}}l{{a}}", pattern:"ai e o o a" },
+        { audio:"audio/ears_voy5.mp3", opts:["Nous avons une maison","Nous n'avons pas de maison","Nous sommes à la maison"], correct:1,
+          solved:"N{{ou}}s n'{{a}}v{{on}}s p{{a}} d{{e}} m{{ai}}s{{on}}", pattern:"ou a on a e ai on" }
+      ];
+      // Quiz grammaire à l'oreille : audio + 2 propositions (féminin ou masculin ?)
+      const GRAM = [
+        { audio:"audio/ears_gram1.mp3", question:"féminin ou masculin ?", opts:["masculin","féminin"], correct:0, solved:"petit (masculin)" },
+        { audio:"audio/ears_gram2.mp3", question:"féminin ou masculin ?", opts:["masculin","féminin"], correct:1, solved:"grande (féminin)" },
+        { audio:"audio/ears_gram3.mp3", question:"féminin ou masculin ?", opts:["masculin","féminin"], correct:1, solved:"italienne (féminin)" },
+        { audio:"audio/ears_gram4.mp3", question:"féminin ou masculin ?", opts:["masculin","féminin"], correct:0, solved:"américain (masculin)" },
+        { audio:"audio/ears_gram5.mp3", question:"féminin ou masculin ?", opts:["masculin","féminin"], correct:1, solved:"bonne (féminin)" }
+      ];
+      // Dictée : vidéo YouTube
+      const DICTEE_VIDEO = ""; // ID YouTube de la vidéo dictée
+
+      // Helper : rendre la phrase-solution avec points sous chaque syllabe (+ gras optionnel)
+      function syllableLine(str) {
+        const sylls = str.split(" ");
+        return `<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:0.5rem">
+          ${sylls.map(sy => {
+            const disp = sy.replace(/\{\{(.+?)\}\}/g, '<strong style="color:#dd490a">$1</strong>');
+            return `<div style="display:flex;flex-direction:column;align-items:center">
+              <span style="font-size:0.95rem;color:#0d2c4f;font-weight:500">${disp}</span>
+              <span style="color:#0d2c4f;font-size:0.7rem;line-height:0.4">•</span>
+            </div>`;
+          }).join('')}
+        </div>`;
+      }
+
+      let h = `<div class="sec-title">👂 Train Your Ears</div>
+        <div class="sec-sub">Sharpen your ear for spoken French — rhythm, vowels and grammar you can hear.</div>`;
+
+      // ---- 1. QUIZ RYTHME ----
+      h += `<div class="divider-label"><span class="ico">🥁</span>Quiz — rhythm</div>
+        <div class="card"><p style="font-size:0.88rem;color:#555;margin:0">Listen to the rhythm (da da da). Which sentence do you hear?</p></div>`;
+      RHYTHM.forEach((q,qi) => {
+        const qid = `ears_ryth_${qi}`;
+        h += `<div class="quiz-wrap">
+          <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+          <div class="quiz-opts-grid" style="margin-top:0.5rem">
+            ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansEars(this,'${qid}',${oi},${q.correct},'rhythm')" data-solved="${(q.solved||'').replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+          </div>
+          <div class="feedback" id="fb-${qid}"></div>
+        </div>`;
+      });
+
+      // ---- 2. QUIZ VOYELLES ----
+      h += `<div class="divider-label"><span class="ico">👂</span>Quiz — vowels</div>
+        <div class="card"><p style="font-size:0.88rem;color:#555;margin:0">Listen to the vowel chain. Which sentence do you hear?</p></div>`;
+      VOWELS.forEach((q,qi) => {
+        const qid = `ears_voy_${qi}`;
+        h += `<div class="quiz-wrap">
+          <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+          <div class="quiz-opts-grid" style="margin-top:0.5rem">
+            ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansEars(this,'${qid}',${oi},${q.correct},'vowels')" data-solved="${(q.solved||'').replace(/"/g,'&quot;')}" data-pattern="${(q.pattern||'').replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+          </div>
+          <div class="feedback" id="fb-${qid}"></div>
+        </div>`;
+      });
+
+      // ---- 3. QUIZ GRAMMAIRE ----
+      h += `<div class="divider-label"><span class="ico">💬</span>Quiz — grammar by ear</div>
+        <div class="card"><p style="font-size:0.88rem;color:#555;margin:0">Listen and choose what you hear.</p></div>`;
+      GRAM.forEach((q,qi) => {
+        const qid = `ears_gram_${qi}`;
+        h += `<div class="quiz-wrap">
+          <button class="btn-quiz-listen" onclick="playAud('${q.audio}',this)">▶ Listen</button>
+          <div class="q-text" style="margin-top:0.5rem">${q.question}</div>
+          <div class="quiz-opts-grid" style="grid-template-columns:1fr 1fr">
+            ${q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="ansEars(this,'${qid}',${oi},${q.correct},'gram')" data-solved="${(q.solved||'').replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+          </div>
+          <div class="feedback" id="fb-${qid}"></div>
+        </div>`;
+      });
+
+      // ---- 4. DICTÉE (vidéo) ----
+      h += `<div class="divider-label"><span class="ico">✍️</span>Dictée</div>
+        <div class="card"><p style="font-size:0.88rem;color:#555;margin:0">Watch the video and write the words and sentences you hear.</p></div>`;
+      if (DICTEE_VIDEO) {
+        h += `<div class="card" style="padding:0;overflow:hidden">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+            <iframe src="https://www.youtube.com/embed/${DICTEE_VIDEO}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>`;
+      } else {
+        h += `<div class="video-placeholder" style="padding:2rem;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem">🎬</div>
+          <div style="font-size:0.85rem;color:#0d2c4f;font-weight:500">Dictée video</div>
+          <div style="font-size:0.78rem;color:#aaa">Video coming soon.</div>
+        </div>`;
+      }
+
+      h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 Train your ear a little every day — spoken French will feel clearer.</div>`;
+      return h;
+    }
   }
 ];
 
@@ -1445,7 +1570,7 @@ function buildUI() {
     const isStaticStart = i < STATIC.length;
     const isSession = i >= STATIC.length && i < (STATIC.length + SESSIONS.length);
     const sessionNum = i - STATIC.length;
-    const sectionIcons = { verbs:'📐', spoken:'💬' };
+    const sectionIcons = { verbs:'📐', spoken:'💬', ears:'👂' };
     const ic = sectionIcons[s.id] ? sectionIcons[s.id] + ' ' : '';
     const displayNum = s.selfEval ? '★' : (sessionNum + 1);
     btn.innerHTML = isSession
@@ -1485,7 +1610,7 @@ function buildUI() {
       const div = document.createElement('div');
       div.className = 'prog-item unlocked';
       div.innerHTML = `
-        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : '💬'}</div>
+        <div class="prog-item-num">${s.id === 'verbs' ? '📐' : s.id === 'ears' ? '👂' : '💬'}</div>
         <div class="prog-item-title">${s.navLabel}</div>
         <div class="prog-item-status">→</div>`;
       div.onclick = () => goTo(sectionIdx);
@@ -2065,6 +2190,7 @@ function renderSession(s, idx) {
    NAVIGATION
    ════════════════════════════════════ */
 function goTo(i) {
+  if (typeof stopAllAudio === 'function') stopAllAudio();
   const allSections = document.querySelectorAll('.section');
   const navBtns = document.querySelectorAll('.nav-btn');
   const total = allSections.length;
@@ -2205,15 +2331,61 @@ function ansAux(btn, qid, choice, correct, solved) {
   }
 }
 
+function ansEars(btn, qid, choice, correct, type) {
+  if (answered[qid]) return;
+  answered[qid] = true;
+  const wrap = btn.closest('.quiz-wrap');
+  const opts = wrap.querySelectorAll('.quiz-opt');
+  opts.forEach((o,i) => { o.disabled = true; if (i === correct) o.classList.add('correct'); });
+  if (choice !== correct) btn.classList.add('wrong');
+  const ok = choice === correct;
+  const solved = btn.getAttribute('data-solved') || '';
+  const pattern = btn.getAttribute('data-pattern') || '';
+  const fb = document.getElementById('fb-' + qid);
+  if (!fb) return;
+  const mark = ok ? '✅ ' : '❌ ';
+
+  if (type === 'rhythm' && solved) {
+    // Rhythm: one dot under each syllable (syllables separated by spaces)
+    const sylls = solved.split(' ');
+    const line = sylls.map(sy =>
+      `<span style="display:inline-flex;flex-direction:column;align-items:center;margin:0 5px">
+        <span style="font-size:0.95rem;color:#0d2c4f;font-weight:500">${sy}</span>
+        <span style="color:#dd490a;font-size:1rem;line-height:0.5">•</span>
+      </span>`).join('');
+    fb.innerHTML = mark + '<div style="display:flex;flex-wrap:wrap;align-items:flex-start;margin-top:6px">' + line + '</div>';
+  } else if (type === 'vowels' && solved) {
+    // Vowels: sentence with heard vowels in bold + the vowel pattern UNDERNEATH
+    const disp = solved.replace(/\{\{(.+?)\}\}/g, '<strong style="color:#dd490a">$1</strong>');
+    fb.innerHTML = mark + '<span style="font-size:0.95rem;color:#0d2c4f">' + disp + '</span>' +
+      (pattern ? '<div style="color:#7a93ac;font-size:0.9rem;font-weight:600;margin-top:4px;letter-spacing:0.05em">[' + pattern.replace(/ /g, '-') + ']</div>' : '');
+  } else {
+    fb.innerHTML = mark + '<strong>' + solved + '</strong>';
+  }
+  fb.className = 'feedback show ' + (ok ? 'ok' : 'nope');
+}
+
+let _currentAudio = null;
+
+// Central helper: stop any audio currently playing and clear all "playing" states
+function stopAllAudio() {
+  if (_currentAudio) {
+    try { _currentAudio.pause(); _currentAudio.currentTime = 0; } catch (e) {}
+    _currentAudio = null;
+  }
+  document.querySelectorAll('.audio-pill.playing').forEach(p => p.classList.remove('playing'));
+}
+
 function flipCard(el, audioSrc) {
   el.classList.toggle('flipped');
   if (el.classList.contains('flipped') && audioSrc) {
+    stopAllAudio();
     const a = new Audio(audioSrc);
+    _currentAudio = a;
     a.play().catch(() => {});
   }
 }
 
-let _currentAudio = null;
 function playAud(src, btn) {
   if (!src || src === '') {
     const orig = btn.innerHTML;
@@ -2221,7 +2393,7 @@ function playAud(src, btn) {
     setTimeout(() => { btn.innerHTML = orig; }, 1400);
     return;
   }
-  if (_currentAudio) { _currentAudio.pause(); _currentAudio.currentTime = 0; }
+  stopAllAudio();
   const audio = new Audio(src);
   _currentAudio = audio;
   audio.play().catch(() => {
@@ -2232,10 +2404,11 @@ function playAud(src, btn) {
 }
 
 function playAudPill(src, btn) {
-  // Remove playing state from all other audio pills
-  document.querySelectorAll('.audio-pill.playing').forEach(p => { if (p !== btn) p.classList.remove('playing'); });
-  if (_currentAudio) { _currentAudio.pause(); _currentAudio.currentTime = 0; }
+  const wasPlaying = btn.classList.contains('playing');
+  stopAllAudio();
   if (!src || src === '') return;
+  // If the same pill was already playing, a second click just stops it (toggle)
+  if (wasPlaying) return;
   const audio = new Audio(src);
   _currentAudio = audio;
   btn.classList.add('playing');
