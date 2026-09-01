@@ -1313,104 +1313,6 @@ const STATIC = [
 
 const STATIC_END = [
   {
-    id: "verbs",
-    navLabel: "Verbs",
-    render: () => {
-      let h = `<div class="sec-title">📐 Les verbes · Verbs</div>
-        <div class="sec-sub">The 12 key verbs of Speak Your French — present & passé composé.</div>`;
-      // Tableaux de conjugaison
-      VERBS_DATA.forEach(v => {
-        h += `<div class="card" style="margin-bottom:0.7rem">
-          <h3 style="display:flex;justify-content:space-between;align-items:baseline">
-            <span>${v.inf}</span>
-            <span style="font-size:0.78rem;font-weight:400;color:#7a93ac">${v.en}</span>
-          </h3>
-          <div class="conj-wrap">
-            <table class="conj-table">
-              <thead><tr><th></th><th>Présent</th></tr></thead>
-              <tbody>${v.present.map(p=>`<tr><td>${p[0]}</td><td><em>${p[1]}</em></td></tr>`).join('')}</tbody>
-            </table>
-          </div>
-          <div style="margin-top:0.6rem;padding:0.6rem 0.9rem;background:#f0f4f9;border-left:3px solid ${v.aux==='être'?'#dd490a':'#0d2c4f'};border-radius:0 8px 8px 0">
-            <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#afc1d0">Passé composé · ${v.aux}</span><br>
-            <span style="font-weight:600;color:#0d2c4f">${v.pc}</span>
-          </div>
-        </div>`;
-      });
-      // Encart futur proche
-      const FP_LIST = [
-        ["je vais","manger","je vais manger"],
-        ["tu vas","venir","tu vas venir"],
-        ["il va","habiter","il va habiter"],
-        ["elle va","prendre","elle va prendre"],
-        ["on va","faire","on va faire"],
-        ["nous allons","aimer","nous allons aimer"],
-        ["vous allez","mettre","vous allez mettre"],
-        ["ils vont","acheter","ils vont acheter"],
-        ["elles vont","pouvoir","elles vont pouvoir"],
-        ["je vais","vouloir","je vais vouloir"],
-        ["tu vas","être","tu vas être"],
-        ["on va","aller","on va aller"]
-      ];
-      h += `<div class="divider-label"><span class="ico">🔜</span>Le futur proche</div>
-        <div class="card" style="background:#eef3f8;border:1.5px solid #0d2c4f">
-          <h3 style="color:#0d2c4f">aller (présent) + infinitif</h3>
-          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Pour parler du futur, on utilise <strong>aller</strong> conjugué + un verbe à l'infinitif :</p>
-          <div style="display:flex;flex-direction:column;gap:6px;margin-top:0.6rem">
-            ${FP_LIST.map(f=>`<div style="font-size:0.88rem;padding:6px 10px;background:#fff;border-radius:8px"><span style="color:#7a93ac">${f[0]}</span> <strong style="color:#0d2c4f">+ ${f[1]}</strong> <span style="color:#dd490a">→</span> <strong style="color:#0d2c4f">${f[2]}</strong></div>`).join('')}
-          </div>
-        </div>`;
-      // Encart il faut + infinitif
-      h += `<div class="divider-label"><span class="ico">📐</span>Il faut + infinitif</div>
-        <div class="card" style="background:#fff8ec;border:1.5px solid #fdb324">
-          <h3 style="color:#0d2c4f">il faut + infinitif</h3>
-          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Expression impersonnelle = <em>one must / you need to</em>. Le verbe reste à l'infinitif :</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem">
-            ${VERBS_DATA.map(v=>`<span class="pill" style="background:#fdb324;border-color:#fdb324;color:#0d2c4f;font-weight:600">il faut ${v.inf.toLowerCase()}</span>`).join('')}
-          </div>
-        </div>`;
-      return h;
-    }
-  },
-  {
-    id: "spoken",
-    navLabel: "Spoken French",
-    render: () => {
-      const SPOKEN = [
-        { full:"je suis", spoken:"chui", en:"I am", audio:"audio/bonus_chui.mp3" },
-        { full:"je sais", spoken:"ché", en:"I know", audio:"audio/bonus_che.mp3" },
-        { full:"je ne sais pas", spoken:"ché pa", en:"I don't know", audio:"audio/bonus_chepa.mp3" },
-        { full:"je veux", spoken:"jveu", en:"I want", audio:"audio/bonus_jveu.mp3" },
-        { full:"je ne veux pas", spoken:"jveu pa", en:"I don't want", audio:"audio/bonus_jveupa.mp3" },
-        { full:"je peux", spoken:"jpeu", en:"I can", audio:"audio/bonus_jpeu.mp3" },
-        { full:"je ne peux pas", spoken:"jpeu pa", en:"I can't", audio:"audio/bonus_jpeupa.mp3" },
-        { full:"tu es", spoken:"t'es", en:"you are", audio:"audio/bonus_tes.mp3" },
-        { full:"tu n'es pas", spoken:"t'es pa", en:"you aren't", audio:"audio/bonus_tespa.mp3" },
-        { full:"tu as", spoken:"t'a", en:"you have", audio:"audio/bonus_ta.mp3" },
-        { full:"tu n'as pas", spoken:"t'a pa", en:"you don't have", audio:"audio/bonus_tapa.mp3" },
-        { full:"il y a", spoken:"ya", en:"there is/are", audio:"audio/bonus_ya.mp3" },
-        { full:"il n'y a pas", spoken:"ya pa", en:"there isn't/aren't", audio:"audio/bonus_yapa.mp3" }
-      ];
-      let h = `<div class="sec-title">💬 Bonus · Spoken French</div>
-        <div class="sec-sub">How French is really spoken — informal contractions you'll hear every day.</div>
-        <div class="card">
-          <h3>Le français parlé</h3>
-          <p style="font-size:0.88rem;color:#555">In everyday speech, French speakers contract words. Tap each card to hear the spoken version. These are <strong>informal</strong> — great for understanding, but write the full form!</p>
-        </div>`;
-      SPOKEN.forEach(s => {
-        h += `<button class="card" style="width:100%;text-align:left;border:1.5px solid #e8e6df;cursor:pointer;display:flex;align-items:center;gap:14px;margin-bottom:0.5rem" onclick="playAud('${s.audio}',this)">
-          <div style="flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#0d2c4f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem">▶</div>
-          <div style="flex:1">
-            <div style="font-size:0.95rem;color:#0d2c4f"><span style="color:#7a93ac">${s.full}</span> <span style="color:#dd490a;font-weight:700">→ ${s.spoken}</span></div>
-            <div style="font-size:0.78rem;color:#afc1d0">${s.en}</div>
-          </div>
-        </button>`;
-      });
-      h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
-      return h;
-    }
-  },
-  {
     id: "ears",
     navLabel: "Train Your Ears",
     render: () => {
@@ -1534,7 +1436,106 @@ const STATIC_END = [
       h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 Train your ear a little every day — spoken French will feel clearer.</div>`;
       return h;
     }
+  },
+  {
+    id: "verbs",
+    navLabel: "Verbs",
+    render: () => {
+      let h = `<div class="sec-title">📐 Les verbes · Verbs</div>
+        <div class="sec-sub">The 12 key verbs of Speak Your French — present & passé composé.</div>`;
+      // Tableaux de conjugaison
+      VERBS_DATA.forEach(v => {
+        h += `<div class="card" style="margin-bottom:0.7rem">
+          <h3 style="display:flex;justify-content:space-between;align-items:baseline">
+            <span>${v.inf}</span>
+            <span style="font-size:0.78rem;font-weight:400;color:#7a93ac">${v.en}</span>
+          </h3>
+          <div class="conj-wrap">
+            <table class="conj-table">
+              <thead><tr><th></th><th>Présent</th></tr></thead>
+              <tbody>${v.present.map(p=>`<tr><td>${p[0]}</td><td><em>${p[1]}</em></td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+          <div style="margin-top:0.6rem;padding:0.6rem 0.9rem;background:#f0f4f9;border-left:3px solid ${v.aux==='être'?'#dd490a':'#0d2c4f'};border-radius:0 8px 8px 0">
+            <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:#afc1d0">Passé composé · ${v.aux}</span><br>
+            <span style="font-weight:600;color:#0d2c4f">${v.pc}</span>
+          </div>
+        </div>`;
+      });
+      // Encart futur proche
+      const FP_LIST = [
+        ["je vais","manger","je vais manger"],
+        ["tu vas","venir","tu vas venir"],
+        ["il va","habiter","il va habiter"],
+        ["elle va","prendre","elle va prendre"],
+        ["on va","faire","on va faire"],
+        ["nous allons","aimer","nous allons aimer"],
+        ["vous allez","mettre","vous allez mettre"],
+        ["ils vont","acheter","ils vont acheter"],
+        ["elles vont","pouvoir","elles vont pouvoir"],
+        ["je vais","vouloir","je vais vouloir"],
+        ["tu vas","être","tu vas être"],
+        ["on va","aller","on va aller"]
+      ];
+      h += `<div class="divider-label"><span class="ico">🔜</span>Le futur proche</div>
+        <div class="card" style="background:#eef3f8;border:1.5px solid #0d2c4f">
+          <h3 style="color:#0d2c4f">aller (présent) + infinitif</h3>
+          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Pour parler du futur, on utilise <strong>aller</strong> conjugué + un verbe à l'infinitif :</p>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:0.6rem">
+            ${FP_LIST.map(f=>`<div style="font-size:0.88rem;padding:6px 10px;background:#fff;border-radius:8px"><span style="color:#7a93ac">${f[0]}</span> <strong style="color:#0d2c4f">+ ${f[1]}</strong> <span style="color:#dd490a">→</span> <strong style="color:#0d2c4f">${f[2]}</strong></div>`).join('')}
+          </div>
+        </div>`;
+      // Encart il faut + infinitif
+      h += `<div class="divider-label"><span class="ico">📐</span>Il faut + infinitif</div>
+        <div class="card" style="background:#fff8ec;border:1.5px solid #fdb324">
+          <h3 style="color:#0d2c4f">il faut + infinitif</h3>
+          <p style="font-size:0.85rem;color:#0d2c4f;margin:0.4rem 0">Expression impersonnelle = <em>one must / you need to</em>. Le verbe reste à l'infinitif :</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem">
+            ${VERBS_DATA.map(v=>`<span class="pill" style="background:#fdb324;border-color:#fdb324;color:#0d2c4f;font-weight:600">il faut ${v.inf.toLowerCase()}</span>`).join('')}
+          </div>
+        </div>`;
+      return h;
+    }
+  },
+  {
+    id: "spoken",
+    navLabel: "Spoken French",
+    render: () => {
+      const SPOKEN = [
+        { full:"je suis", spoken:"chui", en:"I am", audio:"audio/bonus_chui.mp3" },
+        { full:"je sais", spoken:"ché", en:"I know", audio:"audio/bonus_che.mp3" },
+        { full:"je ne sais pas", spoken:"ché pa", en:"I don't know", audio:"audio/bonus_chepa.mp3" },
+        { full:"je veux", spoken:"jveu", en:"I want", audio:"audio/bonus_jveu.mp3" },
+        { full:"je ne veux pas", spoken:"jveu pa", en:"I don't want", audio:"audio/bonus_jveupa.mp3" },
+        { full:"je peux", spoken:"jpeu", en:"I can", audio:"audio/bonus_jpeu.mp3" },
+        { full:"je ne peux pas", spoken:"jpeu pa", en:"I can't", audio:"audio/bonus_jpeupa.mp3" },
+        { full:"tu es", spoken:"t'es", en:"you are", audio:"audio/bonus_tes.mp3" },
+        { full:"tu n'es pas", spoken:"t'es pa", en:"you aren't", audio:"audio/bonus_tespa.mp3" },
+        { full:"tu as", spoken:"t'a", en:"you have", audio:"audio/bonus_ta.mp3" },
+        { full:"tu n'as pas", spoken:"t'a pa", en:"you don't have", audio:"audio/bonus_tapa.mp3" },
+        { full:"il y a", spoken:"ya", en:"there is/are", audio:"audio/bonus_ya.mp3" },
+        { full:"il n'y a pas", spoken:"ya pa", en:"there isn't/aren't", audio:"audio/bonus_yapa.mp3" }
+      ];
+      let h = `<div class="sec-title">💬 Bonus · Spoken French</div>
+        <div class="sec-sub">How French is really spoken — informal contractions you'll hear every day.</div>
+        <div class="card">
+          <h3>Le français parlé</h3>
+          <p style="font-size:0.88rem;color:#555">In everyday speech, French speakers contract words. Tap each card to hear the spoken version. These are <strong>informal</strong> — great for understanding, but write the full form!</p>
+        </div>`;
+      SPOKEN.forEach(s => {
+        h += `<button class="card" style="width:100%;text-align:left;border:1.5px solid #e8e6df;cursor:pointer;display:flex;align-items:center;gap:14px;margin-bottom:0.5rem" onclick="playAud('${s.audio}',this)">
+          <div style="flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#0d2c4f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem">▶</div>
+          <div style="flex:1">
+            <div style="font-size:0.95rem;color:#0d2c4f"><span style="color:#7a93ac">${s.full}</span> <span style="color:#dd490a;font-weight:700">→ ${s.spoken}</span></div>
+            <div style="font-size:0.78rem;color:#afc1d0">${s.en}</div>
+          </div>
+        </button>`;
+      });
+      h += `<div class="rhythm-tip" style="margin-top:0.6rem">💡 These contractions are everywhere in songs, films and conversations. Listen for them!</div>`;
+      return h;
+    }
   }
+
 ];
 
 /* ════════════════════════════════════
